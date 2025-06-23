@@ -54,7 +54,6 @@ body {
     margin: 0 auto;
 }
 
-
 /* Campaign card */
 .campaign-card {
     width: 100%; /* chiếm đúng cột */
@@ -71,18 +70,74 @@ body {
     .campaign-card:hover {
         transform: translateY(-5px);
     }
+/* Gói wrapper để giới hạn chiều rộng */
+.campaign-filter-wrapper {
+    max-width: 720px;
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+}
+
+/* Các input/select nhỏ gọn hơn */
+.filter-input,
+.filter-select {
+    width: 200px;
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+    border-radius: var(--charity-radius);
+    border: 1px solid var(--charity-border);
+    background-color: var(--charity-white);
+    box-shadow: var(--charity-shadow);
+    transition: var(--charity-transition);
+}
+
+/* Responsive mobile */
+@media (max-width: 576px) {
+    .filter-input,
+    .filter-select {
+        width: 100%;
+    }
+}
+
+.btn-search {
+    width: 42px;
+    height: 42px;
+    font-size: 1rem;
+    border-radius: 50%;
+    background: var(--charity-gradient);
+    color: var(--charity-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--charity-transition);
+}
+
+    .btn-search:hover {
+        box-shadow: var(--charity-shadow-hover);
+        transform: scale(1.05);
+    }
 
 .campaign-image {
     position: relative;
     height: 180px;
     overflow: hidden;
+
+}
+    .campaign-image:hover .hover-actions {
+        display: flex !important;
+    }
+
+.hover-actions button {
+    transition: transform 0.2s ease;
 }
 
-    .campaign-image img {
+    .hover-actions button:hover {
+        transform: scale(1.1);
+    }
+   .campaign-image img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-    }
+   }
 
 .campaign-status {
     position: absolute;
@@ -103,13 +158,13 @@ body {
     flex-direction: column;
 }
 
-.campaign-title {
+.campaign-school {
     font-size: 18px;
     font-weight: 700;
     margin-bottom: 8px;
 }
 
-.campaign-desc {
+.campaign-title {
     font-size: 14px;
     color: var(--gray);
     margin-bottom: 6px;
@@ -205,3 +260,22 @@ body {
         flex-direction: column;
     }
 }
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+    .pagination a {
+        display: inline-block;
+        padding: 6px 12px;
+        margin: 2px;
+        border: 1px solid #ccc;
+        text-decoration: none;
+        color: #333;
+    }
+
+        .pagination a.active {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+        }

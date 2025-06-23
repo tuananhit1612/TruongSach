@@ -1,0 +1,153 @@
+﻿@model List<TuanAnhBacDatSang_DoAnWeb.ViewModels.ChienDichViewModel>
+
+@{
+    var userId = Context.Session.GetInt32("UserId");
+
+    ViewData["Title"] = "Chiến dịch";
+}
+<link rel="stylesheet" href="~/css/campaigns-view.css" />
+
+<section class="campaigns-section">
+    <h2 class="section-title text-center mb-4">🎯 Danh sách chiến dịch</h2>
+
+    <div class="campaign-filter-wrapper mx-auto">
+        <form method="get" class="campaign-filter d-flex flex-wrap align-items-center justify-content-center gap-3">
+            <!-- Tìm kiếm -->
+            <input type="text" name="search" value="@ViewBag.Search"
+                   class="form-control filter-input"
+                   placeholder="🔍 Tìm kiếm chiến dịch..." />
+
+            <!-- Trạng thái -->
+            <select name="status" class="form-select filter-select">
+                <option value="Tất cả" selected="@(ViewBag.Status == "Tất cả" ? "selected" : null)">Tất cả trạng thái</option>
+                <option value="Chưa bắt đầu" selected="@(ViewBag.Status == "Chưa bắt đầu" ? "selected" : null)">Chưa bắt đầu</option>
+                <option value="Đang diễn ra" selected="@(ViewBag.Status == "Đang diễn ra" ? "selected" : null)">Đang diễn ra</option>
+                <option value="Đã kết thúc" selected="@(ViewBag.Status == "Đã kết thúc" ? "selected" : null)">Đã kết thúc</option>
+            </select>
+
+            <!-- Nút tìm -->
+            <button type="submit" class="btn btn-search shadow-sm">
+                <i class="bi bi-search fs-5"></i>
+            </button>
+        </form>
+    </div>
+
+
+
+
+
+    <div class="campaigns-grid">
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                var percent = item.MucTieuQuyenGop > 0
+                ? Math.Round((decimal)item.SoTienHienTai / item.MucTieuQuyenGop * 100, 2)
+                : 0;
+
+                <div class="campaign-card">
+                    <div class="campaign-image">
+                        <img src="@item.HinhAnhDaiDien" alt="Chiến dịch">
+                        <span class="campaign-status">@item.TrangThai</span>
+
+                        <div class="hover-actions position-absolute top-0 end-0 m-2 d-none">
+                            <button class="btn btn-light btn-sm me-1 shadow-sm btn-save"
+                                    data-campaign-id="@item.MaChienDich">
+                                <i class="bi @(item.IsLiked ? "bi-heart-fill" : "bi-heart") text-danger"></i>
+                            </button>
+                            <button class="btn btn-light btn-sm shadow-sm btn-share"
+                                    data-link="@Url.Action("Details", "ChienDich", new { id = item.MaChienDich }, Context.Request.Scheme)">
+                                <i class="bi bi-share-fill"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="campaign-content">
+                        <h4 class="campaign-school">@item.TenTruong</h4>
+                        <p class="campaign-title">@item.TieuDe</p>
+                        <p class="campaign-goal">Mục tiêu: <strong>@item.MucTieuQuyenGop.ToString("N0") ₫</strong></p>
+                        <p class="campaign-desc">
+                            Đã huy động: <strong>@item.SoTienHienTai.ToString("N0") ₫</strong> —
+                            <span class="text-green">@percent %</span>
+                        </p>
+
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: @percent%;"></div>
+                        </div>
+
+                        <div class="campaign-stats">❤️ <span>0 người ủng hộ</span></div>
+
+                        <div class="campaign-footer">
+                            <a href="@Url.Action("Details", "ChienDich", new { id = item.MaChienDich })" class="btn btn-detail">Chi tiết</a>
+                            <a href="#" class="btn btn-register">Ủng hộ ngay</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>Không có chiến dịch nào để hiển thị.</p>
+        }
+    </div>
+    @if (ViewBag.TotalPages > 1)
+    {
+        <nav class="mt-4 d-flex justify-content-center">
+            <ul class="pagination">
+                @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                {
+                    <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                        <a class="page-link"
+                           href="@Url.Action("Index", new { page = i, search = ViewBag.Search, status = ViewBag.Status })">
+                            @i
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    }
+
+</section>
+<script>
+    const userId = '@Context.Session.GetInt32("UserId")';
+
+    document.querySelectorAll('.btn-save').forEach(btn => {
+        btn.addEventListener('click', function () {
+            const campaignId = this.getAttribute('data-campaign-id');
+            const icon = this.querySelector('i');
+
+            if (!userId || userId === "null") {
+                alert("Bạn cần đăng nhập để lưu yêu thích.");
+                return;
+            }
+
+            fetch(`http://localhost:5269/api/chiendich/LuuYeuThich?userId=${userId}&campaignId=${campaignId}`, {
+                method: 'POST',
+                mode: 'cors'
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    if (data.liked) {
+                        icon.classList.remove('bi-heart');
+                        icon.classList.add('bi-heart-fill');
+                    } else {
+                        icon.classList.remove('bi-heart-fill');
+                        icon.classList.add('bi-heart');
+                    }
+                }
+            })
+            .catch(() => alert("Đã xảy ra lỗi."));
+        });
+    });
+    document.querySelectorAll('.btn-share').forEach(btn => {
+        btn.addEventListener('click', function () {
+            const link = this.getAttribute('data-link');
+            navigator.clipboard.writeText(link)
+                .then(() => alert("Đã sao chép link chia sẻ!"))
+                .catch(err => alert("Không thể sao chép"));
+        });
+    });
+
+</script>
+
+

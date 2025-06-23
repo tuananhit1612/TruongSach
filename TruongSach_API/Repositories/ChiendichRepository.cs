@@ -13,10 +13,10 @@ namespace TruongSach_API.Repositories
         }
 
         public async Task<IEnumerable<Chiendich>> GetAllAsync()
-            => await _context.Chiendiches.ToListAsync();
+            => await _context.Chiendiches.Include(u => u.MaTruongNavigation).ToListAsync();
 
         public async Task<Chiendich> GetByIdAsync(int id)
-            => await _context.Chiendiches.FindAsync(id);
+            => await _context.Chiendiches.Include(u => u.MaTruongNavigation).FirstOrDefaultAsync( u => u.MaChienDich == id);
 
         public async Task<Chiendich> AddAsync(Chiendich entity)
         {

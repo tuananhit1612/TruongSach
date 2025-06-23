@@ -25,6 +25,8 @@ public partial class Chiendich
 
     public int MaTruong { get; set; }
 
+    public virtual ICollection<ChienDichYeuThich> ChienDichYeuThiches { get; set; } = new List<ChienDichYeuThich>();
+
     public virtual ICollection<Donggop> Donggops { get; set; } = new List<Donggop>();
 
     public virtual ICollection<Hinhanhchiendich> Hinhanhchiendiches { get; set; } = new List<Hinhanhchiendich>();

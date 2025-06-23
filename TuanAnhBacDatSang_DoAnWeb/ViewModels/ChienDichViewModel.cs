@@ -1,6 +1,6 @@
-﻿namespace TruongSach_API.DTO
+﻿namespace TuanAnhBacDatSang_DoAnWeb.ViewModels
 {
-    public class ChienDichDTO
+    public class ChienDichViewModel
     {
         public int MaChienDich { get; set; }
         public string TieuDe { get; set; }
@@ -13,7 +13,6 @@
         public DateTime? NgayTao { get; set; }
         public int MaTruong { get; set; }
         public string TenTruong { get; set; }
-
         public bool IsLiked { get; set; }
 
     }

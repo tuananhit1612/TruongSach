@@ -1,4 +1,4 @@
-﻿namespace TuanAnhBacDatSang_DoAnWeb.DTO
+﻿namespace TuanAnhBacDatSang_DoAnWeb.ViewModels
 {
     public class LoginApiResult
     {

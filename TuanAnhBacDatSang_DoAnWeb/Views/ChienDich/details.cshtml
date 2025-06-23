@@ -1,0 +1,68 @@
+﻿@model TuanAnhBacDatSang_DoAnWeb.ViewModels.ChienDichViewModel
+
+@{
+    ViewData["Title"] = "Chi tiết chiến dịch";
+    var percent = Model.MucTieuQuyenGop > 0
+        ? Math.Min(100, Math.Round(Model.SoTienHienTai / Model.MucTieuQuyenGop * 100, 2))
+        : 0;
+}
+
+<link rel="stylesheet" href="~/css/campaign-detail.css" />
+
+<div class="campaign-detail-container">
+    <a href="/ChienDich" class="back-btn">← Quay về</a>
+
+    <div class="campaign-detail-main">
+        <div class="campaign-image">
+            <img src="@Model.HinhAnhDaiDien" alt="Ảnh chiến dịch" />
+            <span class="status-badge @(Model.TrangThai == "Đang diễn ra" ? "ongoing" : Model.TrangThai == "Chưa bắt đầu" ? "upcoming" : "ended")">
+                @Model.TrangThai
+            </span>
+        </div>
+
+        <div class="campaign-info">
+            <h5 class="school-name">Trường: @Model.NguoiDaiDien</h5>
+            <h2 class="campaign-title">@Model.TieuDe</h2>
+
+            <div class="campaign-stats">
+                <div class="stat-box">
+                    <div class="stat-number">@Model.SoTienHienTai.ToString("N0") ₫</div>
+                    <div class="stat-label">Đã được ủng hộ</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Người ủng hộ</div>
+                </div>
+            </div>
+
+            <div class="donate-progress">
+                <p>Đã huy động: <strong>@Model.SoTienHienTai.ToString("N0") ₫</strong></p>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: @percent%;"></div>
+                </div>
+                <p class="campaign-goal">Mục tiêu: <strong>@Model.MucTieuQuyenGop.ToString("N0") ₫</strong></p>
+            </div>
+
+            <button class="btn btn-donate" id="openDonateModal">
+                <i class="fas fa-heart"></i> Ủng hộ dự án
+            </button>
+        </div>
+    </div>
+
+    <div class="campaign-section">
+        <h3>Thông tin dự án</h3>
+        <p>
+            @Model.MoTa
+        </p>
+    </div>
+
+    <div class="campaign-section">
+        <h3>Danh sách đã ủng hộ</h3>
+        <p>Chưa có đóng góp nào cho chiến dịch này.</p>
+    </div>
+
+    <div class="campaign-section">
+        <h3>Dự án tương tự</h3>
+        <p>Chưa có dự án tương tự.</p>
+    </div>
+</div>

@@ -19,6 +19,8 @@ public partial class TruongSachContext : DbContext
 
     public virtual DbSet<Binhluan> Binhluans { get; set; }
 
+    public virtual DbSet<ChienDichYeuThich> ChienDichYeuThiches { get; set; }
+
     public virtual DbSet<Chiendich> Chiendiches { get; set; }
 
     public virtual DbSet<Chitiethoadon> Chitiethoadons { get; set; }
@@ -45,9 +47,9 @@ public partial class TruongSachContext : DbContext
 
     public virtual DbSet<Vaitro> Vaitros { get; set; }
 
-//    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseSqlServer("Data Source=TUANANHIT\\SQLEXPRESS;Initial Catalog=TruongSach;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Data Source=TUANANHIT\\SQLEXPRESS;Initial Catalog=TruongSach;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -81,6 +83,27 @@ public partial class TruongSachContext : DbContext
                 .HasForeignKey(d => d.MaBaiViet)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__BINHLUAN__MaBaiV__5812160E");
+        });
+
+        modelBuilder.Entity<ChienDichYeuThich>(entity =>
+        {
+            entity.HasKey(e => new { e.MaNguoiDung, e.MaChienDich }).HasName("PK_User_ChienDich");
+
+            entity.ToTable("ChienDichYeuThich");
+
+            entity.Property(e => e.NgayLuu)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+
+            entity.HasOne(d => d.MaChienDichNavigation).WithMany(p => p.ChienDichYeuThiches)
+                .HasForeignKey(d => d.MaChienDich)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__ChienDich__MaChi__71D1E811");
+
+            entity.HasOne(d => d.MaNguoiDungNavigation).WithMany(p => p.ChienDichYeuThiches)
+                .HasForeignKey(d => d.MaNguoiDung)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__ChienDich__MaNgu__70DDC3D8");
         });
 
         modelBuilder.Entity<Chiendich>(entity =>

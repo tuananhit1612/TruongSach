@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
-using TuanAnhBacDatSang_DoAnWeb.DTO;
+using TuanAnhBacDatSang_DoAnWeb.ViewModels;
 
 namespace TuanAnhBacDatSang_DoAnWeb.Controllers
 {
@@ -24,7 +24,7 @@ namespace TuanAnhBacDatSang_DoAnWeb.Controllers
         {
             if (HttpContext.Session.GetInt32("UserId") != null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "TrangChu");
             }
             return View();
         }
@@ -32,7 +32,7 @@ namespace TuanAnhBacDatSang_DoAnWeb.Controllers
         {
             if (HttpContext.Session.GetInt32("UserId") != null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "TrangChu");
             }
             return View();
         }
@@ -100,7 +100,7 @@ namespace TuanAnhBacDatSang_DoAnWeb.Controllers
                 HttpContext.Session.SetString("UserEmail", result.User.Email);
                 HttpContext.Session.SetString("UserRole", result.User.TenVaiTro);
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "TrangChu");
             }
             TempData["ToastMessage"] = await response.Content.ReadAsStringAsync();
             TempData["ToastType"] = "danger";
@@ -112,7 +112,7 @@ namespace TuanAnhBacDatSang_DoAnWeb.Controllers
             HttpContext.Session.Clear();
 
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "TrangChu");
         }
 
         public async Task LoginByGoogle()
@@ -172,7 +172,7 @@ namespace TuanAnhBacDatSang_DoAnWeb.Controllers
                     HttpContext.Session.SetString("UserEmail", rs.User.Email ?? "");
                     HttpContext.Session.SetString("UserAvatar", rs.User.AvatarUrl ?? "");
                     HttpContext.Session.SetString("UserRole", rs.User.TenVaiTro ?? "");
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "TrangChu");
                 }
 
                 TempData["ToastMessage"] = await response.Content.ReadAsStringAsync();

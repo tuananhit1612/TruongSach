@@ -27,6 +27,8 @@ public partial class Nguoidung
 
     public string? AvatarUrl { get; set; }
 
+    public virtual ICollection<ChienDichYeuThich> ChienDichYeuThiches { get; set; } = new List<ChienDichYeuThich>();
+
     public virtual ICollection<Donggop> Donggops { get; set; } = new List<Donggop>();
 
     public virtual ICollection<Hoadon> Hoadons { get; set; } = new List<Hoadon>();

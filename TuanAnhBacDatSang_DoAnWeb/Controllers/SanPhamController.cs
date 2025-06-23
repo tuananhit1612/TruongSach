@@ -3,7 +3,7 @@
 namespace TuanAnhBacDatSang_DoAnWeb.Controllers
 {
     [Route("shop/[action]")]
-    public class ProductController : Controller
+    public class SanPhamController : Controller
     {
         public IActionResult Index()
         {

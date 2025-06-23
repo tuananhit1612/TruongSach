@@ -15,9 +15,18 @@ builder.Services.AddScoped<IChiendichRepository, ChiendichRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "MyAllowOrigins", policy =>
+    {
+        policy.WithOrigins("http://localhost:5278")
+             .AllowAnyHeader()
+             .AllowAnyMethod();
+    });
+});
 var app = builder.Build();
 
+app.UseCors("MyAllowOrigins");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

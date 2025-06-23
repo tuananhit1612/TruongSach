@@ -2,24 +2,38 @@
 using TruongSach_API.Models;
 using TruongSach_API.Repositories;
 using TruongSach_API.DTO;
+using Microsoft.EntityFrameworkCore;
 
 namespace TruongSach_API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/chiendich/[action]")]
     [ApiController]
     public class ChienDichController : ControllerBase
     {
         private readonly IChiendichRepository _repo;
+        private readonly TruongSachContext _context;
 
-        public ChienDichController(IChiendichRepository repo)
+        public ChienDichController(IChiendichRepository repo, TruongSachContext context)
         {
+            _context = context;
             _repo = repo;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ChienDichDTO>>> GetAll()
+        public async Task<ActionResult<IEnumerable<ChienDichDTO>>> GetAll([FromQuery] int? userId = null)
         {
             var campaigns = await _repo.GetAllAsync();
+
+            List<int> dsDaYeuThich = new();
+
+            if (userId.HasValue)
+            {
+                dsDaYeuThich = await _context.ChienDichYeuThiches
+                    .Where(x => x.MaNguoiDung == userId)
+                    .Select(x => x.MaChienDich)
+                    .ToListAsync();
+            }
+
             var result = campaigns.Select(c => new ChienDichDTO
             {
                 MaChienDich = c.MaChienDich,
@@ -30,12 +44,15 @@ namespace TruongSach_API.Controllers
                 HinhAnhDaiDien = c.HinhAnhDaiDien,
                 TrangThai = c.TrangThai,
                 NguoiDaiDien = c.NguoiDaiDien,
-                NgayTao = c.NgayTao ?? DateTime.Now,
-                MaTruong = c.MaTruong
-            });
+                NgayTao = c.NgayTao,
+                MaTruong = c.MaTruong,
+                TenTruong = c.MaTruongNavigation.TenTruong,
+                IsLiked = dsDaYeuThich.Contains(c.MaChienDich)
+            }).ToList();
 
             return Ok(result);
         }
+
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ChienDichDTO>> GetById(int id)
@@ -55,7 +72,8 @@ namespace TruongSach_API.Controllers
                 TrangThai = c.TrangThai,
                 NguoiDaiDien = c.NguoiDaiDien,
                 NgayTao = c.NgayTao ?? DateTime.Now,
-                MaTruong = c.MaTruong
+                MaTruong = c.MaTruong,
+                TenTruong = c.MaTruongNavigation.TenTruong,
             };
 
             return Ok(dto);
@@ -116,5 +134,33 @@ namespace TruongSach_API.Controllers
 
             return NoContent();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> LuuYeuThich(int userId, int campaignId)
+        {
+            var existed = await _context.ChienDichYeuThiches.FindAsync(userId, campaignId);
+
+            if (existed != null)
+            {
+                _context.ChienDichYeuThiches.Remove(existed);
+                await _context.SaveChangesAsync();
+                return Ok(new { success = true, liked = false });
+            }
+
+            var yeuThich = new ChienDichYeuThich
+            {
+                MaNguoiDung = userId,
+                MaChienDich = campaignId,
+                NgayLuu = DateTime.Now
+            };
+
+            _context.ChienDichYeuThiches.Add(yeuThich);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { success = true, liked = true });
+        }
+
+
+
     }
 }

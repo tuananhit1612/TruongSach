@@ -1,0 +1,195 @@
+﻿:root {
+    --charity-primary: #2d5a27;
+    --charity-secondary: #6fbb6b;
+    --charity-accent: #ff6b35;
+    --charity-dark: #1a1a1a;
+    --charity-light: #f8f9fa;
+    --charity-white: #ffffff;
+    --charity-gray: #6c757d;
+    --charity-border: #e9ecef;
+    --charity-shadow: 0 4px 20px rgba(45, 90, 39, 0.1);
+    --charity-shadow-hover: 0 8px 30px rgba(45, 90, 39, 0.15);
+    --charity-gradient: linear-gradient(135deg, var(--charity-primary), var(--charity-secondary));
+    --charity-radius: 16px;
+    --charity-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.campaign-detail-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    background: var(--charity-light);
+    color: var(--charity-dark);
+}
+
+.back-btn {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: var(--charity-primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.campaign-detail-main {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.campaign-image {
+    flex: 1 1 350px;
+    position: relative;
+    border-radius: var(--charity-radius);
+    overflow: hidden;
+    box-shadow: var(--charity-shadow);
+}
+
+    .campaign-image img {
+        width: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+.status-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: var(--charity-primary);
+    color: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.campaign-info {
+    flex: 1 1 400px;
+}
+
+.school-name {
+    color: var(--charity-secondary);
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.campaign-title {
+    font-size: 1.8rem;
+    margin: 10px 0 20px;
+    font-weight: 800;
+    color: var(--charity-dark);
+}
+
+.campaign-stats {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.stat-box {
+    text-align: center;
+    background: var(--charity-white);
+    border-radius: var(--charity-radius);
+    box-shadow: var(--charity-shadow);
+    padding: 12px;
+    flex: 1;
+}
+
+.stat-number {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--charity-primary);
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: var(--charity-gray);
+}
+
+.donate-progress {
+    margin: 20px 0;
+}
+
+.progress-bar {
+    background: var(--charity-border);
+    height: 10px;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 8px 0;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--charity-primary);
+    transition: width 0.4s ease-in-out;
+}
+
+.campaign-goal {
+    font-weight: bold;
+    color: var(--charity-dark);
+    font-size: 0.95rem;
+}
+
+.donate-form .input,
+.amount-btn,
+.btn-donate {
+    width: 100%;
+    padding: 12px 14px;
+    margin: 10px 0;
+    font-size: 1rem;
+    border-radius: var(--charity-radius);
+    border: 1px solid var(--charity-border);
+    background: white;
+    transition: var(--charity-transition);
+}
+
+.amount-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px;
+}
+
+.amount-btn {
+    background: var(--charity-light);
+    border: 1px solid var(--charity-border);
+    color: var(--charity-dark);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+    .amount-btn:hover {
+        background: var(--charity-secondary);
+        color: white;
+        border-color: var(--charity-secondary);
+    }
+
+.btn-donate {
+    background: var(--charity-primary);
+    color: white;
+    font-weight: bold;
+    border: none;
+}
+
+    .btn-donate:hover {
+        background: #24471f;
+    }
+
+.campaign-section {
+    margin-top: 50px;
+    padding: 30px;
+    background: var(--charity-white);
+    border-radius: var(--charity-radius);
+    box-shadow: var(--charity-shadow);
+}
+
+    .campaign-section h3 {
+        font-size: 1.4rem;
+        font-weight: bold;
+        margin-bottom: 12px;
+        color: var(--charity-primary);
+    }
+
+    .campaign-section p {
+        font-size: 1rem;
+        color: var(--charity-dark);
+        line-height: 1.6;
+    }

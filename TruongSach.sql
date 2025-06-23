@@ -174,7 +174,16 @@ Create table [CHITIETHOADON]
 Primary Key ([MaSanPham],[MaHoaDon])
 ) 
 go
+CREATE TABLE ChienDichYeuThich (
+    [MaNguoiDung] INT NOT NULL,
+    MaChienDich INT NOT NULL,
+    NgayLuu DATETIME DEFAULT GETDATE(),
 
+    CONSTRAINT PK_User_ChienDich PRIMARY KEY ([MaNguoiDung], MaChienDich),
+    FOREIGN KEY ([MaNguoiDung]) REFERENCES NguoiDung([MaNguoiDung]),
+    FOREIGN KEY (MaChienDich) REFERENCES Chiendich(MaChienDich)
+);
+go
 
 Alter table [DONGGOP] add  foreign key([MaNguoiDung]) references [NGUOIDUNG] ([MaNguoiDung])  on update no action on delete no action 
 go
