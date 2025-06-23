@@ -1,0 +1,207 @@
+﻿:root {
+    --green: #2d5a27;
+    --green-light: #6fbb6b;
+    --gray: #6b7280;
+    --bg-light: #f9fafb;
+    --radius: 12px;
+    --shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: var(--bg-light);
+    margin: 0;
+    padding: 0;
+}
+
+.campaigns-section h2 {
+    text-align: center;
+    font-size: 28px;
+    color: var(--green);
+}
+
+.campaigns-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.campaigns-header {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.search-input,
+.filter-select {
+    padding: 12px 16px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: var(--radius);
+    min-width: 240px;
+    flex: 1;
+}
+
+.campaigns-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 thẻ hàng ngang */
+    gap: 30px;
+    justify-content: center;
+    padding: 0 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+/* Campaign card */
+.campaign-card {
+    width: 100%; /* chiếm đúng cột */
+    max-width: 100%; /* không giới hạn */
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+}
+
+    .campaign-card:hover {
+        transform: translateY(-5px);
+    }
+
+.campaign-image {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+}
+
+    .campaign-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+.campaign-status {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: var(--green);
+    color: white;
+    padding: 4px 12px;
+    font-size: 12px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.campaign-content {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.campaign-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.campaign-desc {
+    font-size: 14px;
+    color: var(--gray);
+    margin-bottom: 6px;
+}
+
+.campaign-goal {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.text-green {
+    color: var(--green);
+}
+
+/* Progress bar */
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background-color: #e5e7eb;
+    border-radius: 10px;
+    margin: 10px 0 16px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: var(--green);
+    transition: width 0.3s ease-in-out;
+}
+
+/* Stats row */
+.campaign-stats {
+    font-size: 13px;
+    color: var(--gray);
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+/* Buttons */
+.campaign-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.btn {
+    padding: 10px 16px;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    flex: 1;
+}
+
+.btn-detail {
+    background: var(--green);
+    color: white;
+    border: none;
+}
+
+    .btn-detail:hover {
+        background: #24471f;
+    }
+
+.btn-register {
+    border: 2px solid var(--green);
+    color: var(--green);
+    background: transparent;
+}
+
+    .btn-register:hover {
+        background: rgba(45, 90, 39, 0.1);
+    }
+
+/* Responsive */
+@media (max-width: 992px) {
+    .campaigns-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .campaigns-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .campaigns-header {
+        flex-direction: column;
+    }
+}

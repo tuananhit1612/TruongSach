@@ -1,0 +1,127 @@
+﻿@{
+    ViewData["Title"] = "Đăng Nhập";
+}
+<link rel="stylesheet" href="~/css/login-modern.css">
+
+<main class="TruongSach-main-content">
+
+    <!-- TruongSach Login Page -->
+    <div class="TruongSach-auth-page">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-5 col-md-7">
+                    <div class="TruongSach-auth-card" data-animate="fadeInUp">
+                        <!-- Logo and Title -->
+                        <div class="auth-header text-center mb-4">
+                            <div class="auth-logo">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <h2 class="auth-title">Đăng nhập</h2>
+                            <p class="auth-subtitle">Chào mừng trở lại với CONVOI TruongSach</p>
+                        </div>
+
+                        <!-- Login Form -->
+                        <form method="POST" class="TruongSach-auth-form" data-validate>
+
+                            @if (TempData["ToastMessage"] != null)
+                            {
+                                <div class="alert alert-@TempData["ToastType"] d-flex align-items-center p-4 fs-5 shadow-lg rounded-3" role="alert">
+                                    <i class="bi bi-exclamation-triangle-fill me-3 fs-3"></i>
+                                    <div>
+                                        @TempData["ToastMessage"]
+                                    </div>
+                                </div>
+                            }
+                            <div class="TruongSach-form-group">
+                                <label class="TruongSach-form-label">
+                                    <i class="fas fa-user me-2"></i>Email
+                                </label>
+                                <input type="text"
+                                       name="Email"
+                                       class="TruongSach-form-control"
+                                       placeholder="Nhập email"
+                                       value=""
+                                       required>
+                            </div>
+
+                            <div class="TruongSach-form-group">
+                                <label class="TruongSach-form-label">
+                                    <i class="fas fa-lock me-2"></i>Mật khẩu
+                                </label>
+                                <div class="password-input-group">
+                                    <input type="password"
+                                           name="password"
+                                           id="password"
+                                           class="TruongSach-form-control"
+                                           placeholder="Nhập mật khẩu"
+                                           required>
+                                    <button type="button" class="password-toggle" onclick="togglePassword('password')">
+                                        <i class="fas fa-eye" id="password-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="form-options">
+                                <div class="form-check">
+                                    <input type="checkbox"
+                                           name="remember"
+                                           id="remember"
+                                           class="form-check-input">
+                                    <label for="remember" class="form-check-label">
+                                        Ghi nhớ đăng nhập
+                                    </label>
+                                </div>
+                                <a href="forgot-password.php" class="forgot-password-link">
+                                    Quên mật khẩu?
+                                </a>
+                            </div>
+
+                            <button type="submit" class="TruongSach-btn-enhanced TruongSach-btn-primary-enhanced w-100">
+                                <i class="fas fa-sign-in-alt me-2"></i>Đăng nhập
+                            </button>
+                        </form>
+
+                        <!-- Social Login -->
+                        <div class="social-login">
+                            <div class="divider">
+                                <span>Hoặc đăng nhập với</span>
+                            </div>
+                            <div class="social-buttons">
+                                <a asp-controller="Auth" asp-action="LoginByGoogle">
+                                    <button class="social-btn google-btn">
+                                        <i class="fab fa-google"></i>
+                                        Google
+                                    </button>
+                                </a>
+
+                            </div>
+                        </div>
+
+                        <!-- Register Link -->
+                        <div class="auth-footer text-center">
+                            <p>
+                                Chưa có tài khoản?
+                                <a asp-controller="Auth" asp-action="Register" class="register-link">Đăng ký ngay</a>
+                            </p>
+                            <p>
+                                <a asp-controller="Home" asp-action="Index" class="back-home-link">
+                                    <i class="fas fa-arrow-left me-1"></i>Về trang chủ
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced CSS for Auth Pages -->
+    <!-- TruongSach Enhanced JavaScript -->
+
+
+
+
+</main>
+
+<script src="~/js/TruongSach-framework.js"></script>
+<script src="~/js/login.js"></script>

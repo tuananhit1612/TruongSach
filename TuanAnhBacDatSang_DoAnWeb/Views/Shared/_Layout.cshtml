@@ -1,0 +1,273 @@
+﻿@{
+    var userId = Context.Session.GetInt32("UserId");
+    var userName = Context.Session.GetString("UserName");
+    var userEmail = Context.Session.GetString("UserEmail");
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]- Trường Sạch - Nền tảng Thiện Nguyện Giáo Dục Công Nghệ</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+    <!-- TruongSach CSS -->
+    <link rel="stylesheet" href="~/css/navbar-enhanced.css" />
+    <link rel="stylesheet" href="~/css/TruongSach-style.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/css/main.css">
+    <!-- TruongSach Enhanced Features CSS -->
+    <link rel="stylesheet" href="~/css/TruongSach-enhanced.css">
+    <!-- Header Fix CSS - Must be loaded last to override other styles -->
+    <link rel="stylesheet" href="~/css/header-fix.css">
+
+    <link rel="stylesheet" href = "~/css/footer.css" />
+   
+</head>
+<body>
+    <nav class="TruongSach-navbar navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="TruongSach-brand navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                <div class="TruongSach-logo">
+                    <i class="fas fa-school"></i>
+                </div>
+                <span class="TruongSach-brand-text">TRUONGSACH</span>
+                <span class="TruongSach-brand-badge">D8-Team</span>
+            </a>
+            <button class="navbar-toggler TruongSach-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <!-- Main Navigation -->
+                    <li class="nav-item bottom-nav-item">
+                        <a class="nav-link TruongSach-nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                            <i class="fas fa-home"></i>
+                            <span>Trang chủ</span>
+                        </a>
+                    </li>
+                    <li class="nav-item bottom-nav-item">
+                        <a class="nav-link TruongSach-nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                            <i class="fas fa-hands-helping"></i>
+                            <span>Thiện nguyện</span>
+                        </a>
+                    </li>
+                    <li class="nav-item bottom-nav-item">
+                        <a class="nav-link TruongSach-nav-link" asp-area="" asp-controller="shop" asp-action="Index">
+                            <i class="fas fa-store"></i>
+                            <span>Cửa hàng</span>
+                        </a>
+                    </li>
+                    <li class="nav-item bottom-nav-item">
+                        <a class="nav-link TruongSach-nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                            <i class="fas fa-blog"></i>
+                            <span>Blog</span>
+                        </a>
+                    </li>
+
+                    <!-- Cart (only show if logged in and has items) -->
+                    <!-- Authentication Section -->
+                    <!-- Guest Menu -->
+                    @if (userId == null)
+                    {
+                        <!-- Chưa đăng nhập -->
+                        <li class="nav-item">
+                            <a class="nav-link TruongSach-nav-link" href="/Auth/Login">
+                                <i class="fas fa-sign-in-alt"></i>
+                                <span class="d-none d-sm-inline">Đăng nhập</span>
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <!-- Đã đăng nhập -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link TruongSach-nav-link dropdown-toggle user-menu-toggle" href="#" id="userDropdown"
+                               role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="user-avatar">
+                                    <div style="width: 32px; height: 32px; border-radius: 50%; background: #007bff; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; font-weight: bold;">
+                                        @userName?.Substring(0, 1).ToUpper()
+                                    </div>
+                                </div>
+                                <span class="user-name d-none d-md-inline">@userName</span>
+                            </a>
+                            <ul class="dropdown-menu TruongSach-dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li class="dropdown-header">
+                                    <div class="user-info">
+                                        <strong>@userName</strong>
+                                        <small>@userEmail</small>
+                                    </div>
+                                </li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li>
+                                    <a class="dropdown-item" href="/Profile">
+                                        <i class="fas fa-user me-2"></i> Hồ sơ cá nhân
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/Dashboard">
+                                        <i class="fas fa-chart-line me-2"></i> Dashboard
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li>
+                                    <a class="dropdown-item text-danger" href="/Auth/Logout">
+                                        <i class="fas fa-sign-out-alt me-2"></i> Đăng xuất
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+
+                    <!-- <li class="nav-item">
+                            <a class="TruongSach-btn TruongSach-btn-outline TruongSach-nav-cta" href="https://hutechwagk22.azdigi.shop//auth/register.php">
+                                <i class="fas fa-user-plus"></i>
+                                <span class="d-none d-sm-inline">Đăng ký</span>
+                            </a>
+                        </li> -->
+                    <!-- CTA Button -->
+                    <li class="nav-item">
+                        <a class="TruongSach-btn TruongSach-btn-primary TruongSach-nav-cta"
+                           asp-area="" asp-controller="Home" asp-action="Index">
+                            <i class="fas fa-donate"></i>
+                            <span class="d-none d-sm-inline">Quyên góp</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+     @RenderBody()
+
+    <footer class="TruongSach-footer">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-md-4 mb-4">
+                    <div class="footer-brand">
+                        <div class="d-flex align-items-center mb-3">
+                        </div>
+                        <p class="footer-desc">
+                            Tổ chức thiện nguyện phi lợi nhuận, hướng tới một cộng đồng tốt đẹp hơn.
+                            Chúng tôi tin rằng mỗi hành động nhỏ đều có thể tạo nên sự thay đổi lớn.
+                        </p>
+                        <div class="TruongSach-quote">
+                            <div class="quote-mark"></div>
+                            <small>"Kết nối yêu thương - Lan tỏa hy vọng"</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5 class="footer-title">Liên hệ</h5>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <span>123 Đường ABC, Quận XYZ, TP.HCM</span>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-text">
+                                <span>0123 456 789</span>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <span>info@xaydungtuonglai.com.vn</span>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-text">
+                                <span>T2-T6: 8:00 - 17:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5 class="footer-title">Kết nối với chúng tôi</h5>
+                    <p class="footer-desc mb-4">Theo dõi các hoạt động và cập nhật mới nhất từ TRUONGSACH</p>
+                    <div class="TruongSach-social-links">
+                        <a href="#" class="TruongSach-social-link" data-tooltip="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="TruongSach-social-link" data-tooltip="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="TruongSach-social-link" data-tooltip="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="TruongSach-social-link" data-tooltip="TikTok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="TruongSach-divider"></div>
+
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="footer-copyright">&copy; 2025 TRUONGSACH. Tất cả quyền được bảo lưu.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="footer-powered">
+                        <span>Được phát triển với</span>
+                        <i class="fas fa-heart pulse"></i>
+                        <span>tại Việt Nam</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TruongSach Decorative elements -->
+        <div class="TruongSach-particles">
+            <div class="particle particle-1"></div>
+            <div class="particle particle-2"></div>
+            <div class="particle particle-3"></div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <script src="~/js/main.js"></script>
+    <script src="~/js/ai-chatbot.js"></script>
+    <script>
+        // Initialize Meta AI-style chatbot
+        document.addEventListener('DOMContentLoaded', function () {
+            window.metaAI = new TruongSachAIChatbot({
+                brandName: 'Meta AI Assistant',
+                assistantName: 'CONVOI TruongSach AI'
+            });
+
+            // Global access for other scripts
+            window.TruongSachAI = window.metaAI;
+
+            console.log('🤖 Meta AI Assistant initialized successfully');
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+    
+</body>
+</html>

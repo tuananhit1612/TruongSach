@@ -1,0 +1,1187 @@
+﻿:root {
+    --navbar-height: 70px;
+    --navbar-bg: rgba(255, 255, 255, 0.98);
+    --navbar-shadow: 0 4px 20px rgba(45, 90, 39, 0.08);
+    --primary-green: #2d5a27;
+    --accent-green: #6fbb6b;
+    --text-dark: #333;
+    --border-light: rgba(45, 90, 39, 0.1);
+}
+
+body {
+    padding-top: var(--navbar-height);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    transition: padding 0.3s ease;
+}
+
+    body.navbar-at-bottom {
+        padding-top: 0;
+        padding-bottom: 85px;
+    }
+
+.TruongSach-navbar {
+    background: var(--navbar-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-light);
+    box-shadow: var(--navbar-shadow);
+    transition: all 0.3s ease;
+    z-index: 1050;
+    width: 100%;
+    height: var(--navbar-height);
+    transform: translateY(0);
+    position: relative;
+}
+
+    .TruongSach-navbar.fixed-top {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0;
+        right: 0;
+        bottom: auto !important;
+    }
+
+    .TruongSach-navbar.navbar-hidden {
+        transform: translateY(-100%);
+    }
+
+    .TruongSach-navbar.navbar-bottom {
+        position: fixed !important;
+        top: auto;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        transform: translateY(0);
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        background: transparent;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        height: 85px;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        z-index: 1050;
+        border-top: none;
+    }
+
+/* Mobile optimizations for bottom navbar */
+@media (max-width: 991.98px) {
+    .TruongSach-navbar.navbar-bottom {
+        height: 85px;
+        margin: 0;
+        width: 100vw;
+        border-radius: 0;
+        left: 0;
+        right: 0;
+    }
+
+    body.navbar-at-bottom {
+        padding-bottom: 85px;
+    }
+}
+
+/* Ensure no white space on any device */
+html,
+body {
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: hidden;
+    height: 100%;
+}
+
+/* Remove any default browser spacing */
+* {
+    box-sizing: border-box;
+}
+
+/* Remove any default margins/padding that could cause gaps */
+.TruongSach-navbar.navbar-bottom {
+    margin: 0 !important;
+    padding: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-height: 85px !important;
+    height: 85px !important;
+}
+
+    /* Force absolute bottom positioning */
+    .TruongSach-navbar.navbar-bottom,
+    .TruongSach-navbar.navbar-bottom * {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+/* Remove any viewport units that might cause spacing */
+.TruongSach-navbar.navbar-bottom {
+    transform: translateY(0) !important;
+    bottom: 0px !important;
+}
+
+/* Ensure body has no gaps when navbar is at bottom */
+body.navbar-at-bottom {
+    margin-bottom: 0 !important;
+}
+
+/* Force full width and remove any container constraints */
+.TruongSach-navbar.navbar-bottom,
+.TruongSach-navbar.navbar-bottom * {
+    box-sizing: border-box !important;
+}
+
+    .TruongSach-navbar.navbar-bottom .container-fluid {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+    }
+
+    /* Hide certain elements when navbar is at bottom */
+    .TruongSach-navbar.navbar-bottom .navbar-brand {
+        display: none;
+    }
+
+    .TruongSach-navbar.navbar-bottom .TruongSach-nav-cta {
+        display: none;
+    }
+
+    .TruongSach-navbar.navbar-bottom .user-menu-toggle {
+        display: none;
+    }
+
+    .TruongSach-navbar.navbar-bottom .nav-item:not(.bottom-nav-item) {
+        display: none;
+    }
+
+    /* Show only essential navigation items at bottom */
+    .TruongSach-navbar.navbar-bottom .bottom-nav-item {
+        display: flex !important;
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+        max-width: calc(100% / 4);
+        /* Chia đều cho 4 items */
+    }
+
+    .TruongSach-navbar.navbar-bottom .navbar-nav {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        position: relative;
+        z-index: 2;
+        gap: 0;
+    }
+
+    .TruongSach-navbar.navbar-bottom .bottom-nav-item .TruongSach-nav-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 8px;
+        text-decoration: none;
+        color: #ffffff;
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        border-radius: 0;
+        position: relative;
+        width: 100%;
+        min-width: 60px;
+        height: 60px;
+        background: transparent;
+        margin: 0;
+        font-weight: 500;
+        border: none;
+        box-shadow: none;
+        text-align: center;
+    }
+
+        .TruongSach-navbar.navbar-bottom .bottom-nav-item .TruongSach-nav-link::before {
+            display: none;
+        }
+
+
+
+
+
+        .TruongSach-navbar.navbar-bottom .bottom-nav-item .TruongSach-nav-link i {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            color: inherit;
+        }
+
+        .TruongSach-navbar.navbar-bottom .bottom-nav-item .TruongSach-nav-link span {
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: block !important;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            text-transform: capitalize;
+            letter-spacing: 0.3px;
+            color: inherit;
+        }
+
+        .TruongSach-navbar.navbar-bottom .bottom-nav-item .TruongSach-nav-link .d-none {
+            display: block !important;
+        }
+
+        .TruongSach-navbar.navbar-bottom .bottom-nav-item .TruongSach-nav-link:hover,
+        .TruongSach-navbar.navbar-bottom .bottom-nav-item .TruongSach-nav-link.active {
+            color: #6fbb6b;
+            transform: none;
+        }
+
+            .TruongSach-navbar.navbar-bottom .bottom-nav-item .TruongSach-nav-link:hover i,
+            .TruongSach-navbar.navbar-bottom .bottom-nav-item .TruongSach-nav-link.active i {
+                transform: scale(1.1);
+                color: #6fbb6b;
+            }
+
+            .TruongSach-navbar.navbar-bottom .bottom-nav-item .TruongSach-nav-link:hover span,
+            .TruongSach-navbar.navbar-bottom .bottom-nav-item .TruongSach-nav-link.active span {
+                color: #6fbb6b;
+                font-weight: 600;
+            }
+
+    /* Badge styling for bottom navbar */
+    .TruongSach-navbar.navbar-bottom .TruongSach-cart-badge {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        background: linear-gradient(135deg, #FF3B30, #FF2D92);
+        color: white;
+        font-size: 0.65rem;
+        font-weight: 700;
+        min-width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid white;
+        box-shadow: 0 3px 12px rgba(255, 59, 48, 0.4);
+        z-index: 10;
+        animation: pulse 2s infinite;
+    }
+
+@keyframes pulse {
+
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* Hide floating nav when main navbar is at bottom */
+body.navbar-at-bottom .floating-bottom-nav {
+    display: none;
+}
+
+/* Ensure no white space around bottom navbar */
+.TruongSach-navbar.navbar-bottom .container,
+.TruongSach-navbar.navbar-bottom .container-fluid {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    bottom: 0 !important;
+}
+
+.TruongSach-navbar.navbar-bottom .navbar-collapse {
+    background: transparent;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+/* Force navbar to stick to absolute bottom - no safe area */
+.TruongSach-navbar.navbar-bottom {
+    bottom: 0 !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+/* Override safe area for iPhone X and newer - force to bottom */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .TruongSach-navbar.navbar-bottom {
+        padding-bottom: 0 !important;
+        height: 85px !important;
+        bottom: 0 !important;
+    }
+
+    body.navbar-at-bottom {
+        padding-bottom: 85px !important;
+    }
+}
+
+/* Force full width on all containers */
+.TruongSach-navbar.navbar-bottom * {
+    box-sizing: border-box;
+}
+
+.TruongSach-navbar.navbar-bottom .navbar-nav {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    justify-content: space-evenly !important;
+    align-items: center !important;
+}
+
+/* Ensure perfect centering */
+.TruongSach-navbar.navbar-bottom .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.TruongSach-navbar.navbar-bottom .container-fluid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* Ensure navbar with navbar-bottom class always sticks to bottom */
+.TruongSach-navbar.fixed-top.navbar-bottom {
+    position: fixed !important;
+    top: auto !important;
+    bottom: 0 !important;
+}
+
+.TruongSach-navbar.scrolled.navbar-bottom {
+    position: fixed !important;
+    top: auto !important;
+    bottom: 0 !important;
+}
+
+/* Additional centering fixes */
+.TruongSach-navbar.navbar-bottom {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+    .TruongSach-navbar.navbar-bottom .navbar-collapse {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+
+/* Override any top positioning when navbar-bottom is present */
+.navbar.navbar-bottom {
+    position: fixed !important;
+    top: auto !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+}
+
+/* Ripple effect for bottom nav items */
+.TruongSach-navbar.navbar-bottom .bottom-nav-item .TruongSach-nav-link {
+    overflow: hidden;
+}
+
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(0);
+    animation: ripple-animation 0.6s linear;
+    pointer-events: none;
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Remove duplicate background styling */
+
+/* Subtle animation on load */
+.TruongSach-navbar.navbar-bottom .bottom-nav-item {
+    animation: slideUpFade 0.8s ease-out forwards;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+    .TruongSach-navbar.navbar-bottom .bottom-nav-item:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    .TruongSach-navbar.navbar-bottom .bottom-nav-item:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .TruongSach-navbar.navbar-bottom .bottom-nav-item:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+
+    .TruongSach-navbar.navbar-bottom .bottom-nav-item:nth-child(4) {
+        animation-delay: 0.4s;
+    }
+
+@keyframes slideUpFade {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.8);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Enhanced bottom navbar entrance animation */
+.TruongSach-navbar.navbar-bottom {
+    animation: slideUpFromBottom 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes slideUpFromBottom {
+    0% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Smooth transitions for all navbar states */
+.TruongSach-navbar,
+.TruongSach-navbar * {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+    /* Enhanced mobile menu for bottom position */
+    .TruongSach-navbar.navbar-bottom .navbar-collapse {
+        position: absolute;
+        bottom: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0);
+        backdrop-filter: blur(40px);
+        border-radius: 20px 20px 0 0;
+        margin-bottom: 1px;
+        box-shadow: 0 0px 20px rgba(45, 90, 39, 0.08);
+    }
+
+    .TruongSach-navbar .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 24px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+
+    .TruongSach-navbar.scrolled {
+        background: rgba(255, 255, 255, 0.99);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        box-shadow: 0 6px 0 rgba(45, 90, 39, 0);
+        border-bottom: 1px solid rgba(45, 90, 39, 0.15);
+    }
+
+.TruongSach-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--primary-green) !important;
+    transition: all 0.3s ease;
+}
+
+    .TruongSach-brand:hover {
+        transform: translateY(-1px);
+        color: var(--primary-green) !important;
+    }
+
+.TruongSach-logo {
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--accent-green) 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    box-shadow: 0 4px 15px rgba(45, 90, 39, 0.2);
+    transition: all 0.3s ease;
+}
+
+.TruongSach-brand:hover .TruongSach-logo {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(45, 90, 39, 0.3);
+}
+
+.TruongSach-brand-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.TruongSach-brand-badge {
+    background: linear-gradient(135deg, var(--accent-green) 0%, #28a745 100%);
+    color: white;
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-left: 6px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 8px rgba(111, 187, 107, 0.25);
+}
+
+/* Enhanced Mobile Toggle */
+.TruongSach-toggler {
+    border: none;
+    padding: 8px;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+    z-index: 1051;
+}
+
+    .TruongSach-toggler span {
+        width: 22px;
+        height: 2.5px;
+        background: #2d5a27;
+        border-radius: 2px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transform-origin: center;
+    }
+
+    .TruongSach-toggler[aria-expanded="true"] span:nth-child(1) {
+        transform: rotate(45deg) translate(7px, 7px);
+    }
+
+    .TruongSach-toggler[aria-expanded="true"] span:nth-child(2) {
+        opacity: 0;
+        transform: scaleX(0);
+    }
+
+    .TruongSach-toggler[aria-expanded="true"] span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+.TruongSach-nav-link {
+    color: var(--text-dark) !important;
+    font-weight: 500;
+    padding: 11px 16px !important;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    margin: 0 3px;
+    white-space: nowrap;
+    font-size: 0.95rem;
+    height: auto !important;
+    line-height: 1 !important;
+}
+
+    /* Remove all nav link backgrounds */
+    .TruongSach-nav-link::before {
+        display: none !important;
+    }
+
+    .TruongSach-nav-link:hover {
+        color: var(--primary-green) !important;
+        transform: translateY(-2px);
+    }
+
+    .TruongSach-nav-link i {
+        font-size: 1rem;
+        transition: transform 0.3s ease;
+    }
+
+    .TruongSach-nav-link:hover i {
+        transform: scale(1.1);
+    }
+
+.navbar-nav {
+    align-items: center;
+    gap: 6px;
+    display: flex;
+    flex-wrap: nowrap;
+    margin-left: auto;
+}
+
+    .navbar-nav .nav-item {
+        display: flex;
+        align-items: center;
+    }
+
+    .navbar-nav .nav-link,
+    .navbar-nav .TruongSach-nav-cta {
+        height: 43px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+.TruongSach-cart-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: linear-gradient(135deg, #dc3545, #c82333);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 600;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+    box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+    animation: pulse 2s infinite;
+    padding: 0 4px;
+}
+
+@keyframes pulse {
+
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+.TruongSach-nav-cta {
+    background: linear-gradient(135deg, var(--accent-green) 0%, #28a745 100%) !important;
+    color: white !important;
+    margin-left: 12px !important;
+    padding: 11px 18px !important;
+    font-weight: 600;
+    border-radius: 25px !important;
+    border: none;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.2);
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 0.9rem;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    vertical-align: middle !important;
+    height: auto !important;
+    line-height: 1 !important;
+}
+
+    .TruongSach-nav-cta::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.6s;
+    }
+
+    .TruongSach-nav-cta:hover::before {
+        left: 100%;
+    }
+
+    .TruongSach-nav-cta:hover {
+        color: white !important;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(40, 167, 69, 0.3);
+    }
+
+/* Mobile Navigation Enhancements */
+@media (max-width: 991px) {
+    .navbar-collapse {
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        margin-top: 15px;
+        padding: 25px;
+        box-shadow: 0 10px 0 rgba(45, 90, 39, 0);
+        border: 1px solid rgba(45, 90, 39, 0.1);
+    }
+
+    .TruongSach-nav-link {
+        margin: 8px 0;
+        padding: 15px 20px !important;
+        border-radius: 15px;
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .TruongSach-nav-cta {
+        margin: 15px auto 0 auto !important;
+        text-align: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 200px;
+        padding: 15px 24px !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+
+    /* Smooth slide animation for mobile menu */
+    .navbar-collapse {
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+        .navbar-collapse.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .navbar-collapse.collapsing {
+            opacity: 0.5;
+            transform: translateY(-10px);
+        }
+}
+
+/* Scroll indicator */
+.TruongSach-navbar::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(135deg, #6fbb6b, #28a745);
+    transition: width 0.3s ease;
+}
+
+.TruongSach-navbar.scrolled::after {
+    width: 100%;
+}
+
+/* Floating navigation on scroll */
+@media (min-width: 992px) {
+    .TruongSach-navbar.floating {
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 1200px;
+        border-radius: 50px;
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 10px 40px rgba(45, 90, 39, 0.15);
+        animation: slideDown 0.3s ease;
+    }
+
+        .TruongSach-navbar.floating .container {
+            max-width: none;
+            padding: 0 30px;
+        }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* User Authentication Styles */
+.user-menu-toggle {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px !important;
+    border-radius: 25px;
+    background: rgba(111, 187, 107, 0.1);
+    border: 1px solid rgba(111, 187, 107, 0.2);
+    transition: all 0.3s ease;
+}
+
+    .user-menu-toggle:hover {
+        background: rgba(111, 187, 107, 0.15);
+        transform: translateY(-1px);
+    }
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--TruongSach-primary);
+    display: inline-block;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+
+    .user-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+.user-name {
+    font-weight: 600;
+    color: var(--TruongSach-primary);
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.admin-badge {
+    background: linear-gradient(135deg, #dc3545, #c82333);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-left: 6px;
+    flex-shrink: 0;
+}
+
+.TruongSach-dropdown-menu {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(45, 90, 39, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(45, 90, 39, 0.15);
+    padding: 15px 0;
+    margin-top: 10px;
+    min-width: 280px;
+    position: absolute;
+    z-index: 1060;
+}
+
+    .TruongSach-dropdown-menu .dropdown-header {
+        padding: 10px 20px;
+        margin-bottom: 5px;
+    }
+
+.user-info strong {
+    color: var(--TruongSach-primary);
+    font-weight: 600;
+}
+
+.user-info small {
+    color: #6c757d;
+    font-size: 0.8rem;
+}
+
+.TruongSach-dropdown-menu .dropdown-item {
+    padding: 10px 20px;
+    color: #4a4a4a;
+    transition: all 0.3s ease;
+    border-radius: 0;
+    margin: 2px 10px;
+    border-radius: 8px;
+}
+
+    .TruongSach-dropdown-menu .dropdown-item:hover {
+        background: rgba(45, 90, 39, 0.1);
+        color: var(--TruongSach-primary);
+        transform: translateX(5px);
+    }
+
+    .TruongSach-dropdown-menu .dropdown-item.text-danger:hover {
+        background: rgba(220, 53, 69, 0.1);
+        color: #dc3545;
+    }
+
+.TruongSach-dropdown-menu .dropdown-divider {
+    margin: 10px 20px;
+    border-color: rgba(45, 90, 39, 0.1);
+}
+
+/* Guest buttons */
+.TruongSach-btn-outline {
+    background: transparent;
+    color: var(--TruongSach-primary);
+    border: 2px solid var(--TruongSach-primary);
+    margin-left: 10px;
+}
+
+    .TruongSach-btn-outline:hover {
+        background: var(--TruongSach-primary);
+        color: white;
+    }
+
+/* Navbar responsive fixes */
+@media (max-width: 991px) {
+    .TruongSach-navbar {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        transform: none !important;
+        padding: 0.5rem 0;
+    }
+
+        .TruongSach-navbar .container {
+            width: 100%;
+            max-width: none;
+            padding: 0 15px;
+        }
+
+    .navbar-nav {
+        text-align: center;
+        padding: 1rem 0;
+        gap: 0.5rem;
+    }
+
+    .nav-item {
+        margin: 0.25rem 0;
+        width: 100%;
+    }
+
+    .TruongSach-nav-link {
+        justify-content: center;
+        padding: 12px 20px !important;
+        margin: 0 10px;
+        border-radius: 15px;
+    }
+
+    .TruongSach-nav-cta {
+        margin: 0.5rem 10px !important;
+        justify-content: center;
+    }
+
+    .user-menu-toggle {
+        justify-content: center;
+        margin: 0 10px;
+    }
+
+    .TruongSach-dropdown-menu {
+        position: static;
+        float: none;
+        width: calc(100% - 20px);
+        margin: 0.5rem 10px;
+        border: 1px solid rgba(45, 90, 39, 0.1);
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(45, 90, 39, 0.1);
+        background: rgba(255, 255, 255, 0.98);
+    }
+}
+
+/* Small mobile adjustments */
+@media (max-width: 576px) {
+
+    .TruongSach-nav-link span,
+    .TruongSach-nav-cta span {
+        display: inline !important;
+    }
+
+    .user-name {
+        display: none !important;
+    }
+
+    .TruongSach-cart-badge {
+        font-size: 0.7rem;
+        padding: 2px 6px;
+    }
+}
+
+/* Fix for navbar brand */
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+/* Fix for navbar toggler */
+.navbar-toggler {
+    border: none;
+    padding: 0.25rem 0.5rem;
+}
+
+    .navbar-toggler:focus {
+        box-shadow: none;
+    }
+
+/* Floating Bottom Navigation */
+.floating-bottom-nav {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1060;
+    opacity: 0;
+    transform: translateY(100px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+    .floating-bottom-nav.show {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: all;
+    }
+
+.floating-nav-container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
+    padding: 15px;
+    box-shadow: 0 10px 40px rgba(45, 90, 39, 0.2);
+    border: 1px solid rgba(45, 90, 39, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 80px;
+}
+
+.floating-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 12px 8px;
+    border-radius: 15px;
+    text-decoration: none;
+    color: #4a4a4a;
+    transition: all 0.3s ease;
+    position: relative;
+    background: transparent;
+}
+
+    .floating-nav-item:hover {
+        background: rgba(45, 90, 39, 0.1);
+        color: var(--TruongSach-primary);
+        transform: scale(1.05);
+    }
+
+    .floating-nav-item i {
+        font-size: 1.2rem;
+        margin-bottom: 2px;
+    }
+
+    .floating-nav-item span {
+        font-size: 0.7rem;
+        font-weight: 500;
+        text-align: center;
+        line-height: 1;
+    }
+
+.floating-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--TruongSach-primary);
+}
+
+    .floating-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+.floating-cart-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: linear-gradient(135deg, #dc3545, #c82333);
+    color: white;
+    border-radius: 50%;
+    min-width: 16px;
+    height: 16px;
+    font-size: 0.6rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid white;
+    box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+}
+
+/* Hide floating nav on large screens by default */
+@media (min-width: 992px) {
+    .floating-bottom-nav {
+        display: none;
+    }
+}
+
+/* Show floating nav on mobile/tablet */
+@media (max-width: 991px) {
+    .floating-bottom-nav {
+        display: block;
+    }
+
+    .floating-nav-container {
+        flex-direction: row;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-radius: 25px 25px 0 0;
+        padding: 15px 20px;
+        justify-content: space-around;
+        min-width: auto;
+        position: fixed;
+        bottom: 0;
+    }
+
+    .floating-bottom-nav {
+        bottom: 0;
+        right: 0;
+        left: 0;
+        border-radius: 0;
+    }
+
+    .floating-nav-item {
+        flex: 1;
+        padding: 8px 4px;
+    }
+
+        .floating-nav-item span {
+            font-size: 0.65rem;
+        }
+
+    body {
+        padding-bottom: 90px;
+    }
+}

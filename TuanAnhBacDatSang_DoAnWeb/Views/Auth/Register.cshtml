@@ -1,0 +1,340 @@
+﻿@model TuanAnhBacDatSang_DoAnWeb.Models.User
+@{
+    ViewData["Title"] = "Đăng Ký";
+}
+<link rel="stylesheet" href="~/css/register-modern.css">
+
+<main class="TruongSach-main-content">
+
+    <!-- TruongSach Register Page -->
+    <div class="TruongSach-auth-page">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8">
+                    <div class="TruongSach-auth-card" data-animate="fadeInUp">
+                        <!-- Logo and Title -->
+                        <div class="auth-header text-center mb-4">
+                            <div class="auth-logo">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <h2 class="auth-title">Đăng ký tài khoản</h2>
+                            <p class="auth-subtitle">Tham gia cộng đồng CONVOI TruongSach</p>
+                        </div>
+
+                        <!-- Register Form -->
+                        <form asp-action="Register" method="POST" class="TruongSach-auth-form" data-validate data-auto-save
+                              id="register-form">
+                            @if (TempData["ToastMessage"] != null)
+                            {
+                                <div class="alert alert-@TempData["ToastType"] d-flex align-items-center p-4 fs-5 shadow-lg rounded-3" role="alert">
+                                    <i class="bi bi-exclamation-triangle-fill me-3 fs-3"></i>
+                                    <div>
+                                        @TempData["ToastMessage"]
+                                    </div>
+                                </div>
+                            }
+
+                           <div class="TruongSach-form-group">
+                                        <label class="TruongSach-form-label">
+                                            <i class="fas fa-envelope me-2"></i>Email *
+                                        </label>
+                                        <input type="email" name="email" class="TruongSach-form-control"
+                                               placeholder="Nhập địa chỉ email" value="" required>
+                           </div>
+
+                            <div class="TruongSach-form-group">
+                                <label class="TruongSach-form-label">
+                                    <i class="fas fa-id-card me-2"></i>Họ và tên *
+                                </label>
+                                <input type="text" name="full_name" class="TruongSach-form-control"
+                                       placeholder="Nhập họ và tên đầy đủ" value="" required>
+                            </div>
+
+                            <div class="TruongSach-form-group">
+                                <label class="TruongSach-form-label">
+                                    <i class="fas fa-phone me-2"></i>Số điện thoại
+                                </label>
+                                <input type="tel" name="phone" class="TruongSach-form-control"
+                                       placeholder="Nhập số điện thoại (tùy chọn)" value="">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="TruongSach-form-group">
+                                        <label class="TruongSach-form-label">
+                                            <i class="fas fa-lock me-2"></i>Mật khẩu *
+                                        </label>
+                                        <div class="password-input-group">
+                                            <input type="password" name="password" id="password"
+                                                   class="TruongSach-form-control" placeholder="Nhập mật khẩu" required
+                                                   minlength="6">
+                                            <button type="button" class="password-toggle"
+                                                    onclick="togglePassword('password')">
+                                                <i class="fas fa-eye" id="password-eye"></i>
+                                            </button>
+                                        </div>
+                                        <div class="password-strength" id="password-strength"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="TruongSach-form-group">
+                                        <label class="TruongSach-form-label">
+                                            <i class="fas fa-lock me-2"></i>Xác nhận mật khẩu *
+                                        </label>
+                                        <div class="password-input-group">
+                                            <input type="password" name="confirm_password" id="confirm_password"
+                                                   class="TruongSach-form-control" placeholder="Nhập lại mật khẩu"
+                                                   required>
+                                            <button type="button" class="password-toggle"
+                                                    onclick="togglePassword('confirm_password')">
+                                                <i class="fas fa-eye" id="confirm_password-eye"></i>
+                                            </button>
+                                        </div>
+                                        <div class="password-match" id="password-match"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-check mb-3">
+                                <input type="checkbox" name="terms" id="terms" class="form-check-input" required>
+                                <label for="terms" class="form-check-label">
+                                    Tôi đồng ý với
+                                    <a href="#" data-TruongSach-modal="terms-modal">Điều khoản sử dụng</a>
+                                    và
+                                    <a href="#" data-TruongSach-modal="privacy-modal">Chính sách bảo mật</a>
+                                </label>
+                            </div>
+
+                            <div class="form-check mb-4">
+                                <input type="checkbox" name="newsletter" id="newsletter" class="form-check-input">
+                                <label for="newsletter" class="form-check-label">
+                                    Nhận thông báo về các sự kiện và chương trình mới
+                                </label>
+                            </div>
+
+                            <button type="submit" class="TruongSach-btn-enhanced TruongSach-btn-primary-enhanced w-100">
+                                <i class="fas fa-user-plus me-2"></i>Đăng ký tài khoản
+                            </button>
+                        </form>
+
+                        <!-- Social Register -->
+                        <div class="social-login">
+                            <div class="divider">
+                                <span>Hoặc đăng nhập với cc</span>
+                            </div>
+                            <div class="social-buttons">
+                                <a asp-controller="Auth" asp-action="LoginByGoogle">
+                                    <button class="social-btn google-btn">
+                                        <i class="fab fa-google"></i>
+                                        Google
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                        <style>
+                            .social-login {
+                                margin-top: 30px;
+                                text-align: center;
+                                font-family: 'Segoe UI', sans-serif;
+                            }
+
+                            .divider {
+                                position: relative;
+                                margin: 20px 0;
+                                text-align: center;
+                                font-size: 14px;
+                                color: #777;
+                            }
+
+                                .divider::before,
+                                .divider::after {
+                                    content: "";
+                                    position: absolute;
+                                    top: 50%;
+                                    width: 40%;
+                                    height: 1px;
+                                    background-color: #ddd;
+                                }
+
+                                .divider::before {
+                                    left: 0;
+                                }
+
+                                .divider::after {
+                                    right: 0;
+                                }
+
+                            .social-buttons {
+                                display: flex;
+                                justify-content: center;
+                                gap: 15px;
+                                flex-wrap: wrap;
+                                margin-top: 20px;
+                            }
+
+                            .social-btn {
+                                display: flex;
+                                align-items: center;
+                                gap: 10px;
+                                padding: 10px 20px;
+                                border: none;
+                                border-radius: 8px;
+                                font-size: 16px;
+                                font-weight: 500;
+                                cursor: pointer;
+                                color: white;
+                                transition: transform 0.2s ease, box-shadow 0.2s ease;
+                                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                                pointer-events: auto;
+                            }
+
+                                .social-btn i {
+                                    font-size: 18px;
+                                }
+
+                            .google-btn {
+                                background: linear-gradient(45deg, #ea4335, #d93025);
+                            }
+
+                                .google-btn:hover {
+                                    transform: translateY(-2px);
+                                    box-shadow: 0 4px 12px rgba(218, 68, 55, 0.4);
+                                }
+
+                            .facebook-btn {
+                                background: linear-gradient(45deg, #1877f2, #165fcb);
+                            }
+
+                                .facebook-btn:hover {
+                                    transform: translateY(-2px);
+                                    box-shadow: 0 4px 12px rgba(24, 119, 242, 0.4);
+                                }
+                        </style>
+
+                        <!-- Login Link -->
+                        <div class="auth-footer text-center mt-4">
+                            <p>
+                                Đã có tài khoản?
+                                <a asp-controller="auth" asp-action="Login" class="TruongSach-link TruongSach-link-primary">
+                                    <i class="fas fa-sign-in-alt me-1"></i>Đăng nhập ngay
+                                </a>
+                            </p>
+                            <p class="mt-2">
+                                <a asp-controller="Home" asp-action="Index" class="TruongSach-link TruongSach-link-secondary">
+                                    <i class="fas fa-home me-1"></i>Về trang chủ
+                                </a>
+                            </p>
+                        </div>
+                        <style>
+                            :root {
+                                --primary-green: #3BA86A;
+                                --primary-green-dark: #2F7D51;
+                                --primary-green-light: #E4F5EB;
+                            }
+
+                            /* General links */
+                            .TruongSach-link {
+                                text-decoration: none;
+                                font-weight: 500;
+                                transition: all 0.2s ease;
+                            }
+
+                                .TruongSach-link i {
+                                    transition: margin 0.2s ease;
+                                }
+
+                            /* Primary link - xanh lá */
+                            .TruongSach-link-primary {
+                                color: var(--primary-green);
+                            }
+
+                                .TruongSach-link-primary:hover {
+                                    color: var(--primary-green-dark);
+                                    text-decoration: underline;
+                                }
+
+                            /* Secondary link - xám */
+                            .TruongSach-link-secondary {
+                                color: #6c757d;
+                            }
+
+                                .TruongSach-link-secondary:hover {
+                                    color: #495057;
+                                    text-decoration: underline;
+                                }
+
+                            /* Nút chính đăng ký (xanh lá gradient) */
+                            .TruongSach-btn-enhanced.TruongSach-btn-primary-enhanced {
+                                background: linear-gradient(45deg, var(--primary-green), var(--primary-green-dark));
+                                border: none;
+                                color: white;
+                                padding: 12px 20px;
+                                font-size: 16px;
+                                border-radius: 8px;
+                                font-weight: 600;
+                                box-shadow: 0 3px 8px rgba(59, 168, 106, 0.3);
+                                transition: all 0.25s ease;
+                            }
+
+                                .TruongSach-btn-enhanced.TruongSach-btn-primary-enhanced:hover {
+                                    background: linear-gradient(45deg, var(--primary-green-dark), #216b47);
+                                    transform: translateY(-1px);
+                                    box-shadow: 0 6px 12px rgba(47, 125, 81, 0.4);
+                                }
+                        </style>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms Modal -->
+    <div id="terms-modal" class="TruongSach-modal">
+        <div class="TruongSach-modal-content">
+            <h4>Điều khoản sử dụng</h4>
+            <div class="modal-body" style="max-height: 400px; overflow-y: auto;">
+                <h6>1. Chấp nhận điều khoản</h6>
+                <p>Bằng việc sử dụng dịch vụ CONVOI TruongSach, bạn đồng ý tuân thủ các điều khoản này.</p>
+
+                <h6>2. Sử dụng dịch vụ</h6>
+                <p>Bạn cam kết sử dụng dịch vụ một cách hợp pháp và không vi phạm quyền lợi của người khác.</p>
+
+                <h6>3. Bảo mật thông tin</h6>
+                <p>Chúng tôi cam kết bảo vệ thông tin cá nhân của bạn theo chính sách bảo mật.</p>
+
+                <h6>4. Trách nhiệm người dùng</h6>
+                <p>Bạn chịu trách nhiệm về tất cả hoạt động diễn ra dưới tài khoản của mình.</p>
+            </div>
+            <div class="modal-actions mt-3">
+                <button class="TruongSach-btn-enhanced TruongSach-btn-primary-enhanced" data-modal-close>Đồng ý</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Privacy Modal -->
+    <div id="privacy-modal" class="TruongSach-modal">
+        <div class="TruongSach-modal-content">
+            <h4>Chính sách bảo mật</h4>
+            <div class="modal-body" style="max-height: 400px; overflow-y: auto;">
+                <h6>1. Thu thập thông tin</h6>
+                <p>Chúng tôi chỉ thu thập thông tin cần thiết để cung cấp dịch vụ tốt nhất.</p>
+
+                <h6>2. Sử dụng thông tin</h6>
+                <p>Thông tin của bạn được sử dụng để cải thiện trải nghiệm và liên lạc khi cần thiết.</p>
+
+                <h6>3. Chia sẻ thông tin</h6>
+                <p>Chúng tôi không chia sẻ thông tin cá nhân với bên thứ ba mà không có sự đồng ý.</p>
+
+                <h6>4. Bảo mật</h6>
+                <p>Chúng tôi áp dụng các biện pháp bảo mật tiên tiến để bảo vệ dữ liệu.</p>
+            </div>
+            <div class="modal-actions mt-3">
+                <button class="TruongSach-btn-enhanced TruongSach-btn-primary-enhanced" data-modal-close>Đã hiểu</button>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="~/js/TruongSach-framework.js"></script>
+<script src="~/js/register.js"></script>

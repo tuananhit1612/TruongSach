@@ -1,0 +1,238 @@
+﻿:root {
+    --charity-primary: #2d5a27;
+    --charity-secondary: #6fbb6b;
+    --charity-accent: #ff6b35;
+    --charity-dark: #1a1a1a;
+    --charity-light: #f8f9fa;
+    --charity-white: #ffffff;
+    --charity-gray: #6c757d;
+    --charity-border: #e9ecef;
+    --charity-shadow: 0 4px 20px rgba(45, 90, 39, 0.1);
+    --charity-shadow-hover: 0 8px 30px rgba(45, 90, 39, 0.15);
+    --charity-gradient: linear-gradient(135deg, var(--charity-primary), var(--charity-secondary));
+    --charity-radius: 16px;
+    --charity-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.shop-hero {
+    background: var(--charity-gradient);
+    color: #ffffff;
+    padding: 100px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.shop-hero-badge {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.shop-hero-title {
+    font-size: 2.75rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+    .shop-hero-title span {
+        color: #ffd700; /* Màu vàng nổi bật */
+    }
+
+.shop-hero-subtitle {
+    font-size: 1.1rem;
+    color: #e0f2e9;
+    margin-bottom: 3rem;
+}
+
+.shop-hero-stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.shop-stat {
+    text-align: center;
+}
+
+.shop-stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.shop-stat-label {
+    color: #e0f2e9;
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+}
+.shop-categories {
+    background-color: #f9fdfb;
+    padding: 80px 0;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--TruongSach-dark);
+}
+
+.section-subtitle {
+    font-size: 1rem;
+    color: #6b7280;
+}
+
+.categories-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.category-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 32px 24px;
+    width: 260px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+    .category-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+    }
+
+.category-icon {
+    background-color: #2f855a;
+    color: #ffffff;
+    font-size: 1.8rem;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    margin: 0 auto 1rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.category-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1a202c;
+    margin-bottom: 0.5rem;
+}
+
+.category-desc {
+    font-size: 0.95rem;
+    color: #4a5568;
+    margin-bottom: 1rem;
+}
+
+.category-count {
+    display: inline-block;
+    background-color: #d1fae5;
+    color: #047857;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+.category-link {
+    display: inline-flex;
+    align-items: center;
+    font-weight: 500;
+    color: #2f855a;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: 0.2s;
+}
+
+    .category-link i {
+        margin-left: 6px;
+        transition: transform 0.2s ease;
+    }
+
+    .category-link:hover i {
+        transform: translateX(4px);
+    }
+.product-card {
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background-color: #ffffff;
+}
+
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    .product-card img {
+        object-fit: cover;
+        height: 180px;
+        border-top-left-radius: 16px;
+        border-top-right-radius: 16px;
+    }
+
+.badge.bg-success {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 999px;
+}
+
+.card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2f855a;
+    margin-bottom: 0.25rem;
+}
+
+.card-text {
+    font-size: 0.875rem;
+    color: #4a5568;
+}
+
+.card-footer {
+    padding-top: 0;
+    border-top: none;
+}
+
+.btn-primary {
+    background: linear-gradient(90deg, #6b46c1, #805ad5);
+    border: none;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+    .btn-primary:hover {
+        background: linear-gradient(90deg, #553c9a, #6b46c1);
+    }
+
+.charity-info {
+    background-color: #f0fdf4;
+    font-size: 0.85rem;
+    border-left: 4px solid #38a169;
+}
+
+    .charity-info i {
+        font-size: 0.9rem;
+    }

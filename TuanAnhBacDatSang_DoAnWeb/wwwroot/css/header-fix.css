@@ -1,0 +1,706 @@
+    /* Modern Header Design - Beautiful & Clean */
+
+    /* Reset and create beautiful navbar */
+    .TruongSach-navbar {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100vw !important;
+        height: 80px !important;
+        z-index: 1050 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 100%) !important;
+        backdrop-filter: blur(25px) saturate(1.8) !important;
+        -webkit-backdrop-filter: blur(25px) saturate(1.8) !important;
+        border-bottom: 1px solid rgba(45, 90, 39, 0.08) !important;
+        box-shadow: 0 8px 32px rgba(45, 90, 39, 0.06),
+            0 2px 16px rgba(0, 0, 0, 0.02) !important;
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+    }
+
+    /* Beautiful container with perfect centering */
+    .TruongSach-navbar .container {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+        max-width: 1400px !important;
+        margin: 0 auto !important;
+        padding: 0 30px !important;
+        height: 80px !important;
+        position: relative !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Beautiful Brand Design */
+    .TruongSach-brand {
+        display: flex !important;
+        align-items: center !important;
+        text-decoration: none !important;
+        margin-right: auto !important;
+        flex-shrink: 0 !important;
+        gap: 15px !important;
+        transition: all 0.3s ease !important;
+    }
+
+    .TruongSach-brand:hover {
+        transform: translateY(-2px) !important;
+    }
+
+    /* Modern Logo Design */
+    .TruongSach-logo {
+        width: 50px !important;
+        height: 50px !important;
+        background: linear-gradient(135deg, #2d5a27 0%, #4a7c59 50%, #6fbb6b 100%) !important;
+        border-radius: 16px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        color: white !important;
+        font-size: 22px !important;
+        box-shadow: 0 8px 25px rgba(45, 90, 39, 0.25),
+            0 3px 10px rgba(45, 90, 39, 0.15) !important;
+        position: relative !important;
+        overflow: hidden !important;
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+    }
+
+    .TruongSach-logo::before {
+        content: '' !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: -100% !important;
+        width: 100% !important;
+        height: 100% !important;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent) !important;
+        transition: left 0.8s ease !important;
+    }
+
+    .TruongSach-brand:hover .TruongSach-logo::before {
+        left: 100% !important;
+    }
+
+    .TruongSach-brand:hover .TruongSach-logo {
+        transform: scale(1.05) rotate(5deg) !important;
+        box-shadow: 0 12px 35px rgba(45, 90, 39, 0.35),
+            0 5px 15px rgba(45, 90, 39, 0.2) !important;
+    }
+
+    /* Brand Text Styling */
+    .TruongSach-brand-text {
+        font-size: 24px !important;
+        font-weight: 800 !important;
+        background: linear-gradient(135deg, #2d5a27 0%, #4a7c59 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        letter-spacing: -0.5px !important;
+        transition: all 0.3s ease !important;
+    }
+
+    .TruongSach-brand-badge {
+        background: linear-gradient(135deg, #6fbb6b 0%, #28a745 100%) !important;
+        color: white !important;
+        padding: 6px 12px !important;
+        border-radius: 20px !important;
+        font-size: 12px !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.5px !important;
+        box-shadow: 0 4px 15px rgba(111, 187, 107, 0.3) !important;
+        animation: pulse 2s infinite !important;
+    }
+
+    @keyframes pulse {
+
+        0%,
+        100% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.05);
+        }
+    }
+
+    /* Navigation section - right aligned */
+    .navbar-nav {
+        display: flex !important;
+        align-items: center !important;
+        margin-left: auto !important;
+        flex-shrink: 0 !important;
+        gap: 8px !important;
+    }
+
+    /* Beautiful Navigation Links - Icon Only with Hover Text for main nav */
+    .bottom-nav-item .TruongSach-nav-link {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        padding: 12px !important;
+        border-radius: 12px !important;
+        text-decoration: none !important;
+        color: #2d5a27 !important;
+        font-weight: 600 !important;
+        font-size: 15px !important;
+        transition: all 0.3s ease !important;
+        position: relative !important;
+        overflow: visible !important;
+        width: 48px !important;
+        height: 48px !important;
+        box-shadow: 0 2px 8px rgba(45, 90, 39, 0.1) !important;
+    }
+
+    /* Regular nav links (cart, user menu, etc.) */
+    .nav-item:not(.bottom-nav-item) .TruongSach-nav-link {
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        padding: 12px 16px !important;
+        border-radius: 12px !important;
+        text-decoration: none !important;
+        color: #2d5a27 !important;
+        font-weight: 600 !important;
+        font-size: 15px !important;
+        transition: all 0.3s ease !important;
+        position: relative !important;
+        box-shadow: 0 2px 8px rgba(45, 90, 39, 0.08) !important;
+    }
+
+    .TruongSach-nav-link::before {
+        content: '' !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: -100% !important;
+        width: 100% !important;
+        height: 100% !important;
+        background: linear-gradient(135deg, rgba(45, 90, 39, 0.1) 0%, rgba(111, 187, 107, 0.1) 100%) !important;
+        transition: left 0.4s ease !important;
+        z-index: -1 !important;
+    }
+
+    .TruongSach-nav-link:hover::before {
+        left: 0 !important;
+    }
+
+    /* Hide text by default for main nav, show only icon */
+    .bottom-nav-item .TruongSach-nav-link span {
+        opacity: 0 !important;
+        position: absolute !important;
+        left: 50% !important;
+        bottom: -35px !important;
+        transform: translateX(-50%) translateY(10px) !important;
+        white-space: nowrap !important;
+        background: rgba(45, 90, 39, 0.95) !important;
+        color: white !important;
+        padding: 6px 10px !important;
+        border-radius: 6px !important;
+        font-size: 12px !important;
+        font-weight: 600 !important;
+        pointer-events: none !important;
+        z-index: 1000 !important;
+        box-shadow: 0 4px 15px rgba(45, 90, 39, 0.25) !important;
+        transition: all 0.3s ease !important;
+    }
+
+    /* Regular nav items keep their text visible */
+    .nav-item:not(.bottom-nav-item) .TruongSach-nav-link span {
+        opacity: 1 !important;
+        transform: none !important;
+        position: relative !important;
+        left: auto !important;
+        background: transparent !important;
+        color: inherit !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+        font-size: inherit !important;
+        box-shadow: none !important;
+        pointer-events: auto !important;
+    }
+
+    /* Tooltip arrow */
+    .bottom-nav-item .TruongSach-nav-link span::before {
+        content: '' !important;
+        position: absolute !important;
+        left: 50% !important;
+        top: -4px !important;
+        transform: translateX(-50%) !important;
+        width: 0 !important;
+        height: 0 !important;
+        border-style: solid !important;
+        border-width: 0 4px 4px 4px !important;
+        border-color: transparent transparent rgba(45, 90, 39, 0.95) transparent !important;
+    }
+
+    /* Hover effects for main nav - no layout shift */
+    .bottom-nav-item .TruongSach-nav-link:hover {
+        color: #2d5a27 !important;
+        background: rgba(45, 90, 39, 0.1) !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 8px 25px rgba(45, 90, 39, 0.2), 0 4px 12px rgba(45, 90, 39, 0.15) !important;
+    }
+
+    /* Show tooltip on hover */
+    .bottom-nav-item .TruongSach-nav-link:hover span {
+        opacity: 1 !important;
+        transform: translateX(-50%) translateY(0) !important;
+    }
+
+    /* Hover effects for regular nav items */
+    .nav-item:not(.bottom-nav-item) .TruongSach-nav-link:hover {
+        color: #2d5a27 !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 8px 25px rgba(45, 90, 39, 0.18), 0 4px 12px rgba(45, 90, 39, 0.12) !important;
+        background: rgba(45, 90, 39, 0.05) !important;
+    }
+
+    .TruongSach-nav-link i {
+        font-size: 18px !important;
+        transition: all 0.2s ease !important;
+        z-index: 1 !important;
+    }
+
+    .bottom-nav-item .TruongSach-nav-link:hover i {
+        transform: scale(1.1) !important;
+        color: #6fbb6b !important;
+    }
+
+    .nav-item:not(.bottom-nav-item) .TruongSach-nav-link:hover i {
+        transform: scale(1.05) !important;
+        color: #6fbb6b !important;
+    }
+
+    /* CTA Button Styling */
+    .TruongSach-btn-primary {
+        background: linear-gradient(135deg, #2d5a27 0%, #4a7c59 50%, #6fbb6b 100%) !important;
+        border: none !important;
+        color: white !important;
+        padding: 12px 24px !important;
+        border-radius: 25px !important;
+        font-weight: 700 !important;
+        font-size: 14px !important;
+        text-decoration: none !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        box-shadow: 0 4px 15px rgba(45, 90, 39, 0.3),
+            0 2px 8px rgba(45, 90, 39, 0.2),
+            0 1px 3px rgba(0, 0, 0, 0.1) !important;
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+        position: relative !important;
+        overflow: hidden !important;
+    }
+
+    .TruongSach-btn-primary::before {
+        content: '' !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: -100% !important;
+        width: 100% !important;
+        height: 100% !important;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent) !important;
+        transition: left 0.6s ease !important;
+    }
+
+    .TruongSach-btn-primary:hover::before {
+        left: 100% !important;
+    }
+
+    .TruongSach-btn-primary:hover {
+        transform: translateY(-3px) scale(1.05) !important;
+        box-shadow: 0 8px 30px rgba(45, 90, 39, 0.4),
+            0 4px 15px rgba(45, 90, 39, 0.25),
+            0 2px 8px rgba(0, 0, 0, 0.15) !important;
+        color: white !important;
+    }
+
+    /* Navbar toggler for mobile */
+    .navbar-toggler {
+        margin-left: auto !important;
+        border: none !important;
+        padding: 8px !important;
+        background: rgba(45, 90, 39, 0.1) !important;
+        border-radius: 12px !important;
+        transition: all 0.3s ease !important;
+    }
+
+    .navbar-toggler:hover {
+        background: rgba(45, 90, 39, 0.2) !important;
+        transform: scale(1.05) !important;
+    }
+
+    .TruongSach-toggler span {
+        display: block !important;
+        width: 25px !important;
+        height: 3px !important;
+        background: #2d5a27 !important;
+        margin: 5px 0 !important;
+        border-radius: 2px !important;
+        transition: all 0.3s ease !important;
+    }
+
+    .navbar-toggler.active span:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 6px) !important;
+    }
+
+    .navbar-toggler.active span:nth-child(2) {
+        opacity: 0 !important;
+    }
+
+    .navbar-toggler.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px) !important;
+    }
+
+    /* User Avatar & Dropdown */
+    .user-avatar img {
+        width: 40px !important;
+        height: 40px !important;
+        border-radius: 50% !important;
+        border: 3px solid rgba(45, 90, 39, 0.2) !important;
+        transition: all 0.3s ease !important;
+    }
+
+    .user-menu-toggle:hover .user-avatar img {
+        border-color: #6fbb6b !important;
+        transform: scale(1.1) !important;
+    }
+
+    .admin-badge {
+        background: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%) !important;
+        color: white !important;
+        padding: 4px 8px !important;
+        border-radius: 12px !important;
+        font-size: 10px !important;
+        font-weight: 700 !important;
+        margin-left: 8px !important;
+    }
+
+
+
+    /* Cart Badge */
+    .TruongSach-cart-badge {
+        position: absolute !important;
+        top: -5px !important;
+        right: -5px !important;
+        background: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%) !important;
+        color: white !important;
+        font-size: 11px !important;
+        font-weight: 700 !important;
+        min-width: 20px !important;
+        height: 20px !important;
+        border-radius: 50% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        animation: bounce 2s infinite !important;
+    }
+
+    /* User menu styling */
+    .user-menu-toggle {
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        padding: 8px 12px !important;
+        border-radius: 25px !important;
+        transition: all 0.3s ease !important;
+        text-decoration: none !important;
+        color: #2d5a27 !important;
+        box-shadow: 0 2px 8px rgba(45, 90, 39, 0.08) !important;
+    }
+
+    .user-menu-toggle:hover {
+        background: rgba(45, 90, 39, 0.1) !important;
+        transform: translateY(-2px) !important;
+        color: #2d5a27 !important;
+        box-shadow: 0 6px 20px rgba(45, 90, 39, 0.15), 0 3px 10px rgba(45, 90, 39, 0.1) !important;
+    }
+
+    .user-name {
+        font-weight: 600 !important;
+        font-size: 14px !important;
+    }
+
+    @keyframes bounce {
+
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+            transform: translateY(0);
+        }
+
+        40% {
+            transform: translateY(-5px);
+        }
+
+        60% {
+            transform: translateY(-3px);
+        }
+    }
+
+    /* Responsive fixes */
+    @media (max-width: 1400px) {
+        .TruongSach-navbar .container {
+            max-width: 1200px !important;
+            padding: 0 25px !important;
+        }
+    }
+
+    @media (max-width: 1200px) {
+        .TruongSach-navbar .container {
+            max-width: 100% !important;
+            padding: 0 20px !important;
+        }
+
+        .TruongSach-brand-text {
+            font-size: 22px !important;
+        }
+
+        .TruongSach-logo {
+            width: 45px !important;
+            height: 45px !important;
+            font-size: 20px !important;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .TruongSach-navbar {
+            height: 70px !important;
+        }
+
+        .TruongSach-navbar .container {
+            padding: 0 15px !important;
+            height: 70px !important;
+        }
+
+        .navbar-collapse {
+            margin-top: 15px !important;
+            width: 100% !important;
+            background: rgba(255, 255, 255, 0.98) !important;
+            backdrop-filter: blur(20px) !important;
+            border-radius: 20px !important;
+            padding: 25px !important;
+            box-shadow: 0 10px 40px rgba(45, 90, 39, 0.15) !important;
+            border: 1px solid rgba(45, 90, 39, 0.1) !important;
+        }
+
+        .navbar-nav {
+            width: 100% !important;
+            margin: 0 !important;
+            flex-direction: column !important;
+            gap: 5px !important;
+        }
+
+        .TruongSach-nav-link {
+            width: 100% !important;
+            justify-content: flex-start !important;
+            padding: 15px 20px !important;
+            margin: 5px 0 !important;
+            min-width: auto !important;
+            height: auto !important;
+        }
+
+        /* Show text on mobile */
+        .TruongSach-nav-link span {
+            opacity: 1 !important;
+            transform: none !important;
+            position: relative !important;
+            left: auto !important;
+            background: transparent !important;
+            color: #2d5a27 !important;
+            padding: 0 !important;
+            border-radius: 0 !important;
+            font-size: 15px !important;
+            box-shadow: none !important;
+            pointer-events: auto !important;
+        }
+
+        .TruongSach-nav-link span::before {
+            display: none !important;
+        }
+
+        .TruongSach-nav-link:hover span {
+            left: auto !important;
+        }
+
+        .TruongSach-btn-primary {
+            margin: 15px auto 0 auto !important;
+            width: fit-content !important;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .TruongSach-navbar .container {
+            padding: 0 10px !important;
+        }
+
+        .TruongSach-brand-text {
+            font-size: 18px !important;
+        }
+
+        .TruongSach-logo {
+            width: 40px !important;
+            height: 40px !important;
+            font-size: 18px !important;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .TruongSach-brand-text {
+            display: none !important;
+        }
+
+        .TruongSach-brand-badge {
+            font-size: 10px !important;
+            padding: 4px 8px !important;
+        }
+    }
+
+    /* Fix for any Bootstrap overrides */
+    .navbar .container,
+    .navbar .container-fluid,
+    .navbar .container-lg,
+    .navbar .container-md,
+    .navbar .container-sm,
+    .navbar .container-xl {
+        margin: 0 auto !important;
+        padding: 0 20px !important;
+        position: relative !important;
+        box-sizing: border-box !important;
+        width: 100% !important;
+        max-width: 1200px !important;
+        left: auto !important;
+        right: auto !important;
+        transform: none !important;
+    }
+
+    /* Scrolled navbar effects */
+    .TruongSach-navbar.scrolled {
+        height: 70px !important;
+        background: rgba(255, 255, 255, 0.98) !important;
+        backdrop-filter: blur(30px) saturate(1.8) !important;
+        box-shadow: 0 8px 40px rgba(45, 90, 39, 0.12),
+            0 2px 12px rgba(0, 0, 0, 0.04) !important;
+    }
+
+    .TruongSach-navbar.scrolled .container {
+        height: 70px !important;
+    }
+
+    .TruongSach-navbar.scrolled .TruongSach-logo {
+        width: 45px !important;
+        height: 45px !important;
+        font-size: 20px !important;
+    }
+
+    .TruongSach-navbar.scrolled .TruongSach-brand-text {
+        font-size: 22px !important;
+    }
+
+    /* Ensure body has proper top padding */
+    body {
+        padding-top: 80px !important;
+        margin: 0 !important;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    }
+
+    @media (max-width: 992px) {
+        body {
+            padding-top: 70px !important;
+        }
+    }
+
+    /* Beautiful Dropdown Menu */
+    .TruongSach-dropdown-menu {
+        background: rgba(255, 255, 255, 0.98) !important;
+        backdrop-filter: blur(25px) saturate(1.8) !important;
+        border: 1px solid rgba(45, 90, 39, 0.1) !important;
+        border-radius: 20px !important;
+        box-shadow: 0 20px 60px rgba(45, 90, 39, 0.15),
+            0 8px 25px rgba(0, 0, 0, 0.08) !important;
+        padding: 15px 0 !important;
+        margin-top: 15px !important;
+        min-width: 280px !important;
+        animation: dropdownFadeIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+    }
+
+    @keyframes dropdownFadeIn {
+        0% {
+            opacity: 0;
+            transform: translateY(-10px) scale(0.95);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    .dropdown-item {
+        padding: 12px 25px !important;
+        color: #2d5a27 !important;
+        font-weight: 500 !important;
+        transition: all 0.3s ease !important;
+        border-radius: 0 !important;
+        position: relative !important;
+        overflow: hidden !important;
+    }
+
+    .dropdown-item::before {
+        content: '' !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: -100% !important;
+        width: 100% !important;
+        height: 100% !important;
+        background: linear-gradient(135deg, rgba(45, 90, 39, 0.05) 0%, rgba(111, 187, 107, 0.05) 100%) !important;
+        transition: left 0.3s ease !important;
+        z-index: -1 !important;
+    }
+
+    .dropdown-item:hover::before {
+        left: 0 !important;
+    }
+
+    .dropdown-item:hover {
+        background: transparent !important;
+        color: #2d5a27 !important;
+        transform: translateX(5px) !important;
+    }
+
+    .dropdown-header {
+        padding: 15px 25px 10px 25px !important;
+        color: #2d5a27 !important;
+        font-weight: 700 !important;
+        font-size: 14px !important;
+        border-bottom: 1px solid rgba(45, 90, 39, 0.1) !important;
+        margin-bottom: 10px !important;
+    }
+
+    .dropdown-divider {
+        margin: 10px 20px !important;
+        border-color: rgba(45, 90, 39, 0.1) !important;
+    }
+
+    /* Remove any conflicting transforms or positioning */
+    .TruongSach-navbar *,
+    .TruongSach-navbar .container *,
+    .navbar *,
+    .navbar .container * {
+        box-sizing: border-box !important;
+    }
+
+    /* Force remove any left/right positioning that might cause offset */
+    .TruongSach-navbar,
+    .TruongSach-navbar .container,
+    .navbar,
+    .navbar .container {
+        left: auto !important;
+        right: auto !important;
+        transform: none !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }

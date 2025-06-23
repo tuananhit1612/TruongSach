@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "Multiple",
+    "Projects": [
+      {
+        "Path": "..\\TruongSach_API\\TruongSach_API.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "TuanAnhBacDatSang_DoAnWeb.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

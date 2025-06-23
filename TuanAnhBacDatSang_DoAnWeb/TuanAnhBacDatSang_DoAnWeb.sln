@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuanAnhBacDatSang_DoAnWeb", "TuanAnhBacDatSang_DoAnWeb.csproj", "{957D96E7-D994-4B82-9115-24D9A5DEA1FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TruongSach_API", "..\TruongSach_API\TruongSach_API.csproj", "{70DBEED2-CBE9-4AFA-AB1D-A7D934DDB944}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{957D96E7-D994-4B82-9115-24D9A5DEA1FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{957D96E7-D994-4B82-9115-24D9A5DEA1FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{957D96E7-D994-4B82-9115-24D9A5DEA1FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{957D96E7-D994-4B82-9115-24D9A5DEA1FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70DBEED2-CBE9-4AFA-AB1D-A7D934DDB944}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70DBEED2-CBE9-4AFA-AB1D-A7D934DDB944}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70DBEED2-CBE9-4AFA-AB1D-A7D934DDB944}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70DBEED2-CBE9-4AFA-AB1D-A7D934DDB944}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
