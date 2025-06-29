@@ -1,0 +1,57 @@
+﻿@model List<TuanAnhBacDatSang_DoAnWeb.ViewModels.ChienDichViewModel>
+@{
+    ViewData["Title"] = "Danh sách chiến dịch";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-4">
+    <main class="TruongSach-main-content">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="text-TruongSach-primary mb-0">Danh Sách chiến dịch</h2>
+            <a asp-action="Index" asp-controller="Dashboard" class="btn btn-secondary">← Quay về Danh Sách</a>
+        </div>
+
+        <a class="btn btn-success mb-3" asp-action="Create">Tạo chiến dịch mới</a>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="bg-vintech-primary text-white">
+                    <tr>
+                        <th>Hình Ảnh</th>
+                        <th>Trường</th>
+                        <th>Tiêu đề</th>
+                        <th>Mục tiêu</th>
+                        <th>Hiện tại</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <img src="@item.HinhAnhDaiDien" alt="Hình ảnh chiến dịch" class="img-fluid" style="max-width: 100px; max-height: 100px;"/>
+                             </td>
+                            <td>@item.TieuDe</td>
+                            <td>@item.TenTruong</td>
+                            <td>@item.MucTieuQuyenGop.ToString("N0")</td>
+                            <td>@item.SoTienHienTai.ToString("N0")</td>
+                            <td>@item.TrangThai</td>
+                            <td>
+                                <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@item.MaChienDich">Chi tiết</a>
+                                <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.MaChienDich">Sửa</a>
+                                <a class="btn btn-danger btn-sm"
+                                   asp-action="Delete"
+                                   asp-route-id="@item.MaChienDich"
+                                   onclick="return confirm('Bạn có chắc muốn xóa chiến dịch này?');">
+                                    Xóa
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>

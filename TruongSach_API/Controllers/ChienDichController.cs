@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TruongSach_API.Models;
 using TruongSach_API.Repositories;
-using TruongSach_API.DTO;
+using TruongSach_API.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 namespace TruongSach_API.Controllers
@@ -34,21 +34,32 @@ namespace TruongSach_API.Controllers
                     .ToListAsync();
             }
 
-            var result = campaigns.Select(c => new ChienDichDTO
+
+
+            var result = new List<ChienDichDTO>();
+
+            foreach (var c in campaigns)
             {
-                MaChienDich = c.MaChienDich,
-                TieuDe = c.TieuDe,
-                MoTa = c.MoTa,
-                SoTienHienTai = c.SoTienHienTai,
-                MucTieuQuyenGop = c.MucTieuQuyenGop,
-                HinhAnhDaiDien = c.HinhAnhDaiDien,
-                TrangThai = c.TrangThai,
-                NguoiDaiDien = c.NguoiDaiDien,
-                NgayTao = c.NgayTao,
-                MaTruong = c.MaTruong,
-                TenTruong = c.MaTruongNavigation.TenTruong,
-                IsLiked = dsDaYeuThich.Contains(c.MaChienDich)
-            }).ToList();
+                var soNguoi = await _repo.CountDistinctNguoiUngHoAsync(c.MaChienDich);
+
+                result.Add(new ChienDichDTO
+                {
+                    MaChienDich = c.MaChienDich,
+                    TieuDe = c.TieuDe,
+                    MoTa = c.MoTa,
+                    SoTienHienTai = c.SoTienHienTai,
+                    MucTieuQuyenGop = c.MucTieuQuyenGop,
+                    HinhAnhDaiDien = c.HinhAnhDaiDien,
+                    TrangThai = c.TrangThai,
+                    NguoiDaiDien = c.NguoiDaiDien,
+                    NgayTao = c.NgayTao,
+                    MaTruong = c.MaTruong,
+                    TenTruong = c.MaTruongNavigation.TenTruong,
+                    IsLiked = dsDaYeuThich.Contains(c.MaChienDich),
+                    SoNguoiUngHo = soNguoi
+                });
+            }
+
 
             return Ok(result);
         }
@@ -61,6 +72,8 @@ namespace TruongSach_API.Controllers
             if (c == null)
                 return NotFound();
 
+            var danhSachUngHo = await _repo.GetNguoiUngHoByChienDichIdAsync(id);
+            var soNguoiUngHo = await _repo.CountDistinctNguoiUngHoAsync(id);
             var dto = new ChienDichDTO
             {
                 MaChienDich = c.MaChienDich,
@@ -74,6 +87,8 @@ namespace TruongSach_API.Controllers
                 NgayTao = c.NgayTao ?? DateTime.Now,
                 MaTruong = c.MaTruong,
                 TenTruong = c.MaTruongNavigation.TenTruong,
+                SoNguoiUngHo = soNguoiUngHo,
+                DanhSachNguoiUngHo = danhSachUngHo
             };
 
             return Ok(dto);
@@ -86,11 +101,11 @@ namespace TruongSach_API.Controllers
             {
                 TieuDe = dto.TieuDe,
                 MoTa = dto.MoTa,
-                SoTienHienTai = dto.SoTienHienTai,
+                SoTienHienTai = dto.SoTienHienTai ?? 0,
                 MucTieuQuyenGop = dto.MucTieuQuyenGop,
                 HinhAnhDaiDien = dto.HinhAnhDaiDien,
                 TrangThai = dto.TrangThai,
-                NguoiDaiDien = dto.NguoiDaiDien,
+                NguoiDaiDien = dto.NguoiDaiDien ?? "Admin",
                 NgayTao = dto.NgayTao ?? DateTime.Now,
                 MaTruong = dto.MaTruong
             };
@@ -102,8 +117,10 @@ namespace TruongSach_API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, ChienDichDTO dto)
+        public async Task<IActionResult> Update(int id, [FromBody] ChienDichDTO dto)
         {
+            
+
             if (id != dto.MaChienDich)
                 return BadRequest("ID mismatch");
 
@@ -113,11 +130,11 @@ namespace TruongSach_API.Controllers
 
             campaign.TieuDe = dto.TieuDe;
             campaign.MoTa = dto.MoTa;
-            campaign.SoTienHienTai = dto.SoTienHienTai;
+            campaign.SoTienHienTai = dto.SoTienHienTai ?? 0;
             campaign.MucTieuQuyenGop = dto.MucTieuQuyenGop;
             campaign.HinhAnhDaiDien = dto.HinhAnhDaiDien;
             campaign.TrangThai = dto.TrangThai;
-            campaign.NguoiDaiDien = dto.NguoiDaiDien;
+            campaign.NguoiDaiDien = dto.NguoiDaiDien ?? "Admin";
             campaign.NgayTao = dto.NgayTao ?? DateTime.Now;
             campaign.MaTruong = dto.MaTruong;
 
@@ -159,8 +176,6 @@ namespace TruongSach_API.Controllers
 
             return Ok(new { success = true, liked = true });
         }
-
-
 
     }
 }

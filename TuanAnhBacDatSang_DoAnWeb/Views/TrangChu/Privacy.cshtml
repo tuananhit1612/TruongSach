@@ -1,6 +1,12 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
-}
-<h1>@ViewData["Title"]</h1>
+﻿@using System.Security.Claims
+<p>Xin chào, @User.Identity.Name!</p>
 
-<p>Use this page to detail your site's privacy policy.</p>
+@if (User.Identity.IsAuthenticated)
+{
+    <p>ID của bạn: @User.FindFirst(ClaimTypes.NameIdentifier)?.Value</p>
+    <p>Role: @User.FindFirst(ClaimTypes.Role)?.Value</p>
+}
+else
+{
+    <p>Bạn chưa đăng nhập.</p>
+}

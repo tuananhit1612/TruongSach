@@ -1,0 +1,58 @@
+﻿@model TuanAnhBacDatSang_DoAnWeb.ViewModels.NguoiDungViewModel
+@{
+    ViewData["Title"] = "Chỉnh sửa người dùng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-4">
+    <main class="TruongSach-main-content">
+        <h2 class="text-TruongSach-primary mb-4"></h2>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="text-TruongSach-primary mb-0">Chỉnh sửa người dùng</h2>
+            <a asp-action="Index" class="btn btn-secondary">← Quay về danh sách</a>
+        </div>
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="MaNguoiDung" />
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label asp-for="HoTen" class="form-label">Họ tên</label>
+                    <input asp-for="HoTen" class="form-control" />
+                    <span asp-validation-for="HoTen" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Email" class="form-label">Email</label>
+                    <input asp-for="Email" class="form-control" readonly />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label asp-for="SoDienThoai" class="form-label">Số điện thoại</label>
+                    <input asp-for="SoDienThoai" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Vai trò</label>
+                    <select asp-for="MaVaiTro" class="form-control" asp-items="ViewBag.VaiTro"></select>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label asp-for="TrangThai" class="form-label">Trạng thái</label>
+                    <input asp-for="TrangThai" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Ảnh đại diện hiện tại</label><br />
+                    <img src="@Model.AvatarUrl" alt="Avatar" class="img-thumbnail mb-2" style="max-height: 100px;" />
+                    <input type="file" name="avatarFile" class="form-control" />
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <button type="submit" class="btn btn-success">Lưu thay đổi</button>
+                <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+            </div>
+        </form>
+    </main>
+</div>

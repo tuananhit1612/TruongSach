@@ -1,0 +1,525 @@
+﻿@model List<TuanAnhBacDatSang_DoAnWeb.ViewModels.ChienDichViewModel>
+
+@{
+    var userId = Context.Session.GetInt32("UserId");
+    ViewData["Title"] = "Quyên Góp";
+}
+<link rel="stylesheet" href="~/css/donate-modern.css" />
+<link rel="stylesheet" href="~/css/TruongSach-toast.css">
+<style>
+    .chien-dich-scroll-container {
+        display: flex;
+        gap: 16px;
+        overflow-x: auto;
+        padding: 12px 0;
+        scroll-snap-type: x mandatory;
+    }
+
+    .chien-dich-card {
+        flex: 0 0 auto;
+        width: 240px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        background: #fff;
+        scroll-snap-align: start;
+        text-align: center;
+    }
+
+    .chien-dich-image {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+    }
+
+    .chien-dich-info {
+        padding: 10px;
+    }
+
+    .chien-dich-school {
+        font-size: 20px;
+        color: #1E7B47;
+        margin: 0;
+        font-weight: 600;
+    }
+
+    .chien-dich-title {
+        font-size: 16px;
+        margin: 0;
+        font-weight: 600;
+    }
+
+    .chien-dich-id {
+        font-size: 14px;
+        color: #666;
+    }
+
+    /* Hide scrollbar for better UI */
+    .chien-dich-scroll-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    .chien-dich-scroll-container {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .chien-dich-selection {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 1rem;
+        padding-bottom: 12px;
+    }
+
+    .chien-dich-radio {
+        display: none;
+    }
+
+    .chien-dich-card-modern {
+        flex: 0 0 auto;
+        width: 180px;
+        border: 2px solid transparent;
+        border-radius: 16px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        cursor: pointer;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    .chien-dich-img-modern {
+        width: 100%;
+        height: 120px;
+        object-fit: cover;
+    }
+
+    .chien-dich-info-modern {
+        padding: 10px;
+    }
+
+        .chien-dich-info-modern .title {
+            font-weight: 600;
+            font-size: 14px;
+            color: #222;
+            margin-bottom: 4px;
+        }
+
+        .chien-dich-info-modern .id {
+            font-size: 13px;
+            color: #888;
+        }
+
+    .chien-dich-radio:checked + .chien-dich-card-modern {
+        background: #F0FFF7;
+        box-shadow: 0 0 0 2px #1E7B47 inset;
+    }
+
+    .donation-type-selection input[type="radio"] {
+        display: none;
+    }
+
+    .donation-type-selection {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 12px;
+    }
+
+    .donation-type-card {
+        padding: 10px 16px;
+        border: 2px solid #ccc;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: 0.3s ease;
+    }
+
+    input[name="donation_type"]:checked + label {
+        border-color: #1E7B47;
+        background: #F0FFF7;
+    }
+
+</style>
+<div class="modern-donate-page">
+    <!-- Modern Hero Section -->
+    <section class="donate-hero">
+        <div class="container">
+            <div class="donate-hero-content" data-animate="fadeInUp">
+                <!-- Hero Badge -->
+                <div class="hero-badge">
+                    <i class="fas fa-heart"></i>
+                    <span>TruongSach</span>
+                </div>
+
+                <!-- Hero Title -->
+                <h1 class="donate-hero-title">
+                    Quyên Góp
+                    <span class="gradient-text">Thiện Nguyện</span>
+                </h1>
+
+                <!-- Hero Description -->
+                <p class="donate-hero-description">
+                    Mỗi đóng góp của bạn đều có ý nghĩa quan trọng trong việc giúp đỡ cộng đồng.
+                    Hãy cùng chúng tôi lan tỏa yêu thương và mang lại hy vọng cho những hoàn cảnh khó khăn.
+                </p>
+
+                <!-- Hero Stats -->
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">2.5K+</div>
+                        <div class="stat-label">Người ủng hộ</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">15B+</div>
+                        <div class="stat-label">Đã quyên góp</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Dự án</div>
+                    </div>
+                </div>
+
+                <!-- Hero Actions -->
+                <div class="hero-actions">
+                    <button class="hero-action-btn primary" onclick="scrollToDonateForm()">
+                        <i class="fas fa-heart"></i>
+                        <span>Quyên góp ngay</span>
+                    </button>
+                    <a asp-action="Index" asp-controller="ChienDich" class="hero-action-btn secondary">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Xem chiến dịch</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modern Donation Form -->
+    <section class="donate-content" id="donate-form">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="donation-card" data-animate="fadeInUp">
+                        <div class="donation-card-header">
+                            <div class="header-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <h3 class="donation-title">Quyên Góp Thiện Nguyện</h3>
+                            <p class="donation-subtitle">Mỗi đóng góp đều có ý nghĩa</p>
+                        </div>
+
+                        <div class="donation-card-body">
+                            <form asp-controller="ThanhToan" asp-action="CreatePayment" method="POST" id="donationForm" class="modern-donation-form">
+
+                                <div class="form-section">
+                                    <h4 class="section-title">
+                                        <i class="fas fa-hands-helping"></i>
+                                        Chiến dịch quyên góp
+                                    </h4>
+                                    @if (Model != null && Model.Any())
+                                    {
+                                        <div class="chien-dich-selection">
+                                            @foreach (var cd in Model)
+                                            {
+                                                <input type="radio" class="chien-dich-radio" name="campaignId" value="@cd.MaChienDich" id="cd_@cd.MaChienDich" />
+                                                <label class="chien-dich-card-modern" for="cd_@cd.MaChienDich">
+                                                    <img src="@cd.HinhAnhDaiDien" class="chien-dich-img-modern" alt="Chiến dịch @cd.TieuDe" />
+                                                    <div class="chien-dich-info-modern">
+                                                        <div class="school">@cd.TenTruong</div>
+                                                        <div class="title">@cd.TieuDe</div>
+                                                        <div class="id">ID: @cd.MaChienDich</div>
+                                                    </div>
+                                                </label>
+                                            }
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <p>Không có chiến dịch nào đang diễn ra.</p>
+                                    }
+
+                                </div>
+                                <!-- Chọn hình thức quyên góp -->
+                                <div class="form-section">
+                                    <h4 class="section-title">
+                                        <i class="fas fa-exchange-alt"></i>
+                                        Hình thức quyên góp *
+                                    </h4>
+
+                                    <div class="donation-type-selection">
+                                        <input type="radio" id="donate_money" name="donation_type" value="money" checked>
+                                        <label for="donate_money" class="donation-type-card">
+                                            <i class="fas fa-money-bill"></i>
+                                            Tiền
+                                        </label>
+
+                                        <input type="radio" id="donate_points" name="donation_type" value="points">
+                                        <label for="donate_points" class="donation-type-card">
+                                            <i class="fas fa-star"></i>
+                                            Điểm thiện nguyện
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div id="moneySection">
+                                    <div class="form-section">
+                                        <h4 class="section-title">
+                                            <i class="fas fa-money-bill-wave"></i>
+                                            Số tiền quyên góp *
+                                        </h4>
+
+                                        <div class="amount-selection">
+                                            <div class="amount-grid">
+                                                <input type="radio" class="amount-radio" name="amount" value="50000" id="amount1">
+                                                <label class="amount-card" for="amount1">
+                                                    <div class="amount-icon">
+                                                        <i class="fas fa-heart"></i>
+                                                    </div>
+                                                    <div class="amount-value">50K</div>
+                                                    <div class="amount-text">VNĐ</div>
+                                                </label>
+
+                                                <input type="radio" class="amount-radio" name="amount" value="100000" id="amount2">
+                                                <label class="amount-card" for="amount2">
+                                                    <div class="amount-icon">
+                                                        <i class="fas fa-heart"></i>
+                                                    </div>
+                                                    <div class="amount-value">100K</div>
+                                                    <div class="amount-text">VNĐ</div>
+                                                </label>
+
+                                                <input type="radio" class="amount-radio" name="amount" value="200000" id="amount3">
+                                                <label class="amount-card" for="amount3">
+                                                    <div class="amount-icon">
+                                                        <i class="fas fa-heart"></i>
+                                                    </div>
+                                                    <div class="amount-value">200K</div>
+                                                    <div class="amount-text">VNĐ</div>
+                                                </label>
+
+                                                <input type="radio" class="amount-radio" name="amount" value="500000" id="amount4">
+                                                <label class="amount-card popular" for="amount4">
+                                                    <div class="popular-badge">Phổ biến</div>
+                                                    <div class="amount-icon">
+                                                        <i class="fas fa-heart"></i>
+                                                    </div>
+                                                    <div class="amount-value">500K</div>
+                                                    <div class="amount-text">VNĐ</div>
+                                                </label>
+
+                                                <input type="radio" class="amount-radio" name="amount" value="1000000" id="amount5">
+                                                <label class="amount-card" for="amount5">
+                                                    <div class="amount-icon">
+                                                        <i class="fas fa-heart"></i>
+                                                    </div>
+                                                    <div class="amount-value">1M</div>
+                                                    <div class="amount-text">VNĐ</div>
+                                                </label>
+
+                                                <input type="radio" class="amount-radio" name="amount" value="2000000" id="amount6">
+                                                <label class="amount-card" for="amount6">
+                                                    <div class="amount-icon">
+                                                        <i class="fas fa-heart"></i>
+                                                    </div>
+                                                    <div class="amount-value">2M</div>
+                                                    <div class="amount-text">VNĐ</div>
+                                                </label>
+                                            </div>
+
+                                            <div class="custom-amount-section">
+                                                <div class="divider">
+                                                    <span>hoặc</span>
+                                                </div>
+
+                                                <div class="modern-form-group">
+                                                    <label class="modern-label">Số tiền khác</label>
+                                                    <div class="modern-input-wrapper">
+                                                        <i class="fas fa-money-bill-wave input-icon"></i>
+                                                        <input type="number" class="modern-input" id="custom_amount" name="custom_amount"
+                                                               placeholder="Nhập số tiền (tối thiểu 10,000đ)" min="10000" step="1000">
+                                                        <span class="input-suffix">VNĐ</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="pointSection" style="display: none;">
+                                    <div class="form-section">
+                                        <h4 class="section-title">
+                                            <i class="fas fa-star"></i>
+                                            Số điểm muốn quyên góp *
+                                        </h4>
+                                        <div class="modern-form-group">
+                                            <label class="modern-label">Số điểm</label>
+                                            <div class="modern-input-wrapper">
+                                                <i class="fas fa-star input-icon"></i>
+                                                <input type="number" class="modern-input" name="point_amount"
+                                                       placeholder="Nhập số điểm (tối thiểu 10.000)" min="10000" step="1000">
+                                                <span class="input-suffix">Điểm</span>
+                                                <div id="pointConversion" class="point-conversion-text" style="margin-top: 6px; color: #1E7B47; font-weight: 600;">
+                                                    <!-- Nội dung sẽ được cập nhật bằng JS -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-section">
+                                    <h4 class="section-title">
+                                        <i class="fas fa-credit-card"></i>
+                                        Phương thức thanh toán *
+                                    </h4>
+
+                                    <div class="payment-grid">
+                                        <input type="radio" class="payment-radio" name="payment_method" value="momo" id="payment_momo" checked>
+                                        <label class="payment-card" for="payment_momo">
+                                            <div class="payment-icon">
+                                                <i class="fas fa-mobile-alt"></i>
+                                            </div>
+                                            <div class="payment-info">
+                                                <div class="payment-name">Ví MoMo</div>
+                                                <div class="payment-desc">Thanh toán nhanh chóng</div>
+                                            </div>
+                                            <div class="payment-check">
+                                                <i class="fas fa-check"></i>
+                                            </div>
+                                        </label>
+
+                                        <input type="radio" class="payment-radio" name="payment_method" value="vnpay" id="payment_vnpay">
+                                        <label class="payment-card" for="payment_vnpay">
+                                            <div class="payment-icon">
+                                                <i class="fas fa-credit-card"></i>
+                                            </div>
+                                            <div class="payment-info">
+                                                <div class="payment-name">VNPay</div>
+                                                <div class="payment-desc">Thẻ ngân hàng</div>
+                                            </div>
+                                            <div class="payment-check">
+                                                <i class="fas fa-check"></i>
+                                            </div>
+                                        </label>
+
+                                        <input type="radio" class="payment-radio" name="payment_method" value="bank" id="payment_bank">
+                                        <label class="payment-card" for="payment_bank">
+                                            <div class="payment-icon">
+                                                <i class="fas fa-university"></i>
+                                            </div>
+                                            <div class="payment-info">
+                                                <div class="payment-name">Chuyển khoản</div>
+                                                <div class="payment-desc">Ngân hàng trực tiếp</div>
+                                            </div>
+                                            <div class="payment-check">
+                                                <i class="fas fa-check"></i>
+                                            </div>
+                                        </label>
+
+                                        <input type="radio" class="payment-radio" name="payment_method" value="cash" id="payment_cash">
+                                        <label class="payment-card" for="payment_cash">
+                                            <div class="payment-icon">
+                                                <i class="fas fa-money-bill"></i>
+                                            </div>
+                                            <div class="payment-info">
+                                                <div class="payment-name">Tiền mặt</div>
+                                                <div class="payment-desc">Quyên góp trực tiếp</div>
+                                            </div>
+                                            <div class="payment-check">
+                                                <i class="fas fa-check"></i>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Bank Transfer Info (Hidden by default) -->
+                                <!-- Cash Donation Info (Hidden by default) -->
+                                <!-- Message and Options -->
+                                <div class="form-section">
+                                    <h4 class="section-title">
+                                        <i class="fas fa-comment"></i>
+                                        Lời nhắn và tùy chọn
+                                    </h4>
+
+                                    <div class="modern-form-group">
+                                        <label for="message" class="modern-label">Lời nhắn (tùy chọn)</label>
+                                        <div class="modern-textarea-wrapper">
+                                            <textarea class="modern-textarea" id="message" name="NoiDung" rows="4"
+                                                      placeholder="Chia sẻ lời động viên hoặc mong muốn của bạn..."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="userId" value="@userId" />
+                                <!-- Submit Section -->
+                                <div class="form-section submit-section">
+                                    <button type="submit" class="modern-submit-btn btn-donate">
+                                        <div class="btn-content">
+                                            <i class="fas fa-heart btn-icon"></i>
+                                            <span class="btn-text">Quyên Góp Ngay</span>
+                                            <div class="btn-spinner">
+                                                <i class="fas fa-spinner fa-spin"></i>
+                                            </div>
+                                        </div>
+                                        <div class="btn-overlay"></div>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const donationRadios = document.querySelectorAll('input[name="donation_type"]');
+        const moneySection = document.getElementById("moneySection");
+        const pointSection = document.getElementById("pointSection");
+        const paymentSection = document.querySelector('.form-section:has(.payment-grid)');
+        const pointInput = document.querySelector('input[name="point_amount"]');
+        const conversionDisplay = document.getElementById("pointConversion");
+
+        function toggleDonationType() {
+            const isPointDonation = document.getElementById("donate_points").checked;
+
+            moneySection.style.display = isPointDonation ? "none" : "block";
+            pointSection.style.display = isPointDonation ? "block" : "none";
+            paymentSection.style.display = isPointDonation ? "none" : "block";
+
+            updateConversion();
+        }
+
+        function updateConversion() {
+            if (!pointInput || !conversionDisplay) return;
+
+            const value = parseInt(pointInput.value);
+            if (!isNaN(value) && value >= 10000) {
+                const converted = value; // vì 1 điểm = 1 VND
+                conversionDisplay.textContent = `Quy đổi: ${converted.toLocaleString("vi-VN")} VNĐ`;
+            } else {
+                conversionDisplay.textContent = "";
+            }
+        }
+
+        donationRadios.forEach(r => {
+            r.addEventListener("change", toggleDonationType);
+        });
+
+        if (pointInput) {
+            pointInput.addEventListener("input", updateConversion);
+        }
+
+        toggleDonationType();
+    });
+</script>
+
+
+
+<script src="~/js/TruongSach-framework.js"></script>
+<script src="~/js/donate.js"></script>

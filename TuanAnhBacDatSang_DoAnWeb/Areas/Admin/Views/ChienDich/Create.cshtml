@@ -1,0 +1,68 @@
+﻿@model TuanAnhBacDatSang_DoAnWeb.ViewModels.ChienDichViewModel
+@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    ViewData["Title"] = "Tạo chiến dịch";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-4">
+    <main class="TruongSach-main-content">
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger">
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <div>@error.ErrorMessage</div>
+                }
+            </div>
+        }
+        <h2 class="text-vintech-primary mb-4">Tạo chiến dịch mới</h2>
+
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label asp-for="TieuDe" class="form-label">Tiêu đề</label>
+                <input asp-for="TieuDe" class="form-control" />
+                <span asp-validation-for="TieuDe" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="MoTa" class="form-label">Mô tả</label>
+                <textarea asp-for="MoTa" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="MoTa" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="MucTieuQuyenGop" class="form-label">Mục tiêu quyên góp</label>
+                <input asp-for="MucTieuQuyenGop" class="form-control" />
+                <span asp-validation-for="MucTieuQuyenGop" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="NguoiDaiDien" class="form-label">Người đại diện</label>
+                <input asp-for="NguoiDaiDien" class="form-control" />
+                <span asp-validation-for="NguoiDaiDien" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="MaTruong" class="form-label">Trường</label>
+                @if (ViewBag.Schools != null)
+                {
+                    <select asp-for="MaTruong" asp-items="ViewBag.Schools" class="form-select">
+                        <option value="">-- Chọn trường --</option>
+                    </select>
+                }
+                else
+                {
+                    <p class="text-danger">Không thể tải danh sách trường.</p>
+                }
+                <span asp-validation-for="MaTruong" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="HinhAnhDaiDien" class="form-label">Hình ảnh chiến dịch</label>
+                <input type="file" asp-for="HinhAnhDaiDien" class="form-control" />
+                <span asp-validation-for="HinhAnhDaiDien" class="text-danger"></span>
+            </div>
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-success">Tạo mới</button>
+                <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+            </div>
+            
+        </form>
+    </main>
+</div>

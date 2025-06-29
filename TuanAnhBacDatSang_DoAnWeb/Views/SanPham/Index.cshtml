@@ -1,119 +1,111 @@
-﻿@{
+﻿@model IEnumerable<TuanAnhBacDatSang_DoAnWeb.ViewModels.SanPhamViewModel>
+@{
     ViewData["Title"] = "Cửa Hàng";
 }
-<link rel="stylesheet" href="~/css/shop.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --shop-primary: #2d5a27;
+        --shop-secondary: #6fbb6b;
+        --shop-accent: #ff6b35;
+        --shop-success: #28a745;
+        --shop-warning: #ffc107;
+        --shop-danger: #dc3545;
+        --shop-dark: #1e293b;
+        --shop-light: #f8fafc;
+        --shop-white: #ffffff;
+        --shop-gray: #f1f5f9;
+        --shop-border: #e2e8f0;
+        --shop-shadow: 0 4px 20px rgba(45, 90, 39, 0.08);
+        --shop-shadow-hover: 0 8px 40px rgba(45, 90, 39, 0.15);
+        --shop-radius: 16px;
+        --shop-transition: all 0.3s ease-in-out;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--shop-light);
+    }
+
+    .product-card {
+        border-radius: var(--shop-radius);
+        box-shadow: var(--shop-shadow);
+        transition: var(--shop-transition);
+        background-color: var(--shop-white);
+    }
+
+        .product-card:hover {
+            transform: scale(1.01);
+            box-shadow: var(--shop-shadow-hover);
+        }
+
+    .btn-shop-primary {
+        background-color: var(--shop-primary);
+        color: var(--shop-white);
+        border: none;
+        border-radius: var(--shop-radius);
+        box-shadow: var(--shop-shadow);
+        transition: var(--shop-transition);
+    }
+
+        .btn-shop-primary:hover {
+            background-color: var(--shop-secondary);
+            box-shadow: var(--shop-shadow-hover);
+        }
+
+    .btn-shop-outline {
+        background-color: transparent;
+        color: var(--shop-primary);
+        border: 2px solid var(--shop-primary);
+        border-radius: var(--shop-radius);
+        transition: var(--shop-transition);
+    }
+
+        .btn-shop-outline:hover {
+            background-color: var(--shop-primary);
+            color: var(--shop-white);
+        }
+
+    .card-img-top {
+        border-top-left-radius: var(--shop-radius);
+        border-top-right-radius: var(--shop-radius);
+        object-fit: cover;
+    }
+
+    .card-footer {
+        border-top: none;
+    }
+</style>
 
 <main class="TruongSach-main-content">
-
-    <link rel="stylesheet" href="../assets/css/shop.css">
-
     <div class="container mt-4">
-        <!-- Page Header -->
         <div class="row mb-4">
             <div class="col-12">
-                <h1 class="display-5 fw-bold">
+                <h1 class="display-5 fw-bold text">
                     Tất cả sản phẩm
                 </h1>
-                <p class="text-muted">Tìm thấy 5 sản phẩm</p>
+                <p class="text-muted">Tìm thấy @Model.Count() sản phẩm</p>
             </div>
         </div>
 
         <div class="row">
-            <!-- Sidebar Filters -->
             <div class="col-lg-3">
-                <div class="filter-sidebar">
-                    <h4 class="mb-3"><i class="fas fa-filter me-2"></i>Bộ lọc</h4>
-
-                    <form method="GET" id="filterForm">
-
-                        <!-- Category Filter -->
-                        <div class="filter-section">
-                            <h6>Danh mục</h6>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="category" value="" id="cat_all"
-                                       checked>
-                                <label class="form-check-label" for="cat_all">
-                                    Tất cả danh mục
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="category"
-                                       value="2" id="cat_2">
-                                <label class="form-check-label" for="cat_2">
-                                    Đồ thủ công                                <small class="text-muted">(1)</small>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="category"
-                                       value="4" id="cat_4">
-                                <label class="form-check-label" for="cat_4">
-                                    Phụ kiện                                <small class="text-muted">(1)</small>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="category"
-                                       value="3" id="cat_3">
-                                <label class="form-check-label" for="cat_3">
-                                    Quần áo                                <small class="text-muted">(1)</small>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="category"
-                                       value="1" id="cat_1">
-                                <label class="form-check-label" for="cat_1">
-                                    Thực phẩm hữu cơ                                <small class="text-muted">(2)</small>
-                                </label>
-                            </div>
-                        </div>
-
-                        <!-- Price Filter -->
-                        <div class="filter-section">
-                            <h6>Khoảng giá</h6>
-                            <div class="price-range-container">
-                                <div class="price-display">
-                                    <span id="price-display">
-                                        20,000đ -
-                                        250,000đ
-                                    </span>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="min_price" class="form-label">Giá từ:</label>
-                                    <input type="number" class="form-control" name="min_price" id="min_price"
-                                           value="0" min="0" step="1000">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="max_price" class="form-label">Giá đến:</label>
-                                    <input type="number" class="form-control" name="max_price" id="max_price"
-                                           value="0" min="0" step="1000">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-search me-2"></i>Áp dụng
-                            </button>
-                            <a href="product_list.php" class="btn btn-outline-secondary">
-                                <i class="fas fa-times me-2"></i>Xóa bộ lọc
-                            </a>
-                        </div>
-                    </form>
-                </div>
+                @await Component.InvokeAsync("MenuLoai")
             </div>
 
-            <!-- Products -->
             <div class="col-lg-9">
-                <!-- Sort and View Options -->
                 <div class="row mb-3 align-items-center">
                     <div class="col-md-6">
                         <div class="d-flex align-items-center">
                             <label for="sort" class="form-label me-2 mb-0">Sắp xếp:</label>
                             <select class="form-select sort-dropdown" id="sort" name="sort" onchange="updateSort()">
-                                <option value="name" selected>Tên A-Z</option>
-                                <option value="price_asc">Giá thấp đến cao</option>
-                                <option value="price_desc">Giá cao đến thấp</option>
-                                <option value="newest">Mới nhất</option>
-                                <option value="oldest">Cũ nhất</option>
+                                <option value="name" selected="@(ViewBag.Sort == "name" ? "selected" : null)">Tên A-Z</option>
+                                <option value="price_asc" selected="@(ViewBag.Sort == "price_asc" ? "selected" : null)">Giá thấp đến cao</option>
+                                <option value="price_desc" selected="@(ViewBag.Sort == "price_desc" ? "selected" : null)">Giá cao đến thấp</option>
+                                <option value="newest" selected="@(ViewBag.Sort == "newest" ? "selected" : null)">Mới nhất</option>
+                                <option value="oldest" selected="@(ViewBag.Sort == "oldest" ? "selected" : null)">Cũ nhất</option>
                             </select>
                         </div>
                     </div>
@@ -121,266 +113,128 @@
                         <div class="d-flex align-items-center justify-content-md-end">
                             <label for="per_page" class="form-label me-2 mb-0">Hiển thị:</label>
                             <select class="form-select" id="per_page" name="per_page" onchange="updatePerPage()" style="width: auto;">
-                                <option value="12" selected>12</option>
-                                <option value="24">24</option>
-                                <option value="48">48</option>
+                                <option value="12" selected="@(ViewBag.per_page == "12" ? "selected" : null)">12</option>
+                                <option value="24" selected="@(ViewBag.per_page == "24" ? "selected" : null)">24</option>
+                                <option value="48" selected="@(ViewBag.per_page == "48" ? "selected" : null)">48</option>
                             </select>
                             <span class="ms-2 text-muted">sản phẩm</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Products Grid -->
                 <div class="row product-grid">
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card product-card h-100 border-0 shadow-sm">
-                            <div class="position-relative">
-                                <img src="https://product.hstatic.net/200000931197/product/1.1-st25_con_cam_-_hinh_san_pham_78989836eabf472a8a938be918fbcc8a_master.jpg"
-                                     class="card-img-top" alt="Gạo hữu cơ ST25"
-                                     onerror="this.src='../assets/images/default-product.jpg'"
-                                     style="height: 250px; object-fit: cover;">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <a href="product_detail.php?id=1" class="text-decoration-none">
-                                        Gạo hữu cơ ST25
-                                    </a>
-                                </h5>
-                                <p class="card-text text-muted small">
-                                    Gạo hữu cơ chất lượng cao, không thuốc trừ sâu...
-                                </p>
-                                <p class="text-primary fw-bold fs-5 mb-2">
-                                    150,000đ
-                                </p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <small class="text-muted">
-                                        Thực phẩm hữu cơ
-                                    </small>
-                                    <small class="text-muted">
-                                        Còn: 100
-                                    </small>
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="card product-card h-100 border-0">
+                                <div class="position-relative">
+                                    <img src="@item.HinhAnhDaiDien" class="card-img-top" alt="@item.TenSanPham"
+                                         onerror="this.src='../assets/images/default-product.jpg'"
+                                         style="height: 250px;">
                                 </div>
-                            </div>
-                            <div class="card-footer bg-transparent">
-                                <div class="d-flex gap-2">
-                                    <a href="product_detail.php?id=1"
-                                       class="btn btn-outline-primary flex-fill">
-                                        Chi tiết
-                                    </a>
-                                    <button class="btn btn-primary flex-fill add-to-cart-btn"
-                                            data-product-id="1"
-                                            data-product-name="Gạo hữu cơ ST25">
-                                        <i class="fas fa-cart-plus me-1"></i>Thêm vào giỏ
-                                    </button>
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <a href="product_detail.php?id=1" class="text-decoration-none text-dark">
+                                            @item.TenSanPham
+                                        </a>
+                                    </h5>
+                                    <p class="card-text text-muted small">
+                                        @item.MoTa
+                                    </p>
+                                    <p class="text-success fw-bold fs-5 mb-2">
+                                        @item.GiaBan.ToString("N0") ₫
+                                    </p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">@item.TenLoaiSanPham</small>
+                                        <small class="text-muted">Còn: @item.SoLuongTon</small>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card product-card h-100 border-0 shadow-sm">
-                            <div class="position-relative">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStdGIzrLRAtXfv3fuIj7HTLznWIM1BFsvhlQ&s"
-                                     class="card-img-top" alt="Hộp bút vui nhộn "
-                                     onerror="this.src='../assets/images/default-product.jpg'"
-                                     style="height: 250px; object-fit: cover;">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <a href="product_detail.php?id=4" class="text-decoration-none">
-                                        Hộp bút vui nhộn
-                                    </a>
-                                </h5>
-                                <p class="card-text text-muted small">
-                                    Hộp bút thủ công được làm từ các em học sinh...
-                                </p>
-                                <p class="text-primary fw-bold fs-5 mb-2">
-                                    20,000đ
-                                </p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <small class="text-muted">
-                                        Quần áo
-                                    </small>
-                                    <small class="text-muted">
-                                        Còn: 25
-                                    </small>
-                                </div>
-                            </div>
-                            <div class="card-footer bg-transparent">
-                                <div class="d-flex gap-2">
-                                    <a href="product_detail.php?id=4"
-                                       class="btn btn-outline-primary flex-fill">
-                                        Chi tiết
-                                    </a>
-                                    <button class="btn btn-primary flex-fill add-to-cart-btn"
-                                            data-product-id="4"
-                                            data-product-name="Hộp bút vui nhộn ">
-                                        <i class="fas fa-cart-plus me-1"></i>Thêm vào giỏ
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card product-card h-100 border-0 shadow-sm">
-                            <div class="position-relative">
-                                <img src="https://thptchuyensonla.edu.vn/wp-content/uploads/2023/07/1.do-handmade-trang-tri-xinh-xan.jpg"
-                                     class="card-img-top" alt="Khung tranh trang trí"
-                                     onerror="this.src='../assets/images/default-product.jpg'"
-                                     style="height: 250px; object-fit: cover;">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <a href="product_detail.php?id=3" class="text-decoration-none">
-                                        Khung tranh trang trí
-                                    </a>
-                                </h5>
-                                <p class="card-text text-muted small">
-                                    Khung tranh thủ công từ các tình nguyện viên làm nên...
-                                </p>
-                                <p class="text-primary fw-bold fs-5 mb-2">
-                                    30,000đ
-                                </p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <small class="text-muted">
-                                        Đồ thủ công
-                                    </small>
-                                    <small class="text-muted">
-                                        Còn: 75
-                                    </small>
-                                </div>
-                            </div>
-                            <div class="card-footer bg-transparent">
-                                <div class="d-flex gap-2">
-                                    <a href="product_detail.php?id=3"
-                                       class="btn btn-outline-primary flex-fill">
-                                        Chi tiết
-                                    </a>
-                                    <button class="btn btn-primary flex-fill add-to-cart-btn"
-                                            data-product-id="3"
-                                            data-product-name="Khung tranh trang trí">
-                                        <i class="fas fa-cart-plus me-1"></i>Thêm vào giỏ
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card product-card h-100 border-0 shadow-sm">
-                            <div class="position-relative">
-                                <img src="https://rungvang.vn/wp-content/uploads/2017/05/mat-ong-rung-n-7.jpg"
-                                     class="card-img-top" alt="Mật ong rừng nguyên chất"
-                                     onerror="this.src='../assets/images/default-product.jpg'"
-                                     style="height: 250px; object-fit: cover;">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <a href="product_detail.php?id=2" class="text-decoration-none">
-                                        Mật ong rừng nguyên chất
-                                    </a>
-                                </h5>
-                                <p class="card-text text-muted small">
-                                    Mật ong thu hoạch từ rừng tự nhiên, không pha trộn...
-                                </p>
-                                <p class="text-primary fw-bold fs-5 mb-2">
-                                    250,000đ
-                                </p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <small class="text-muted">
-                                        Thực phẩm hữu cơ
-                                    </small>
-                                    <small class="text-muted">
-                                        Còn: 50
-                                    </small>
-                                </div>
-                            </div>
-                            <div class="card-footer bg-transparent">
-                                <div class="d-flex gap-2">
-                                    <a href="product_detail.php?id=2"
-                                       class="btn btn-outline-primary flex-fill">
-                                        Chi tiết
-                                    </a>
-                                    <button class="btn btn-primary flex-fill add-to-cart-btn"
-                                            data-product-id="2"
-                                            data-product-name="Mật ong rừng nguyên chất">
-                                        <i class="fas fa-cart-plus me-1"></i>Thêm vào giỏ
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card product-card h-100 border-0 shadow-sm">
-                            <div class="position-relative">
-                                <img src="https://storage.googleapis.com/ops-shopee-files-live/live/shopee-blog/2021/06/kinh-nghiem-mua-vong-tay-tram-huong-3.jpg"
-                                     class="card-img-top" alt="Vòng tay gỗ trầm hương"
-                                     onerror="this.src='../assets/images/default-product.jpg'"
-                                     style="height: 250px; object-fit: cover;">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <a href="product_detail.php?id=5" class="text-decoration-none">
-                                        Vòng tay gỗ trầm hương
-                                    </a>
-                                </h5>
-                                <p class="card-text text-muted small">
-                                    Vòng tay gỗ trầm hương tự nhiên...
-                                </p>
-                                <p class="text-primary fw-bold fs-5 mb-2">
-                                    120,000đ
-                                </p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <small class="text-muted">
-                                        Phụ kiện
-                                    </small>
-                                    <small class="text-muted">
-                                        Còn: 200
-                                    </small>
-                                </div>
-                            </div>
-                            <div class="card-footer bg-transparent">
-                                <div class="d-flex gap-2">
-                                    <a href="product_detail.php?id=5"
-                                       class="btn btn-outline-primary flex-fill">
-                                        Chi tiết
-                                    </a>
-                                    <button class="btn btn-primary flex-fill add-to-cart-btn"
-                                            data-product-id="5"
-                                            data-product-name="Vòng tay gỗ trầm hương">
-                                        <i class="fas fa-cart-plus me-1"></i>Thêm vào giỏ
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                                <div class="card-footer bg-transparent">
+                                    <div class="d-flex gap-2">
+                                        <a asp-action="Details" asp-route-id="@item.MaSanPham" class="btn btn-shop-outline">Chi tiết</a>
+                                        <button class="btn btn-shop-primary btn-add-to-cart"
+                                                data-id="@item.MaSanPham"
+                                                data-ten="@item.TenSanPham"
+                                                data-gia="@item.GiaBan"
+                                                data-anh="@item.HinhAnhDaiDien">
+                                            <i class="fas fa-cart-plus me-1"></i> Thêm vào giỏ
+                                        </button>
 
-                <!-- Pagination -->
-
-            </div>
-        </div>
-    </div>
-
-    <!-- Add to Cart Modal -->
-    <div class="modal fade" id="cartModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Thêm vào giỏ hàng</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
-                <div class="modal-body text-center">
-                    <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
-                    <p>Sản phẩm đã được thêm vào giỏ hàng!</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tiếp tục mua</button>
-                    <a href="cart.php" class="btn btn-primary">Xem giỏ hàng</a>
+                <nav class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                        {
+                            <li class="page-item @(i == ViewBag.Page ? "active" : "")">
+                                <a class="page-link"
+                                   href="?sort=@ViewBag.Sort&per_page=@ViewBag.PerPage&page=@i">@i</a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+                <div class="modal fade" id="cartModal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Thêm vào giỏ hàng</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
+                                <p>Sản phẩm đã được thêm vào giỏ hàng!</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-shop-outline" data-bs-dismiss="modal">Tiếp tục mua</button>
+                                <a asp-controller="GioHang" asp-action="Index" class="btn btn-shop-primary">Xem giỏ hàng</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
+    </div>
     <script>
+        document.querySelectorAll(".btn-add-to-cart").forEach(btn => {
+            btn.addEventListener("click", function () {
+                const product = {
+                    MaSanPham: this.dataset.id,
+                    TenSanPham: this.dataset.ten,
+                    GiaBan: parseFloat(this.dataset.gia),
+                    HinhAnh : this.dataset.anh,
+                    SoLuong: 1
+                };
+
+                fetch("/GioHang/ThemSanPham", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(product)
+                })
+                .then(res => {
+                  if (res.ok) {
+                        res.json().then(data => {
+                            const modal = new bootstrap.Modal(document.getElementById('cartModal'));
+                            modal.show();
+                            // Cập nhật số lượng ở biểu tượng giỏ hàng
+                            const badge = document.querySelector(".nav-item .badge");
+                            if (badge && data.count !== undefined) {
+                                badge.textContent = data.count;
+                            }
+                        });
+                    }   else {
+                        alert("Lỗi khi thêm vào giỏ hàng!");
+                    }
+                })
+                .catch(err => console.error(err));
+            });
+         });
         function updateSort() {
             const sort = document.getElementById('sort').value;
             const urlParams = new URLSearchParams(window.location.search);
@@ -397,70 +251,7 @@
             window.location.search = urlParams.toString();
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            // Handle add to cart buttons
-            const addToCartBtns = document.querySelectorAll('.add-to-cart-btn');
-            const cartModal = new bootstrap.Modal(document.getElementById('cartModal'));
 
-            addToCartBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const productId = this.dataset.productId;
-                    const productName = this.dataset.productName;
-
-                    // Add loading state
-                    const originalText = this.innerHTML;
-                    this.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Đang thêm...';
-                    this.disabled = true;
-
-                    // AJAX request to add to cart
-                    fetch('add_to_cart.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                        body: `product_id=${productId}&quantity=1`
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            // Update cart count in header
-                            const cartBadge = document.querySelector('.cart-count');
-                            if (cartBadge) {
-                                cartBadge.textContent = data.cart_count;
-                            }
-
-                            // Show success modal
-                            cartModal.show();
-                        } else {
-                            alert(data.message || 'Có lỗi xảy ra');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('Có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng');
-                    })
-                    .finally(() => {
-                        // Restore button state
-                        this.innerHTML = originalText;
-                        this.disabled = false;
-                    });
-                });
-            });
-
-            // Update price display when inputs change
-            const minPriceInput = document.getElementById('min_price');
-            const maxPriceInput = document.getElementById('max_price');
-            const priceDisplay = document.getElementById('price-display');
-
-            function updatePriceDisplay() {
-                const minPrice = parseInt(minPriceInput.value) || 0;
-                const maxPrice = parseInt(maxPriceInput.value) || 250000.00;
-                priceDisplay.textContent = `${minPrice.toLocaleString()}đ - ${maxPrice.toLocaleString()}đ`;
-            }
-
-            minPriceInput.addEventListener('input', updatePriceDisplay);
-            maxPriceInput.addEventListener('input', updatePriceDisplay);
-        });
     </script>
 
 </main>

@@ -1,0 +1,33 @@
+﻿@model TuanAnhBacDatSang_DoAnWeb.ViewModels.NguoiDungViewModel
+@{
+    ViewData["Title"] = "Chi tiết người dùng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-4">
+    <main class="TruongSach-main-content">
+        <h2 class="text-TruongSach-primary mb-4">Chi tiết người dùng</h2>
+
+        <div class="card shadow-sm mb-4" style="max-width: 700px;">
+            <div class="row g-0">
+                <div class="col-md-4 text-center p-3">
+                    <img src="@Model.AvatarUrl" class="img-fluid rounded-circle" alt="Avatar" style="max-height: 150px;" />
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">@Model.HoTen</h5>
+                        <p class="card-text mb-1"><strong>Email:</strong> @Model.Email</p>
+                        <p class="card-text mb-1"><strong>SĐT:</strong> @Model.SoDienThoai</p>
+                        <p class="card-text mb-1"><strong>Vai trò:</strong> @Model.TenVaiTro (@Model.MaVaiTro)</p>
+                        <p class="card-text mb-1"><strong>Trạng thái:</strong> @Model.TrangThai</p>
+                        <p class="card-text mb-1"><strong>Ngày đăng ký:</strong> @Model.NgayDangKy?.ToString("dd/MM/yyyy")</p>
+                        <p class="card-text"><strong>Điểm thiện nguyện:</strong> @Model.DiemThuong?.ToString("N0")</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a asp-action="Edit" asp-route-id="@Model.MaNguoiDung" class="btn btn-warning">Sửa</a>
+        <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+    </main>
+</div>

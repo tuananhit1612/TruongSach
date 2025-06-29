@@ -1,4 +1,4 @@
-﻿namespace TruongSach_API.DTO
+﻿namespace TruongSach_API.DTOs
 {
     public class GoogleLoginRequest
     {

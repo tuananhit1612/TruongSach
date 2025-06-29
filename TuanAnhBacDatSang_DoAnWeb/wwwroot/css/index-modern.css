@@ -1,5 +1,5 @@
 ﻿:root {
-    /* VinTech Enhanced Color Palette */
+    /* TruongSach Enhanced Color Palette */
     --TruongSach-primary: #2d5a27;
     /* Deep Forest Green */
     --TruongSach-secondary: #4a7c59;
@@ -20,12 +20,12 @@
     /* Text Gray */
     --TruongSach-border: #e8f5e8;
     /* Light Green Border */
-    /* VinTech Advanced Gradients */
+    /* TruongSach Advanced Gradients */
     --TruongSach-gradient-hero: linear-gradient(135deg, #2d5a27 0%, #4a7c59 50%, #6fbb6b 100%);
     --TruongSach-gradient-card: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
     --TruongSach-gradient-button: linear-gradient(135deg, #6fbb6b 0%, #28a745 100%);
     --TruongSach-gradient-accent: linear-gradient(135deg, #4a7c59 0%, #6fbb6b 100%);
-    /* VinTech Professional Shadows */
+    /* TruongSach Professional Shadows */
     --TruongSach-shadow-soft: 0 2px 8px rgba(45, 90, 39, 0.08);
     --TruongSach-shadow-medium: 0 4px 16px rgba(45, 90, 39, 0.12);
     --TruongSach-shadow-strong: 0 8px 24px rgba(45, 90, 39, 0.16);
@@ -63,7 +63,7 @@
         text-decoration: underline;
     }
 
-/* VinTech Hero Section */
+/* TruongSach Hero Section */
 .TruongSach-hero {
     background: var(--TruongSach-gradient-hero);
     color: var(--TruongSach-white);
@@ -240,7 +240,7 @@
         transform: perspective(1000px) rotateY(0deg);
     }
 
-/* VinTech Stats Section */
+/* TruongSach Stats Section */
 .TruongSach-stats {
     background: var(--TruongSach-white);
     padding: 100px 0;
@@ -388,7 +388,7 @@
     line-height: 1.4;
 }
 
-/* VinTech About Section */
+/* TruongSach About Section */
 .TruongSach-about {
     background: var(--TruongSach-bg-light);
     padding: 100px 0;
@@ -496,7 +496,7 @@
     font-size: 1.1rem;
 }
 
-/* VinTech Call to Action */
+/* TruongSach Call to Action */
 .TruongSach-cta {
     background: var(--TruongSach-gradient-hero);
     color: var(--TruongSach-white);
@@ -544,7 +544,7 @@
     flex-wrap: wrap;
 }
 
-/* VinTech Content Cards */
+/* TruongSach Content Cards */
 .TruongSach-content-section {
     padding: 100px 0;
 }
@@ -670,7 +670,7 @@
         text-decoration: none;
     }
 
-/* VinTech Gallery Section */
+/* TruongSach Gallery Section */
 .TruongSach-gallery {
     background: var(--TruongSach-white);
     padding: 100px 0;
@@ -778,7 +778,7 @@
     transform: translateX(0);
 }
 
-/* VinTech Testimonials */
+/* TruongSach Testimonials */
 .TruongSach-testimonials {
     background: var(--TruongSach-bg-light);
     padding: 100px 0;
@@ -870,7 +870,7 @@
         margin-right: 2px;
     }
 
-/* VinTech Impact Stories */
+/* TruongSach Impact Stories */
 .TruongSach-impact {
     background: var(--TruongSach-white);
     padding: 100px 0;
@@ -956,7 +956,7 @@
     opacity: 0.8;
 }
 
-/* VinTech Partners */
+/* TruongSach Partners */
 .TruongSach-partners {
     background: var(--TruongSach-bg-light);
     padding: 80px 0;
@@ -1000,7 +1000,7 @@
         opacity: 1;
     }
 
-/* VinTech Interactive Stats */
+/* TruongSach Interactive Stats */
 .TruongSach-interactive-stats {
     background: var(--TruongSach-gradient-hero);
     color: var(--TruongSach-white);
@@ -1061,7 +1061,7 @@
     opacity: 0.9;
 }
 
-/* VinTech Video Section */
+/* TruongSach Video Section */
 .TruongSach-video {
     background: var(--TruongSach-gradient-hero);
     padding: 100px 0;
@@ -1161,7 +1161,7 @@
     line-height: 1.5;
 }
 
-/* VinTech How It Works */
+/* TruongSach How It Works */
 .TruongSach-how-it-works {
     background: var(--TruongSach-white);
     padding: 100px 0;
@@ -1241,7 +1241,7 @@
     line-height: 1.6;
 }
 
-/* VinTech News & Updates */
+/* TruongSach News & Updates */
 .TruongSach-news {
     background: var(--TruongSach-bg-light);
     padding: 100px 0;
@@ -1445,7 +1445,7 @@
     }
 }
 
-/* VinTech Scroll to Top Button */
+/* TruongSach Scroll to Top Button */
 .TruongSach-scroll-top {
     position: fixed;
     bottom: 30px;

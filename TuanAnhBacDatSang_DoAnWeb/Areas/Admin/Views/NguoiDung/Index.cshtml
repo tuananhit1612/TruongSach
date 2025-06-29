@@ -1,0 +1,54 @@
+﻿@model List<TuanAnhBacDatSang_DoAnWeb.ViewModels.NguoiDungViewModel>
+@{
+    ViewData["Title"] = "Danh sách người dùng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-4">
+    <main class="TruongSach-main-content">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="text-TruongSach-primary mb-0">Danh Sách người dùng</h2>
+            <a asp-action="Index" asp-controller="Dashboard" class="btn btn-secondary">← Quay về DashBoard</a>
+        </div>
+
+        @* <a class="btn btn-success mb-3" asp-action="Create">Thêm người dùng</a> *@
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="bg-TruongSach-primary text-white">
+                    <tr>
+                        <th>Ảnh đại diện</th>
+                        <th>Họ tên</th>
+                        <th>Email</th>
+                        <th>SĐT</th>
+                        <th>Vai trò</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model)
+                    {
+                            <tr>
+                                <td>
+                                    <img src="@user.AvatarUrl" alt="Avatar" class="img-thumbnail" style="max-width: 80px; max-height: 80px;" />
+                                </td>
+                                <td>@user.HoTen</td>
+                                <td>@user.Email</td>
+                                <td>@user.SoDienThoai</td>
+                                <td>@user.TenVaiTro</td>
+                                <td>@user.TrangThai</td>
+                                <td>
+                                    <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@user.MaNguoiDung">Chi tiết</a>
+                                    <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@user.MaNguoiDung">Sửa</a>
+                                    <form asp-action="Delete" asp-route-id="@user.MaNguoiDung" method="post" style="display:inline;" onsubmit="return confirm('Bạn có chắc muốn xóa người dùng này?');">
+                                        <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                                    </form>
+                                </td>
+                            </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>

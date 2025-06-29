@@ -68,7 +68,7 @@ namespace TuanAnhBacDatSang_DoAnWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(User user)
         {
-            
+
 
             var apiLogin = new
             {
@@ -88,18 +88,35 @@ namespace TuanAnhBacDatSang_DoAnWeb.Controllers
                             PropertyNameCaseInsensitive = true
                         }
                     );
-                if(result == null)
+                if (result == null)
                 {
                     TempData["ToastMessage"] = "Đăng nhập thất bại, vui lòng thử lại!";
                     TempData["ToastType"] = "danger";
                     return RedirectToAction("Login");
                 }
 
+                
                 HttpContext.Session.SetInt32("UserId", result.User.MaNguoiDung);
                 HttpContext.Session.SetString("UserName", result.User.HoTen);
                 HttpContext.Session.SetString("UserEmail", result.User.Email);
                 HttpContext.Session.SetString("UserRole", result.User.TenVaiTro);
 
+                var claims = new List<Claim>
+{
+                    new Claim(ClaimTypes.Name, result.User.HoTen),
+                    new Claim(ClaimTypes.NameIdentifier, result.User.MaNguoiDung.ToString()),
+                    new Claim(ClaimTypes.Role, result.User.TenVaiTro)
+                };
+
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var principal = new ClaimsPrincipal(identity);
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal,
+                new AuthenticationProperties
+                {
+                    IsPersistent = false  
+                });
                 return RedirectToAction("Index", "TrangChu");
             }
             TempData["ToastMessage"] = await response.Content.ReadAsStringAsync();
@@ -172,6 +189,8 @@ namespace TuanAnhBacDatSang_DoAnWeb.Controllers
                     HttpContext.Session.SetString("UserEmail", rs.User.Email ?? "");
                     HttpContext.Session.SetString("UserAvatar", rs.User.AvatarUrl ?? "");
                     HttpContext.Session.SetString("UserRole", rs.User.TenVaiTro ?? "");
+
+
                     return RedirectToAction("Index", "TrangChu");
                 }
 

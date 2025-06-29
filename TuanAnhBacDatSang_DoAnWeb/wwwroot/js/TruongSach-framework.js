@@ -18,7 +18,6 @@ class TruongSachFramework {
         this.initWishlist();
         this.initSocialSharing();
         this.initScrollEffects();
-        this.initDashboard();
     }
 
     // Toast Notification System
@@ -355,20 +354,7 @@ class TruongSachFramework {
         });
     }
 
-    // Dashboard Analytics
-    initDashboard() {
-        this.initCounters();
-        this.initCharts();
-    }
-
-    initCounters() {
-        const counters = document.querySelectorAll('[data-counter]');
-        counters.forEach(counter => {
-            const target = parseInt(counter.dataset.counter);
-            const duration = parseInt(counter.dataset.duration) || 2000;
-            this.animateCounter(counter, target, duration);
-        });
-    }
+    
 
     animateCounter(element, target, duration) {
         const start = 0;
@@ -385,10 +371,7 @@ class TruongSachFramework {
         }, 16);
     }
 
-    initCharts() {
-        // Placeholder for chart initialization
-        // Can be extended with Chart.js or other charting libraries
-    }
+    
 
     initFileUpload() {
         const fileInputs = document.querySelectorAll('input[type="file"][data-preview]');

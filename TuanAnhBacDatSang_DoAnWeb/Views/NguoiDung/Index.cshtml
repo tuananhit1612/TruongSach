@@ -1,0 +1,631 @@
+﻿@model TuanAnhBacDatSang_DoAnWeb.ViewModels.NguoiDungViewModel
+@{
+    ViewData["Title"] = "Trang cá nhân";
+}
+<main class="TruongSach-main-content">
+
+    <!-- TruongSach Profile Page -->
+    <div class="TruongSach-profile-page">
+        <div class="container">
+            <div class="row">
+                <!-- Profile Sidebar -->
+                <div class="col-lg-4">
+                    <div class="profile-sidebar" data-animate="fadeInLeft">
+                        <div class="profile-card">
+                            <div class="profile-avatar">
+                                <img src="@Model.AvatarUrl" alt="@Model.HoTen" style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%;">
+                                <button class="avatar-edit-btn" data-bs-toggle="modal" data-bs-target="#avatarModal">
+                                    <i class="fas fa-camera"></i>
+                                </button>
+                            </div>
+                            <div class="profile-info">
+                                <h4>@Model.HoTen</h4>
+                                <p class="profile-email">@Model.Email</p>
+                                <div class="profile-badges">
+                                    <span class="badge badge-verified">
+                                        <i class="fas fa-check-circle"></i> Đã xác thực
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="profile-stats">
+                            <h6>Thống kê hoạt động</h6>
+                            <div class="stat-item">
+                                <i class="fas fa-heart"></i>
+                                <span>Đã quyên góp: <strong>5 lần</strong></span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span>Đã mua: <strong>12 sản phẩm</strong></span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Tham gia: <strong>20/06/2025</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Content -->
+                <div class="col-lg-8">
+                    <div class="profile-content" data-animate="fadeInRight">
+                        <!-- Profile Tabs -->
+                        <div class="profile-tabs">
+                            <ul class="nav nav-tabs" id="profileTabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="info-tab" data-bs-toggle="tab"
+                                            data-bs-target="#info" type="button" role="tab">
+                                        <i class="fas fa-user"></i> Thông tin cá nhân
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="security-tab" data-bs-toggle="tab"
+                                            data-bs-target="#security" type="button" role="tab">
+                                        <i class="fas fa-shield-alt"></i> Bảo mật
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="activity-tab" data-bs-toggle="tab"
+                                            data-bs-target="#activity" type="button" role="tab">
+                                        <i class="fas fa-history"></i> Hoạt động
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Tab Content -->
+                        <div class="tab-content" id="profileTabContent">
+                            <!-- Personal Info Tab -->
+                            <div class="tab-pane fade show active" id="info" role="tabpanel">
+                                <div class="tab-header">
+                                    <h5>Thông tin cá nhân</h5>
+                                    <p>Cập nhật thông tin cá nhân của bạn</p>
+                                </div>
+
+
+
+                                <form asp-action="CapNhatNguoiDung" asp-controller="NguoiDung" method="POST" class="profile-form">
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="TruongSach-form-group">
+                                                <label class="TruongSach-form-label">Tên đăng nhập</label>
+                                                <input type="text" class="TruongSach-form-control" value="@Model.HoTen"
+                                                       disabled>
+                                                <small class="form-text">Tên đăng nhập không thể thay đổi</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="TruongSach-form-group">
+                                                <label class="TruongSach-form-label">Email</label>
+                                                <input type="email" class="TruongSach-form-control"
+                                                       value="@Model.Email" disabled>
+                                                <small class="form-text">Email không thể thay đổi</small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="TruongSach-form-group">
+                                        <label class="TruongSach-form-label">Họ và tên *</label>
+                                        <input type="text" name="full_name" class="TruongSach-form-control"
+                                               value="@Model.HoTen" required>
+                                    </div>
+
+                                    <div class="TruongSach-form-group">
+                                        <label class="TruongSach-form-label">Số điện thoại</label>
+                                        <input type="tel" name="phone" class="TruongSach-form-control" value="@Model.SoDienThoai">
+                                    </div>
+
+                                    <button type="submit" class="TruongSach-btn-enhanced TruongSach-btn-primary-enhanced">
+                                        <i class="fas fa-save"></i> Cập nhật thông tin
+                                    </button>
+                                </form>
+                            </div>
+
+                            <!-- Security Tab -->
+                            <div class="tab-pane fade" id="security" role="tabpanel">
+                                <div class="tab-header">
+                                    <h5>Bảo mật tài khoản</h5>
+                                    <p>Quản lý mật khẩu và cài đặt bảo mật</p>
+                                </div>
+
+
+
+                                <form method="POST" class="profile-form">
+                                    <input type="hidden" name="action" value="change_password">
+
+                                    <div class="TruongSach-form-group">
+                                        <label class="TruongSach-form-label">Mật khẩu hiện tại</label>
+                                        <input type="password" name="current_password" class="TruongSach-form-control"
+                                               required>
+                                    </div>
+
+                                    <div class="TruongSach-form-group">
+                                        <label class="TruongSach-form-label">Mật khẩu mới</label>
+                                        <input type="password" name="new_password" class="TruongSach-form-control"
+                                               minlength="6" required>
+                                    </div>
+
+                                    <div class="TruongSach-form-group">
+                                        <label class="TruongSach-form-label">Xác nhận mật khẩu mới</label>
+                                        <input type="password" name="confirm_password" class="TruongSach-form-control"
+                                               required>
+                                    </div>
+
+                                    <button type="submit" class="TruongSach-btn-enhanced TruongSach-btn-primary-enhanced">
+                                        <i class="fas fa-key"></i> Đổi mật khẩu
+                                    </button>
+                                </form>
+
+                                @* <div class="security-info mt-4"> *@
+                                @*     <h6>Thông tin bảo mật</h6> *@
+                                @*     <div class="security-item"> *@
+                                @*         <i class="fas fa-clock"></i> *@
+                                @*         <span>Đăng nhập lần cuối: 27/06/2025 19:33</span> *@
+                                @*     </div> *@
+                                @*     <div class="security-item"> *@
+                                @*         <i class="fas fa-shield-check"></i> *@
+                                @*         <span> *@
+                                @*             Trạng thái: <strong class="text-success"> *@
+                                @*                 Tài khoản an *@
+                                @*                 toàn *@
+                                @*             </strong> *@
+                                @*         </span> *@
+                                @*     </div> *@
+                                @* </div> *@
+                            </div>
+
+                            <!-- Activity Tab -->
+                            <div class="tab-pane fade" id="activity" role="tabpanel">
+                                <div class="tab-header">
+                                    <h5>Lịch sử hoạt động</h5>
+                                    <p>Theo dõi các hoạt động gần đây của bạn</p>
+                                </div>
+
+                                <div class="activity-list">
+                                    <div class="activity-item">
+                                        <div class="activity-icon login">
+                                            <i class="fas fa-sign-in-alt"></i>
+                                        </div>
+                                        <div class="activity-content">
+                                            <div class="activity-title">Đăng nhập thành công</div>
+                                            <div class="activity-time">Hôm nay, 14:30</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="activity-item">
+                                        <div class="activity-icon donation">
+                                            <i class="fas fa-heart"></i>
+                                        </div>
+                                        <div class="activity-content">
+                                            <div class="activity-title">Quyên góp cho dự án "Xây trường học"</div>
+                                            <div class="activity-time">Hôm qua, 16:45</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="activity-item">
+                                        <div class="activity-icon purchase">
+                                            <i class="fas fa-shopping-cart"></i>
+                                        </div>
+                                        <div class="activity-content">
+                                            <div class="activity-title">Mua sản phẩm "Gạo hữu cơ ST25"</div>
+                                            <div class="activity-time">3 ngày trước, 10:20</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Avatar Upload Modal -->
+    <div class="modal fade" id="avatarModal" tabindex="-1" aria-labelledby="avatarModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="avatarModalLabel">
+                        <i class="fas fa-camera me-2"></i>Cập nhật ảnh đại diện
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="POST" enctype="multipart/form-data" id="avatarForm">
+                    <div class="modal-body">
+                        <input type="hidden" name="action" value="upload_avatar">
+
+
+
+                        <div class="text-center mb-4">
+                            <div class="current-avatar">
+                                <div style="width: 120px; height: 120px; border-radius: 50%; background: #007bff; display: flex; align-items: center; justify-content: center; color: white; font-size: 36px; font-weight: bold; border: 3px solid #007bff;">
+                                    2
+                                </div>
+                            </div>
+                            <p class="mt-2 text-muted">Ảnh đại diện hiện tại</p>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="avatar" class="form-label">Chọn ảnh mới:</label>
+                            <input type="file" class="form-control" id="avatar" name="avatar"
+                                   accept="image/jpeg,image/jpg,image/png,image/gif" required>
+                            <div class="form-text">
+                                <i class="fas fa-info-circle me-1"></i>
+                                Chấp nhận file JPG, JPEG, PNG, GIF. Kích thước tối đa: 2MB<br>
+                                <i class="fas fa-database me-1"></i>
+                                Ảnh sẽ được lưu trực tiếp vào cơ sở dữ liệu
+                            </div>
+                        </div>
+
+                        <div class="preview-container" style="display: none;">
+                            <label class="form-label">Xem trước:</label>
+                            <div class="text-center">
+                                <img id="avatarPreview" src="" alt="Preview"
+                                     style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid #28a745;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <i class="fas fa-times me-1"></i>Hủy
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-upload me-1"></i>Cập nhật ảnh
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced CSS for Profile Page -->
+    <style>
+        .TruongSach-profile-page {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+            padding: 6rem 0;
+        }
+
+        .profile-sidebar {
+            position: sticky;
+            top: 120px;
+        }
+
+        .profile-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--TruongSach-shadow-lg);
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-avatar {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+            .profile-avatar img,
+            .profile-avatar > div {
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 4px solid var(--TruongSach-primary);
+                display: block;
+                margin: 0 auto;
+            }
+
+        .avatar-edit-btn {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 35px;
+            height: 35px;
+            background: var(--TruongSach-primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all var(--TruongSach-transition-base);
+        }
+
+            .avatar-edit-btn:hover {
+                background: var(--TruongSach-primary-dark);
+                transform: scale(1.1);
+            }
+
+        .profile-info h4 {
+            color: var(--TruongSach-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-email {
+            color: #6c757d;
+            margin-bottom: 1rem;
+        }
+
+        .profile-badges {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 0.5rem 1rem;
+            border-radius: 1rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .badge-admin {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+        }
+
+        .badge-verified {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+        }
+
+        .profile-stats {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: var(--TruongSach-shadow-md);
+        }
+
+            .profile-stats h6 {
+                color: var(--TruongSach-primary);
+                margin-bottom: 1rem;
+                text-align: center;
+            }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+            .stat-item:last-child {
+                border-bottom: none;
+            }
+
+            .stat-item i {
+                color: var(--TruongSach-primary);
+                width: 20px;
+            }
+
+        .profile-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 1.5rem;
+            box-shadow: var(--TruongSach-shadow-lg);
+            overflow: hidden;
+        }
+
+        .profile-tabs .nav-tabs {
+            border-bottom: 1px solid #dee2e6;
+            background: rgba(45, 90, 39, 0.05);
+            padding: 0 1.5rem;
+        }
+
+        .profile-tabs .nav-link {
+            border: none;
+            color: #6c757d;
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            transition: all var(--TruongSach-transition-base);
+        }
+
+            .profile-tabs .nav-link.active {
+                color: var(--TruongSach-primary);
+                background: transparent;
+                border-bottom: 3px solid var(--TruongSach-primary);
+            }
+
+        .tab-content {
+            padding: 2rem;
+        }
+
+        .tab-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+            .tab-header h5 {
+                color: var(--TruongSach-primary);
+                margin-bottom: 0.5rem;
+            }
+
+        .profile-form {
+            margin-bottom: 2rem;
+        }
+
+        .form-text {
+            color: #6c757d;
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+        }
+
+        .security-info {
+            background: rgba(111, 187, 107, 0.1);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(111, 187, 107, 0.2);
+        }
+
+            .security-info h6 {
+                color: var(--TruongSach-primary);
+                margin-bottom: 1rem;
+            }
+
+        .security-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+            .security-item i {
+                color: var(--TruongSach-primary);
+                width: 20px;
+            }
+
+        .activity-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+            .activity-item:last-child {
+                border-bottom: none;
+            }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+        }
+
+            .activity-icon.login {
+                background: var(--TruongSach-info);
+            }
+
+            .activity-icon.donation {
+                background: var(--TruongSach-success);
+            }
+
+            .activity-icon.purchase {
+                background: var(--TruongSach-warning);
+            }
+
+        .activity-title {
+            font-weight: 600;
+            color: var(--TruongSach-primary);
+        }
+
+        .activity-time {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        media (max-width: 768px) {
+            .profile-sidebar
+
+        {
+            position: static;
+            margin-bottom: 2rem;
+        }
+
+        .profile-tabs .nav-tabs {
+            padding: 0;
+        }
+
+        .profile-tabs .nav-link {
+            padding: 0.75rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        .tab-content {
+            padding: 1.5rem;
+        }
+
+        }
+    </style>
+
+    <!-- TruongSach Enhanced JavaScript -->
+    <script src="~/js/TruongSach-framework.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Show success/error messages
+
+            // Avatar preview functionality
+            const avatarInput = document.getElementById('avatar');
+            const avatarPreview = document.getElementById('avatarPreview');
+            const previewContainer = document.querySelector('.preview-container');
+
+            // Handle avatar form submission
+            const avatarForm = document.getElementById('avatarForm');
+            if (avatarForm) {
+                avatarForm.addEventListener('submit', function (e) {
+                    // Let the form submit normally, but prevent any additional reloads
+                    console.log('Avatar form submitted');
+                });
+            }
+
+            if (avatarInput) {
+                avatarInput.addEventListener('change', function (e) {
+                    const file = e.target.files[0];
+
+                    if (file) {
+                        // Validate file type
+                        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+                        if (!allowedTypes.includes(file.type)) {
+                            alert('Chỉ chấp nhận file ảnh (JPG, JPEG, PNG, GIF)');
+                            this.value = '';
+                            previewContainer.style.display = 'none';
+                            return;
+                        }
+
+                        // Validate file size (2MB for database storage)
+                        if (file.size > 2 * 1024 * 1024) {
+                            alert('File ảnh không được vượt quá 2MB (để lưu vào cơ sở dữ liệu)');
+                            this.value = '';
+                            previewContainer.style.display = 'none';
+                            return;
+                        }
+
+                        // Show preview
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            avatarPreview.src = e.target.result;
+                            previewContainer.style.display = 'block';
+                        };
+                        reader.readAsDataURL(file);
+                    } else {
+                        previewContainer.style.display = 'none';
+                    }
+                });
+            }
+
+            const passwordForm = document.querySelector('form[action*="change_password"]');
+            if (passwordForm) {
+                passwordForm.addEventListener('submit', function (e) {
+                    const newPassword = this.querySelector('[name="new_password"]').value;
+                    const confirmPassword = this.querySelector('[name="confirm_password"]').value;
+
+                    if (newPassword !== confirmPassword) {
+                        e.preventDefault();
+                        if (window.TruongSach) {
+                            TruongSach.showToast('Mật khẩu xác nhận không khớp', 'error');
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+
+</main>

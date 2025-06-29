@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using TruongSach_API.DTO;
+using TruongSach_API.DTOs;
 using TruongSach_API.Models;
 using TruongSach_API.Repositories;
 
@@ -16,13 +16,29 @@ namespace TruongSach_API.Controllers
         {
             _userRepository = userRepository;
         }
+        [HttpGet]
+        public async Task<IActionResult> GetUserById(int userId)
+        {
+            var user = await _userRepository.GetByIdAsync(userId);
+            if (user == null)
+                return NotFound("Người dùng không tồn tại.");
+            return Ok(new
+            {
+                user.MaNguoiDung,
+                user.HoTen,
+                user.Email,
+                user.SoDienThoai,
+                DiemThuong = user.DiemThuong ?? 0,
+                TenVaiTro = user.MaVaiTroNavigation?.TenVaiTro ?? "User"
+            });
+        }
         [HttpPost("register")]
         public async Task<IActionResult> Register(Nguoidung user)
         {
             if (await _userRepository.EmailExistsAsync(user.Email))
                 return BadRequest("Email đã được sử dụng.");
 
-            
+
             user.MatKhau = BCrypt.Net.BCrypt.HashPassword(user.MatKhau);
             user.MaVaiTro = 10000;
 
@@ -65,7 +81,7 @@ namespace TruongSach_API.Controllers
                 user = await _userRepository.GetByEmailAsync(request.Email);
                 if (user != null)
                 {
-                    
+
                     user.GoogleId = request.GoogleId;
                     user.AvatarUrl = request.AvatarUrl;
                     await _userRepository.UpdateAsync(user);
@@ -103,7 +119,20 @@ namespace TruongSach_API.Controllers
                 }
             });
         }
+        [HttpPost("doimatkhau")]
+        public async Task<IActionResult> DoiMatKhau(DoiMatKhauRequest request)
+        {
+            var success = await _userRepository.DoiMatKhau(request.MaNguoiDung, request.MatKhauCu, request.MatKhauMoi);
 
+            if (!success) return BadRequest("Mật khẩu cũ không đúng");
+            return Ok("Đổi mật khẩu thành công");
+        }
 
+        [HttpGet("diemThieNguyen")]
+        public async Task<IActionResult> LayDiemThienNguyen(int userId)
+        {
+            var diem = await _userRepository.LayDiemThienNguyen(userId);
+            return Ok(diem);
+        }
     }
 }

@@ -1,0 +1,444 @@
+﻿@model TuanAnhBacDatSang_DoAnWeb.ViewModels.DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard TruongSach";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<main class="TruongSach-main-content">
+
+    <!-- TruongSach Dashboard -->
+    <div class="TruongSach-dashboard">
+        <div class="container-fluid">
+            <!-- Dashboard Header -->
+            <div class="dashboard-header">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <h1 class="dashboard-title">
+                            <i class="fas fa-chart-line me-3"></i>
+                            Dashboard TruongSach
+                        </h1>
+                        <p class="dashboard-subtitle">Tổng quan hoạt động nền tảng CONVOI</p>
+                    </div>
+                    <div class="col-lg-6 text-end">
+                        <div class="dashboard-actions">
+                            <button class="TruongSach-btn-enhanced TruongSach-btn-outline-enhanced"
+                                    onclick="location.reload()">
+                                <i class="fas fa-sync-alt"></i> Làm mới
+                            </button>
+                            <button class="TruongSach-btn-enhanced TruongSach-btn-primary-enhanced"
+                                    data-TruongSach-modal="export-modal">
+                                <i class="fas fa-download"></i> Xuất báo cáo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <!-- Stats Cards -->
+            <div class="row g-4 mb-5">
+                <div class="col-xl-3 col-lg-6">
+                    <div class="TruongSach-stat-card-dashboard stat-primary" data-animate="fadeInUp">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number" >@Model.TotalCampaigns</div>
+                            <div class="stat-label">Tổng sự kiện</div>
+                            <div class="stat-sublabel">@Model.ActiveCampaigns đang hoạt động</div>
+                        </div>
+                        <div class="stat-trend">
+                            <i class="fas fa-arrow-up"></i> +12%
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-lg-6">
+                    <div class="TruongSach-stat-card-dashboard stat-success" data-animate="fadeInUp">
+                        <div class="stat-icon">
+                            <i class="fas fa-donate"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number" >@Model.TotalDonations.ToString("N0") VNĐ</div>
+                            <div class="stat-label">Tổng quyên góp (VND)</div>
+                            <div class="stat-sublabel">@Model.DonationCount lượt quyên góp</div>
+                        </div>
+                        <div class="stat-trend">
+                            <i class="fas fa-arrow-up"></i> +25%
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-lg-6">
+                    <div class="TruongSach-stat-card-dashboard stat-warning" data-animate="fadeInUp">
+                        <div class="stat-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number" >@Model.TotalRevenue.ToString("N0") VNĐ</div>
+                            <div class="stat-label">Doanh thu (VND)</div>
+                            <div class="stat-sublabel">@Model.OrderCount đơn hàng đơn hàng</div>
+                        </div>
+                        <div class="stat-trend">
+                            <i class="fas fa-arrow-up"></i> +18%
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-lg-6">
+                    <div class="TruongSach-stat-card-dashboard stat-info" data-animate="fadeInUp">
+                        <div class="stat-icon">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number" >@Model.TotalProducts</div>
+                            <div class="stat-label">Sản phẩm</div>
+                            <div class="stat-sublabel">@Model.ActiveProducts đang bán</div>
+                        </div>
+                        <div class="stat-trend">
+                            <i class="fas fa-arrow-up"></i> +8%
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row g-4 mt-4">
+                <div class="col-12">
+                    <div class="TruongSach-card-modern animate" data-animate="fadeInUp">
+                        <div class="card-header">
+                            <h5 class="card-title">
+                                <i class="fas fa-bolt me-2"></i>
+                                Quản Lý TruongSach
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="quick-actions">
+                                <a asp-area="Admin" asp-action="Index" asp-controller="ChienDich" class="quick-action-item">
+                                    <div class="action-icon">
+                                        <i class="fas fa-calendar-plus"></i>
+                                    </div>
+                                    <div class="action-title">Quản Lý Thiện Nguyện</div>
+                                    <div class="action-desc">Thêm Xóa Sửa sự kiện thiện nguyện</div>
+                                </a>
+
+                                <a asp-area="Admin" asp-action="Index" asp-controller="SanPham" class="quick-action-item">
+                                    <div class="action-icon">
+                                        <i class="fas fa-plus-circle"></i>
+                                    </div>
+                                    <div class="action-title">Quản lý cửa hàng</div>
+                                    <div class="action-desc">Thêm Xóa Sửa Sản Phẩm,Loại Sản Phẩm</div>
+                                </a>
+
+                                <a asp-area="Admin" asp-action="Index" asp-controller="DongGop" class="quick-action-item">
+                                    <div class="action-icon">
+                                        <i class="fas fa-heart"></i>
+                                    </div>
+                                    <div class="action-title">Quản Lý Quyên Góp</div>
+                                    <div class="action-desc">Ủng hộ thiện nguyện</div>
+                                </a>
+
+                                <a asp-area="Admin" asp-action="Index" asp-controller="NguoiDung" class="quick-action-item">
+                                    <div class="action-icon">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="action-title">Quản Lý Người Dùng</div>
+                                    <div class="action-desc"></div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row g-4">
+                <!-- Biểu đồ quyên góp -->
+                <div class="col-lg-6">
+                    <div class="TruongSach-card-modern">
+                        <div class="card-header">
+                            <h5 class="card-title"><i class="fas fa-chart-line me-2"></i> Tổng quyên góp</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container" style="height: 300px;">
+                                <canvas id="donationChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Biểu đồ doanh thu -->
+                <div class="col-lg-6">
+                    <div class="TruongSach-card-modern">
+                        <div class="card-header">
+                            <h5 class="card-title"><i class="fas fa-chart-area me-2"></i> Doanh thu bán hàng</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container" style="height: 300px;">
+                                <canvas id="revenueChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+        </div>
+    </div>
+
+    <!-- Export Modal -->
+    <div id="export-modal" class="TruongSach-modal">
+        <div class="TruongSach-modal-content">
+            <h4>Xuất báo cáo</h4>
+            <p>Chọn loại báo cáo bạn muốn xuất:</p>
+            <div class="export-options">
+                <button class="TruongSach-btn-enhanced TruongSach-btn-outline-enhanced w-100 mb-2">
+                    <i class="fas fa-file-excel"></i> Báo cáo Excel
+                </button>
+                <button class="TruongSach-btn-enhanced TruongSach-btn-outline-enhanced w-100 mb-2">
+                    <i class="fas fa-file-pdf"></i> Báo cáo PDF
+                </button>
+                <button class="TruongSach-btn-enhanced TruongSach-btn-outline-enhanced w-100">
+                    <i class="fas fa-chart-bar"></i> Báo cáo tùy chỉnh
+                </button>
+            </div>
+            <div class="modal-actions mt-3">
+                <button class="TruongSach-btn-enhanced TruongSach-btn-outline-enhanced" data-modal-close>Hủy</button>
+                <button class="TruongSach-btn-enhanced TruongSach-btn-primary-enhanced">Xuất báo cáo</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced CSS for Dashboard -->
+    <style>
+        .TruongSach-dashboard {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+            padding: 6rem 0;
+        }
+
+        .dashboard-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--TruongSach-shadow-lg);
+        }
+
+        .dashboard-title {
+            color: var(--TruongSach-primary);
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .dashboard-subtitle {
+            color: #6c757d;
+            margin: 0;
+        }
+
+        .TruongSach-stat-card-dashboard {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: var(--TruongSach-shadow-md);
+            transition: all var(--TruongSach-transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+
+            .TruongSach-stat-card-dashboard:hover {
+                transform: translateY(-5px);
+                box-shadow: var(--TruongSach-shadow-xl);
+            }
+
+        .stat-trend {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--TruongSach-success);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .chart-container {
+            height: 300px;
+            position: relative;
+        }
+
+        .activity-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+
+            .activity-icon.donation {
+                background: var(--TruongSach-success);
+                color: white;
+            }
+
+            .activity-icon.order {
+                background: var(--TruongSach-warning);
+                color: white;
+            }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .quick-action-item {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-decoration: none;
+            color: inherit;
+            transition: all var(--TruongSach-transition-base);
+            border: 2px solid transparent;
+        }
+
+            .quick-action-item:hover {
+                background: rgba(255, 255, 255, 1);
+                border-color: var(--TruongSach-primary);
+                transform: translateY(-3px);
+                color: inherit;
+            }
+
+        .action-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--TruongSach-gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .action-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .action-desc {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+    </style>
+
+    <!-- TruongSach Enhanced JavaScript -->
+    <script src="~/js/TruongSach-framework.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <script>
+                    document.addEventListener('DOMContentLoaded', async function () {
+            const createLineChart = (canvasId, apiUrl, label, color) => {
+                const canvas = document.getElementById(canvasId);
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+
+                fetch(apiUrl)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (!Array.isArray(data) || data.length === 0) {
+                            throw new Error("Không có dữ liệu.");
+                        }
+
+                        const labels = data.map(d => d.date); // sửa từ d.month -> d.date
+                        const values = data.map(d => d.total);
+
+                        new Chart(ctx, {
+                            type: 'line',
+                            data: {
+                                labels: labels,
+                                datasets: [{
+                                    label: label,
+                                    data: values,
+                                    borderColor: color,
+                                    backgroundColor: color + '33',
+                                    pointBackgroundColor: color,
+                                    borderWidth: 2,
+                                    fill: true,
+                                    tension: 0.3
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                scales: {
+                                    x: {
+                                        type: 'time',
+                                        time: {
+                                            unit: 'day',
+                                            displayFormats: {
+                                                day: 'dd/MM'
+                                            },
+                                            tooltipFormat: 'dd/MM/yyyy'
+                                        },
+                                        title: {
+                                            display: true,
+                                            text: 'Ngày'
+                                        }
+                                    },
+                                    y: {
+                                        beginAtZero: true,
+                                        ticks: {
+                                            callback: v => v.toLocaleString('vi-VN') + ' ₫'
+                                        },
+                                        title: {
+                                            display: true,
+                                            text: 'Số tiền'
+                                        }
+                                    }
+                                },
+                                plugins: {
+                                    tooltip: {
+                                        callbacks: {
+                                            label: ctx => ctx.parsed.y.toLocaleString('vi-VN') + ' VNĐ'
+                                        }
+                                    },
+                                    legend: {
+                                        display: true
+                                    }
+                                }
+                            }
+                        });
+                        setTimeout(() => {
+                    if (window.TruongSach) {
+                        TruongSach.showToast('Dashboard đã được tải thành công!', 'success');
+                    }
+                }, 1000);
+                    })
+                    .catch(err => {
+                        canvas.insertAdjacentHTML('afterend', `<div style="color:#999;text-align:center">Không có dữ liệu</div>`);
+                        console.error("Chart error:", err);
+                    });
+            };
+
+            // 👇 Gọi 2 biểu đồ:
+            createLineChart("donationChart", "http://localhost:5269/api/Dashboard/donation-stats", "Tổng quyên góp (VNĐ)", "#2d5a27");
+            createLineChart("revenueChart", "http://localhost:5269/api/Dashboard/order-revenue-stats", "Doanh thu (VNĐ)", "#ffc107");
+        });
+
+    </script>
+
+</main>

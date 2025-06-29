@@ -7,7 +7,7 @@ public partial class Donggop
 {
     public int MaDongGop { get; set; }
 
-    public string SoTien { get; set; } = null!;
+    public decimal SoTien { get; set; }
 
     public string HinhThuc { get; set; } = null!;
 
@@ -16,6 +16,10 @@ public partial class Donggop
     public int MaNguoiDung { get; set; }
 
     public int MaChienDich { get; set; }
+
+    public DateTime? NgayDongGop { get; set; }
+
+    public string? TrangThai { get; set; }
 
     public virtual Chiendich MaChienDichNavigation { get; set; } = null!;
 

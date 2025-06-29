@@ -1,0 +1,156 @@
+﻿@model TuanAnhBacDatSang_DoAnWeb.Models.Vnpay.PaymentResponseModel
+
+@{
+    ViewData["Title"] = "Quyên góp thành công";
+}
+
+<section class="donation-thankyou-wrapper">
+    <div class="thankyou-card">
+        <div class="thankyou-check-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h1 class="thankyou-main-title">Quyên góp thành công!</h1>
+        <p class="thankyou-subtitle">Cảm ơn bạn đã góp phần lan tỏa yêu thương tới cộng đồng.</p>
+
+        <div class="thankyou-summary">
+            <div class="summary-item">
+                <span>Số tiền quyên góp:</span>
+                <strong>@Model.Amount.ToString("N0") VNĐ</strong>
+            </div>
+            <div class="summary-item">
+                <span>Mã giao dịch:</span>
+                <strong>@Model.TransactionId</strong>
+            </div>
+        </div>
+
+        <div class="thankyou-actions">
+            <a asp-controller="ChienDich" asp-action="Index" class="btn-primary-outline">Tiếp tục quyên góp</a>
+            <a asp-controller="CuaHang" asp-action="Index" class="btn-primary-solid">Mua sắm ủng hộ</a>
+        </div>
+    </div>
+</section>
+
+<style>
+    :root {
+        --donate-primary: #2d5a27;
+        --donate-secondary: #6fbb6b;
+        --donate-accent: #ff6b35;
+        --donate-success: #28a745;
+        --donate-warning: #ffc107;
+        --donate-danger: #dc3545;
+        --donate-dark: #1e293b;
+        --donate-light: #f8fafc;
+        --donate-white: #ffffff;
+        --donate-gray: #64748b;
+        --donate-border: #e2e8f0;
+        --donate-shadow: 0 4px 20px rgba(45, 90, 39, 0.08);
+        --donate-shadow-hover: 0 8px 40px rgba(45, 90, 39, 0.15);
+        --donate-radius: 16px;
+        --donate-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --donate-gradient: linear-gradient(135deg, var(--donate-primary) 0%, var(--donate-secondary) 100%);
+    }
+    .donation-thankyou-wrapper {
+        padding: 60px 20px;
+        background: var(--donate-light);
+        display: flex;
+        justify-content: center;
+    }
+
+    .thankyou-card {
+        background: var(--donate-white);
+        border-radius: var(--donate-radius);
+        padding: 40px;
+        max-width: 600px;
+        width: 100%;
+        text-align: center;
+        box-shadow: var(--donate-shadow);
+        animation: fadeIn 0.6s ease-out;
+    }
+
+    .thankyou-check-icon {
+        font-size: 72px;
+        color: var(--donate-success);
+        margin-bottom: 20px;
+    }
+
+    .thankyou-main-title {
+        font-size: 32px;
+        color: var(--donate-primary);
+        margin-bottom: 10px;
+        font-weight: 700;
+    }
+
+    .thankyou-subtitle {
+        font-size: 16px;
+        color: var(--donate-gray);
+        margin-bottom: 30px;
+    }
+
+    .thankyou-summary {
+        margin-bottom: 32px;
+    }
+
+    .summary-item {
+        font-size: 16px;
+        color: var(--donate-dark);
+        margin-bottom: 10px;
+    }
+
+        .summary-item strong {
+            color: var(--donate-primary);
+            font-weight: 600;
+        }
+
+    .thankyou-actions {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    .btn-primary-outline,
+    .btn-primary-solid {
+        padding: 12px 24px;
+        border-radius: var(--donate-radius);
+        font-weight: 600;
+        font-size: 15px;
+        text-decoration: none;
+        transition: var(--donate-transition);
+    }
+
+    .btn-primary-outline {
+        background: transparent;
+        color: var(--donate-primary);
+        border: 2px solid var(--donate-primary);
+    }
+
+        .btn-primary-outline:hover {
+            background: var(--donate-primary);
+            color: var(--donate-white);
+        }
+
+    .btn-primary-solid {
+        background: var(--donate-gradient);
+        color: var(--donate-white);
+        border: none;
+    }
+
+        .btn-primary-solid:hover {
+            box-shadow: var(--donate-shadow-hover);
+        }
+
+    keyframes fadeIn {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+</style>

@@ -1,0 +1,201 @@
+﻿@model TuanAnhBacDatSang_DoAnWeb.ViewModels.HoaDonViewModel
+@{
+    ViewData["Title"] = "Kết Quả Thanh Toán";
+}
+
+<style>
+    :root {
+        --primary-color: #667eea;
+        --primary-dark: #5a6fd8;
+        --secondary-color: #764ba2;
+        --success-color: #48bb78;
+        --danger-color: #f56565;
+        --warning-color: #ed8936;
+        --info-color: #4299e1;
+        --light-color: #f7fafc;
+        --dark-color: #2d3748;
+        --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --shadow-medium: 0 10px 25px rgba(0, 0, 0, 0.1);
+        --border-radius: 0.5rem;
+        --border-radius-lg: 1rem;
+        --white: #ffffff;
+        --gray: #6b7280;
+        --text-muted: #a0aec0;
+    }
+
+    body {
+        background: var(--light-color);
+    }
+
+    .result-container {
+        max-width: 800px;
+        margin: 4rem auto;
+        background: var(--white);
+        border-radius: var(--border-radius-lg);
+        box-shadow: var(--shadow-medium);
+        padding: 2rem 3rem;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .result-header {
+        background: var(--gradient-1);
+        color: var(--white);
+        padding: 1.5rem;
+        border-radius: var(--border-radius);
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .result-header h1 {
+        margin: 0;
+        font-size: 1.8rem;
+    }
+
+    .result-body .row {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid var(--light-color);
+    }
+
+    .label {
+        font-weight: 600;
+        color: var(--dark-color);
+    }
+
+    .value {
+        color: var(--gray);
+    }
+
+    .status {
+        font-weight: bold;
+        color: var(--success-color);
+    }
+
+    .btn-back {
+        margin-top: 2rem;
+        display: inline-block;
+        background: var(--primary-dark);
+        color: var(--white);
+        padding: 0.75rem 1.5rem;
+        border-radius: var(--border-radius);
+        text-decoration: none;
+        transition: background 0.3s ease;
+    }
+
+    .btn-back:hover {
+        background: var(--primary-color);
+    }
+
+    .details-table {
+        margin-top: 2.5rem;
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.95rem;
+    }
+
+    .details-table th, .details-table td {
+        padding: 0.75rem 1rem;
+        text-align: left;
+    }
+
+    .details-table th {
+        background: var(--primary-color);
+        color: white;
+    }
+
+    .details-table tr:nth-child(even) {
+        background-color: var(--light-color);
+    }
+
+    .details-table td {
+        border-bottom: 1px solid var(--light-color);
+    }
+
+    .details-table tfoot td {
+        font-weight: bold;
+    }
+</style>
+
+<div class="result-container">
+    <div class="result-header">
+        <h1>🎉 Đặt Hàng Thành Công!</h1>
+    </div>
+
+    <div class="result-body">
+        <div class="row">
+            <span class="label">Mã hóa đơn:</span>
+            <span class="value">@Model.MaHoaDon</span>
+        </div>
+        <div class="row">
+            <span class="label">Ngày lập:</span>
+            <span class="value">@Model.NgayLap</span>
+        </div>
+        <div class="row">
+            <span class="label">Tổng tiền:</span>
+            <span class="value">@Model.TongTien?.ToString("N0") VNĐ</span>
+        </div>
+        <div class="row">
+            <span class="label">Phí vận chuyển:</span>
+            <span class="value">@Model.PhiVanChuyen?.ToString("N0") VNĐ</span>
+        </div>
+        <div class="row">
+            <span class="label">Thuế VAT:</span>
+            <span class="value">@Model.ThueVAT?.ToString("N0") VNĐ</span>
+        </div>
+        <div class="row">
+            <span class="label">Hình thức thanh toán:</span>
+            <span class="value">@Model.HinhThucThanhToan</span>
+        </div>
+        <div class="row">
+            <span class="label">Trạng thái:</span>
+            <span class="status">@Model.TrangThai</span>
+        </div>
+        <div class="row">
+            <span class="label">Địa chỉ giao hàng:</span>
+            <span class="value">@Model.DiaChi</span>
+        </div>
+        @if (!string.IsNullOrEmpty(Model.HinhThucThanhToan))
+        {
+            <div style="margin-top: 1.5rem; padding: 1rem; border-radius: var(--border-radius); box-shadow: var(--shadow-light);
+                 background: @(Model.HinhThucThanhToan.ToLower().Contains("cod") ? "var(--warning-color)" : "var(--success-color)");
+                 color: white; font-weight: 500;">
+                @if (Model.HinhThucThanhToan.ToLower().Contains("cod"))
+                {
+                    <span>💵 Bạn đã chọn hình thức <strong>thanh toán khi nhận hàng (COD)</strong>. Vui lòng chuẩn bị tiền mặt để thanh toán khi đơn hàng được giao.</span>
+                }
+                else
+                {
+                    <span>✅ Bạn đã <strong>thanh toán thành công</strong> bằng <strong>@Model.HinhThucThanhToan</strong>. Chúng tôi sẽ xử lý và giao hàng sớm nhất có thể.</span>
+                }
+            </div>
+        }
+    </div>
+
+    @if (Model.ChiTiet != null && Model.ChiTiet.Any())
+    {
+            <table class="details-table">
+                <thead>
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá (VNĐ)</th>
+                        <th>Thành tiền (VNĐ)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model.ChiTiet)
+                {
+                            <tr>
+                                <td>@item.TenSanPham</td>
+                                <td>@item.SoLuong</td>
+                                <td>@item.DonGia.ToString("N0")</td>
+                                <td>@((item.SoLuong * item.DonGia).ToString("N0"))</td>
+                            </tr>
+                }
+                </tbody>
+            </table>
+    }
+
+    <a href="/" class="btn-back">⬅ Về trang chủ</a>
+</div>

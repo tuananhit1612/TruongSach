@@ -1,0 +1,27 @@
+﻿@model TuanAnhBacDatSang_DoAnWeb.ViewModels.ChienDichViewModel
+@{
+    ViewData["Title"] = "Chi tiết chiến dịch";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-4">
+    <main class="TruongSach-main-content">
+        <h2 class="text-vintech-primary mb-4">Chi tiết chiến dịch</h2>
+
+        <div class="card border-primary shadow-sm">
+            <div class="card-body">
+                <img src="@Model.HinhAnhDaiDien" alt="Hình ảnh chiến dịch" class="img-fluid rounded mb-3" style="max-width: 100%; height: auto;" />
+                <h5 class="card-title fw-bold">@Model.TieuDe</h5>
+                <p class="card-text"><strong>Trường</strong> @Model.TenTruong</p>
+                <p class="card-text"><strong>Mô tả:</strong> @Model.MoTa</p>
+                <p class="card-text"><strong>Trạng thái:</strong> @Model.TrangThai</p>
+                <p class="card-text"><strong>Số người ủng hộ:</strong> @Model.SoNguoiUngHo</p>
+                <p class="card-text"><strong>Ngày bắt đầu:</strong> @Model.NgayTao?.ToString("dd/MM/yyyy")</p>
+                <p class="card-text"><strong>Số tiền hiện tại:</strong> @Model.SoTienHienTai.ToString("N0")</p>
+                <p class="card-text"><strong>Mục tiêu quyên góp:</strong> @Model.MucTieuQuyenGop.ToString("N0")</p>
+                <p class="card-text"><strong>Người đại diện:</strong> @Model.NguoiDaiDien</p>
+                <a asp-action="Index" class="btn btn-secondary mt-3">Quay lại</a>
+            </div>
+        </div>
+    </main>
+</div>

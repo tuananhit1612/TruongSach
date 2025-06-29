@@ -1,0 +1,333 @@
+﻿@model GioHang
+
+<link rel="stylesheet" href="~/css/shop.css">
+<style>
+    :root {
+        --shop-primary: #2d5a27;
+        --shop-secondary: #6fbb6b;
+        --shop-accent: #ff6b35;
+        --shop-success: #28a745;
+        --shop-warning: #ffc107;
+        --shop-danger: #dc3545;
+        --shop-dark: #1e293b;
+        --shop-light: #f8fafc;
+        --shop-white: #ffffff;
+        --shop-gray: #f1f5f9;
+        --shop-border: #e2e8f0;
+        --shop-shadow: 0 4px 20px rgba(45, 90, 39, 0.08);
+        --shop-shadow-hover: 0 8px 40px rgba(45, 90, 39, 0.15);
+        --shop-radius: 16px;
+        --shop-transition: all 0.3s ease-in-out;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--shop-light);
+    }
+
+    .product-card {
+        border-radius: var(--shop-radius);
+        box-shadow: var(--shop-shadow);
+        transition: var(--shop-transition);
+        background-color: var(--shop-white);
+    }
+
+        .product-card:hover {
+            transform: scale(1.01);
+            box-shadow: var(--shop-shadow-hover);
+        }
+
+    .btn-shop-primary {
+        background-color: var(--shop-primary);
+        color: var(--shop-white);
+        border: none;
+        border-radius: var(--shop-radius);
+        box-shadow: var(--shop-shadow);
+        transition: var(--shop-transition);
+    }
+
+        .btn-shop-primary:hover {
+            background-color: var(--shop-secondary);
+            box-shadow: var(--shop-shadow-hover);
+        }
+
+    .btn-shop-outline {
+        background-color: transparent;
+        color: var(--shop-primary);
+        border: 2px solid var(--shop-primary);
+        border-radius: var(--shop-radius);
+        transition: var(--shop-transition);
+    }
+
+        .btn-shop-outline:hover {
+            background-color: var(--shop-primary);
+            color: var(--shop-white);
+        }
+
+    .card-img-top {
+        border-top-left-radius: var(--shop-radius);
+        border-top-right-radius: var(--shop-radius);
+        object-fit: cover;
+    }
+
+    .card-footer {
+        border-top: none;
+    }
+</style>
+<main class="TruongSach-main-content">
+    <div class="container mt-4">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Index" asp-controller="TrangChu">Trang chủ</a></li>
+                <li class="breadcrumb-item"><a asp-action="Index" asp-controller="SanPham">Cửa hàng</a></li>
+                <li class="breadcrumb-item active">Giỏ hàng</li>
+            </ol>
+        </nav>
+
+        <!-- Page Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h1 class="display-5 fw-bold">
+                    <i class="fas fa-shopping-cart me-2"></i>Giỏ Hàng Của Bạn
+                </h1>
+            </div>
+        </div>
+
+        <!-- Cart Items -->
+        <div class="row">
+            <div class="col-lg-8">
+                @if (Model.Items.Count == 0)
+                {
+                    <div class="alert alert-info text-center p-5">
+                        <h4 class="mb-3"><i class="fas fa-shopping-cart fa-2x text-secondary mb-2"></i><br>Giỏ hàng của bạn đang trống</h4>
+                        <p class="text-muted">Bạn chưa thêm sản phẩm nào vào giỏ hàng.</p>
+                        <a asp-controller="SanPham" asp-action="Index" class="btn btn-shop-primary mt-3">
+                            <i class="fas fa-store me-2"></i> Mua sắm ngay
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">Sản phẩm trong giỏ @Model.Items.Count</h5>
+                            <form asp-controller="GioHang" asp-action="XoaTatCaSanPham" method="POST" class="d-inline">
+                                <input type="hidden" name="action" value="clear">
+                                <button type="submit" class="btn btn-outline-danger btn-sm"
+                                        onclick="return confirm('Bạn có chắc muốn xóa tất cả sản phẩm?')">
+                                    <i class="fas fa-trash me-1"></i>Xóa tất cả
+                                </button>
+                            </form>
+                        </div>
+                        <div class="card-body p-0">
+                            @foreach (var item in Model.Items)
+                            {
+                                <div class="cart-item">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-2">
+                                            <img src="@item.HinhAnh"
+                                                 class="cart-item-image" alt="@item.TenSanPham"
+                                                 onerror="this.src='../assets/images/default-product.jpg'"
+                                                 style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="cart-item-info">
+                                                <h6 class="mb-1">
+                                                    <a href="product_detail.php?id=4" class="text-decoration-none">
+                                                        @item.TenSanPham
+                                                    </a>
+                                                </h6>
+                                                <p class="cart-item-price mb-0">
+                                                    @item.GiaBan.ToString("N0") đ
+                                                </p>
+                                                @* <small class="text-muted"> *@
+                                                @*     Còn: @item.SoLuong *@
+                                                @* </small> *@
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <form method="POST" class="d-flex align-items-center">
+                                                <input type="hidden" name="action" value="update">
+                                                <input type="hidden" name="product_id" value="4">
+                                                <div class="quantity-selector">
+                                                    <a asp-action="GiamSoLuong" asp-route-productId="@item.MaSanPham">
+                                                        <button type="button" class="quantity-btn">
+                                                            <i class="fas fa-minus"></i>
+                                                        </button>
+                                                    </a>
+
+                                                    <input type="number" name="quantity"
+                                                           value="@item.SoLuong"
+                                                           min="1" max="25"
+                                                           class="quantity-input"
+                                                           id="qty_4"
+                                                           onchange="updateCartItem(4)">
+                                                    <a asp-action="TangSoLuong" asp-route-productId="@item.MaSanPham">
+                                                        <button type="button" class="quantity-btn">
+                                                            <i class="fas fa-plus"></i>
+                                                        </button>
+                                                    </a>
+
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="text-center">
+                                                <strong class="text-primary">
+                                                    @item.GiaBan.ToString("N0")đ
+                                                </strong>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <form asp-action="XoaSanPham" asp-route-productId="@item.MaSanPham" class="d-inline">
+                                                <button type="submit" class="btn btn-outline-danger btn-sm"
+                                                        onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này?')">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+
+                    <!-- Continue Shopping -->
+                    <div class="mt-3">
+                        <a asp-action="Index" asp-controller="SanPham" class="btn btn-outline-primary">
+                            <i class="fas fa-arrow-left me-2"></i>Tiếp tục mua sắm
+                        </a>
+                    </div>
+                }
+                </div>
+
+                <!-- Cart Summary -->
+                <div class="col-lg-4">
+                    <div class="cart-summary">
+                        <h5 class="mb-3">Tóm tắt đơn hàng</h5>
+
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Tạm tính:</span>
+                            <span>@Model.Items.Sum(x => x.ThanhTien) đ</span>
+                        </div>
+
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Phí vận chuyển:</span>
+                            <span class="text-success">Miễn phí</span>
+                        </div>
+
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Giảm giá:</span>
+                            <span>0đ</span>
+                        </div>
+
+                        <hr>
+
+                        <div class="cart-total d-flex justify-content-between">
+                            <strong>Tổng cộng:</strong>
+                            <strong>@Model.Items.Sum(x => x.ThanhTien) đ</strong>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                        @if (Model.Items.Count > 0)
+                        {
+                            <a asp-action="checkout" class="btn btn-shop-primary">
+                                <i class="fas fa-credit-card me-2"></i>Thanh toán
+                            </a>
+                        }
+                        else
+                        {
+                            <button class="btn btn-shop-primary" disabled>
+                                <i class="fas fa-credit-card me-2"></i>Thanh toán
+                            </button>
+                        }
+
+                            <button class="btn btn-shop-outline" data-bs-toggle="modal" data-bs-target="#discountModal">
+                                <i class="fas fa-tag me-2"></i>Áp dụng mã giảm giá
+                            </button>
+                        </div>
+
+                        <!-- Payment Security -->
+                        <div class="mt-4 text-center">
+                            <small class="text-muted">
+                                <i class="fas fa-shield-alt me-1"></i>
+                                Thanh toán an toàn & bảo mật
+                            </small>
+                            <div class="mt-2">
+                                <img src="../assets/images/momo-logo.png" alt="MoMo" style="height: 30px;" class="me-2">
+                                <i class="fab fa-cc-visa fa-2x text-primary me-1"></i>
+                                <i class="fab fa-cc-mastercard fa-2x text-warning"></i>
+                            </div>
+                        </div>
+
+                        <!-- Charity Message -->
+                        <div class="alert alert-info mt-3">
+                            <i class="fas fa-heart text-primary me-2"></i>
+                            <small>
+                                Một phần lợi nhuận từ đơn hàng này sẽ được dành cho các hoạt động thiện nguyện.
+                                Cảm ơn bạn đã góp phần tạo ra những thay đổi tích cực!
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Discount Modal -->
+        <div class="modal fade" id="discountModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Mã giảm giá</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="discountCode" class="form-label">Nhập mã giảm giá:</label>
+                                <input type="text" class="form-control" id="discountCode" placeholder="Ví dụ: WELCOME10">
+                            </div>
+                            <div class="alert alert-info">
+                                <strong>Mã giảm giá hiện có:</strong><br>
+                                <code>WELCOME10</code> - Giảm 10% cho đơn hàng đầu tiên<br>
+                                <code>CHARITY5</code> - Giảm 5% và tặng thêm 5% cho thiện nguyện
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-primary" onclick="applyDiscount()">Áp dụng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function applyDiscount() {
+                const code = document.getElementById('discountCode').value.trim().toUpperCase();
+
+                if (!code) {
+                    alert('Vui lòng nhập mã giảm giá');
+                    return;
+                }
+
+                // Simple discount validation (in real app, this should be server-side)
+                const validCodes = {
+                    'WELCOME10': 10,
+                    'CHARITY5': 5
+                };
+
+                if (validCodes[code]) {
+                    alert(`Đã áp dụng mã giảm giá ${code} - Giảm ${validCodes[code]}%`);
+                    // In real implementation, this would update the cart total
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('discountModal'));
+                    modal.hide();
+                } else {
+                    alert('Mã giảm giá không hợp lệ hoặc đã hết hạn');
+                }
+            }
+        </script>
+
+    </main>

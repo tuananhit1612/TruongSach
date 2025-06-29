@@ -1,0 +1,44 @@
+﻿@model TuanAnhBacDatSang_DoAnWeb.ViewModels.HoaDonViewModel
+@{
+    ViewData["Title"] = "Chỉnh sửa hóa đơn";
+}
+
+<div class="container py-5">
+    <h2 class="text-success mb-4">🛠️ Chỉnh sửa hóa đơn</h2>
+
+    <form asp-action="ChinhSua" method="post" class="needs-validation" novalidate>
+        <input type="hidden" asp-for="MaHoaDon" />
+
+        <div class="mb-3">
+            <label class="form-label">Mã hóa đơn</label>
+            <input class="form-control" value="@Model." readonly />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Ngày lập</label>
+            <input class="form-control" value="@Model.NgayLap?.ToString("dd/MM/yyyy HH:mm")" readonly />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Tổng tiền</label>
+            <input class="form-control" value="@Model.TongTien?.ToString("N0")" readonly />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Địa Chỉ</label>
+            <textarea class="form-control" value="@Model.DiaChi" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="TrangThai" class="form-label">Trạng thái</label>
+            <select asp-for="TrangThai" class="form-select">
+                <option>Chờ Thanh Toán</option>
+                <option>Chờ Nhận Hàng</option>
+                <option>Hoàn Thành</option>
+                <option>Đã Hủy</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">Lưu thay đổi</button>
+        <a asp-action="UserHoaDonList" class="btn btn-outline-secondary ms-2">Hủy</a>
+    </form>
+</div>

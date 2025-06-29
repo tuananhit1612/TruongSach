@@ -1,0 +1,79 @@
+﻿@model List<TuanAnhBacDatSang_DoAnWeb.ViewModels.NguoiUngHoViewModel>
+@{
+    ViewData["Title"] = "Lịch sử quyên góp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-4">
+    <main class="TruongSach-main-content">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="text-TruongSach-primary mb-0">Lịch sử nguyên góp</h2>
+            <a asp-action="Index" asp-controller="Dashboard" class="btn btn-secondary">← Quay về DashBoard</a>
+        </div>
+
+        <form method="get" class="row g-3 mb-4">
+            <div class="col-md-3">
+                <label class="form-label">Chiến dịch</label>
+                <input type="text" name="TenChienDich" value="@ViewBag.TenChienDich" class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Trường</label>
+                <input type="text" name="TenTruong" value="@ViewBag.TenTruong" class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Người dùng</label>
+                <input type="text" name="TenNguoiDung" value="@ViewBag.TenNguoiDung" class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Ngày quyên góp</label>
+                <input type="date" name="Ngay" value="@ViewBag.Ngay" class="form-control" />
+            </div>
+            <div class="col-12 text-end">
+                <button type="submit" class="btn btn-success">Tìm Kiếm</button>
+                <a asp-area="Admin" asp-action="Index" asp-controller="DongGop" class="btn btn-secondary">Làm mới</a>
+            </div>
+        </form>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="bg-vintech-primary text-white">
+                    <tr>
+                        <th>Người ủng hộ</th>
+                        <th>Số tiền</th>
+                        <th>Nội dung</th>
+                        <th>Chiến dịch</th>
+                        <th>Trường</th>
+                        <th>Ngày đóng góp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.HoTen</td>
+                            <td>@item.SoTien.ToString("N0") đ</td>
+                            <td>@item.NoiDung</td>
+                            <td>@item.TenChienDich</td>
+                            <td>@item.TenTruong</td>
+                            <td>@item.NgayDongGop?.ToString("dd/MM/yyyy")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        @if ((int)ViewBag.TotalPages > 1)
+        {
+            <nav class="mt-4">
+                <ul class="pagination justify-content-center">
+                    @for (int i = 1; i <= (int)ViewBag.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == (int)ViewBag.Page ? "active" : "")">
+                            <a class="page-link" href="?page=@i&TenChienDich=@ViewBag.TenChienDich&TenTruong=@ViewBag.TenTruong&TenNguoiDung=@ViewBag.TenNguoiDung&Ngay=@ViewBag.Ngay">">@i</a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        }
+    </main>
+</div>

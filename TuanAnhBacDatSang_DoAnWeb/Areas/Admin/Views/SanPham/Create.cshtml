@@ -1,0 +1,54 @@
+﻿@model TuanAnhBacDatSang_DoAnWeb.ViewModels.SanPhamViewModel
+@{
+    ViewData["Title"] = "Thêm sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container py-4">
+    <main class="TruongSach-main-content">
+        <div class="bg-white p-4 rounded shadow w-75 mx-auto">
+            <h2 class="text-vintech-primary mb-4">@ViewData["Title"]</h2>
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label class="form-label">Tên sản phẩm</label>
+                    <input asp-for="TenSanPham" class="form-control" />
+                    <span asp-validation-for="TenSanPham" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Mô tả</label>
+                    <textarea asp-for="MoTa" class="form-control"></textarea>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <label class="form-label">Số lượng tồn</label>
+                        <input asp-for="SoLuongTon" class="form-control" />
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Giá bán</label>
+                        <input asp-for="GiaBan" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Loại sản phẩm</label>
+                    <select asp-for="MaLoaiSanPham" asp-items="ViewBag.LoaiSanPham" class="form-select"></select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Hình ảnh đại diện</label>
+                    <input type="file" name="HinhAnhDaiDien" class="form-control" />
+                    @if (!string.IsNullOrEmpty(Model?.HinhAnhDaiDien))
+                    {
+                        <img src="@Model.HinhAnhDaiDien" class="img-fluid mt-2" style="max-width: 120px; max-height: 120px; object-fit: cover;" />
+                    }
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-success">Lưu</button>
+                    <a asp-action="Index" class="btn btn-secondary ms-2">Hủy</a>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>

@@ -383,7 +383,7 @@ body {
 }
 
 .btn-primary {
-    background: var(--gradient-1);
+    background: linear-gradient(135deg, var(--donate-primary) 0%, var(--donate-secondary) 100%);
     border: none;
 }
 

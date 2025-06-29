@@ -5,11 +5,38 @@
 
     ViewData["Title"] = "Chiến dịch";
 }
+<style>
+    .TruongSach-section-header {
+        text-align: center;
+        margin-bottom: 80px;
+        position: relative;
+        z-index: 2;
+    }
+    .TruongSach-section-badge {
+        display: inline-block;
+        background: var(--TruongSach-gradient-accent);
+        color: var(--TruongSach-white);
+        padding: 8px 20px;
+        border-radius: 25px;
+        text-align: center;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+</style>
 <link rel="stylesheet" href="~/css/campaigns-view.css" />
+<link rel="stylesheet" href="~/css/charity-modern.css">
 
+<br />
 <section class="campaigns-section">
-    <h2 class="section-title text-center mb-4">🎯 Danh sách chiến dịch</h2>
-
+    <div class="TruongSach-section-header">
+        <div class="TruongSach-section-badge">
+            <i class="fas fa-cogs me-2"></i>Chiến Dịch
+        </div>
+        <h2 class="TruongSach-section-title">Danh sách chiến dịch thiện nguyện</h2>
+    </div>
     <div class="campaign-filter-wrapper mx-auto">
         <form method="get" class="campaign-filter d-flex flex-wrap align-items-center justify-content-center gap-3">
             <!-- Tìm kiếm -->
@@ -48,12 +75,17 @@
                 <div class="campaign-card">
                     <div class="campaign-image">
                         <img src="@item.HinhAnhDaiDien" alt="Chiến dịch">
-                        <span class="campaign-status">@item.TrangThai</span>
-
+                        @* <span class="campaign-status">@item.TrangThai</span> *@
+                        <span class="campaign-status position-absolute top-0 start-0 m-3 badge
+                        @(item.TrangThai == "Đang diễn ra" ? "bg-success"
+                            : item.TrangThai == "Chưa bắt đầu" ? "bg-warning text-dark"
+                            : "bg-secondary")">
+                            @item.TrangThai
+                        </span>
                         <div class="hover-actions position-absolute top-0 end-0 m-2 d-none">
                             <button class="btn btn-light btn-sm me-1 shadow-sm btn-save"
                                     data-campaign-id="@item.MaChienDich">
-                                <i class="bi @(item.IsLiked ? "bi-heart-fill" : "bi-heart") text-danger"></i>
+                                <i class="bi @((item.IsLiked ?? false) ? "bi-heart-fill" : "bi-heart") text-danger"></i>
                             </button>
                             <button class="btn btn-light btn-sm shadow-sm btn-share"
                                     data-link="@Url.Action("Details", "ChienDich", new { id = item.MaChienDich }, Context.Request.Scheme)">
@@ -74,11 +106,11 @@
                             <div class="progress-fill" style="width: @percent%;"></div>
                         </div>
 
-                        <div class="campaign-stats">❤️ <span>0 người ủng hộ</span></div>
+                        <div class="campaign-stats">❤️ <span>@item.SoNguoiUngHo đã người ủng hộ</span></div>
 
                         <div class="campaign-footer">
                             <a href="@Url.Action("Details", "ChienDich", new { id = item.MaChienDich })" class="btn btn-detail">Chi tiết</a>
-                            <a href="#" class="btn btn-register">Ủng hộ ngay</a>
+                            <a asp-action="Index" asp-controller="DongGop" class="btn btn-register">Ủng hộ ngay</a>
                         </div>
                     </div>
                 </div>

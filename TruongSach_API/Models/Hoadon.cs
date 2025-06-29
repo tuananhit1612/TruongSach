@@ -17,6 +17,12 @@ public partial class Hoadon
 
     public int MaNguoiDung { get; set; }
 
+    public decimal? PhiVanChuyen { get; set; }
+
+    public decimal? ThueVat { get; set; }
+
+    public string? DiaChi { get; set; }
+
     public virtual ICollection<Chitiethoadon> Chitiethoadons { get; set; } = new List<Chitiethoadon>();
 
     public virtual Nguoidung MaNguoiDungNavigation { get; set; } = null!;

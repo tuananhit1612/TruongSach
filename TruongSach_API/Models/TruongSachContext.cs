@@ -47,9 +47,9 @@ public partial class TruongSachContext : DbContext
 
     public virtual DbSet<Vaitro> Vaitros { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=TUANANHIT\\SQLEXPRESS;Initial Catalog=TruongSach;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+//    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+//        => optionsBuilder.UseSqlServer("Data Source=TUANANHIT\\SQLEXPRESS;Initial Catalog=TruongSach;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -132,7 +132,7 @@ public partial class TruongSachContext : DbContext
         {
             entity.HasKey(e => new { e.MaSanPham, e.MaHoaDon }).HasName("PK__CHITIETH__52F2A93E0B523AAF");
 
-            entity.ToTable("CHITIETHOADON");
+            entity.ToTable("CHITIETHOADON", tb => tb.HasTrigger("TRG_Update_SoLuongSanPham_After_HoaDon"));
 
             entity.HasOne(d => d.MaHoaDonNavigation).WithMany(p => p.Chitiethoadons)
                 .HasForeignKey(d => d.MaHoaDon)
@@ -149,10 +149,16 @@ public partial class TruongSachContext : DbContext
         {
             entity.HasKey(e => e.MaDongGop).HasName("PK__DONGGOP__8CE1C5621A82EAD3");
 
-            entity.ToTable("DONGGOP", tb => tb.HasTrigger("TRG_Update_Chiendich_After_DongGop"));
+            entity.ToTable("DONGGOP", tb =>
+                {
+                    tb.HasTrigger("TRG_Tru_Diem_NguoiDung");
+                    tb.HasTrigger("TRG_Update_Chiendich_After_DongGop");
+                });
 
             entity.Property(e => e.HinhThuc).HasMaxLength(20);
-            entity.Property(e => e.SoTien).HasMaxLength(50);
+            entity.Property(e => e.NgayDongGop).HasColumnType("smalldatetime");
+            entity.Property(e => e.SoTien).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.TrangThai).HasMaxLength(20);
 
             entity.HasOne(d => d.MaChienDichNavigation).WithMany(p => p.Donggops)
                 .HasForeignKey(d => d.MaChienDich)
@@ -205,10 +211,18 @@ public partial class TruongSachContext : DbContext
         {
             entity.HasKey(e => e.MaHoaDon).HasName("PK__HOADON__835ED13B4B7362CD");
 
-            entity.ToTable("HOADON");
+            entity.ToTable("HOADON", tb => tb.HasTrigger("TRG_Convert_TienThanhDiem"));
 
+            entity.Property(e => e.DiaChi).HasMaxLength(500);
             entity.Property(e => e.HinhThucThanhToan).HasMaxLength(50);
             entity.Property(e => e.NgayLap).HasColumnType("smalldatetime");
+            entity.Property(e => e.PhiVanChuyen)
+                .HasDefaultValue(0m)
+                .HasColumnType("money");
+            entity.Property(e => e.ThueVat)
+                .HasDefaultValue(0m)
+                .HasColumnType("money")
+                .HasColumnName("ThueVAT");
             entity.Property(e => e.TongTien).HasColumnType("money");
             entity.Property(e => e.TrangThai).HasMaxLength(50);
 
@@ -266,10 +280,11 @@ public partial class TruongSachContext : DbContext
         {
             entity.HasKey(e => e.MaSanPham).HasName("PK__SANPHAM__FAC7442D27625D6C");
 
-            entity.ToTable("SANPHAM");
+            entity.ToTable("SANPHAM", tb => tb.HasTrigger("TRG_UpdateTongSoLuong_LoaiSP"));
 
             entity.Property(e => e.GiaBan).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.MoTa).HasMaxLength(500);
+            entity.Property(e => e.NgayDang).HasColumnType("smalldatetime");
             entity.Property(e => e.TenSanPham).HasMaxLength(50);
             entity.Property(e => e.TrangThai).HasMaxLength(50);
 
@@ -304,6 +319,7 @@ public partial class TruongSachContext : DbContext
         });
 
         OnModelCreatingPartial(modelBuilder);
+
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

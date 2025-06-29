@@ -1,0 +1,31 @@
+﻿@model TuanAnhBacDatSang_DoAnWeb.ViewModels.DongGopViewModel
+@{
+    ViewData["Title"] = "Kết quả đóng góp điểm";
+}
+
+<div class="result-wrapper" style="padding: 40px; text-align: center;">
+    @if (TempData["Success"] != null)
+    {
+            <h1 style="font-size: 32px; color: #28a745;">🎉 Quyên góp thành công!</h1>
+            <p style="font-size: 18px; margin-top: 10px;">Cảm ơn bạn đã quyên góp <strong>@Model.SoTien.ToString("N0") điểm</strong>.</p>
+            <p>Chiến dịch: <strong>ID @Model.MaChienDich</strong></p>
+
+        @if (!string.IsNullOrEmpty(Model.NoiDung))
+        {
+                    <blockquote style="margin-top: 20px; font-style: italic;">“@Model.NoiDung”</blockquote>
+        }
+
+            <div style="margin-top: 30px;">
+                    <a asp-action="Index" asp-controller="DongGop" class="btn btn-success">Quay về trang chủ</a>
+            </div>
+    }
+    else if (TempData["Error"] != null)
+    {
+            <h1 style="font-size: 32px; color: #dc3545;">❌ Có lỗi xảy ra</h1>
+            <p style="font-size: 18px;">@TempData["Error"]</p>
+
+            <div style="margin-top: 30px;">
+                <a asp-action="Index" asp-controller="DongGop" class="btn btn-outline-danger">Thử lại hoặc quay về</a>
+            </div>
+    }
+</div>

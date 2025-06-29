@@ -21,6 +21,8 @@ public partial class Sanpham
 
     public int MaLoaiSanPham { get; set; }
 
+    public DateTime? NgayDang { get; set; }
+
     public virtual ICollection<Chitiethoadon> Chitiethoadons { get; set; } = new List<Chitiethoadon>();
 
     public virtual ICollection<Hinhanhsanpham> Hinhanhsanphams { get; set; } = new List<Hinhanhsanpham>();

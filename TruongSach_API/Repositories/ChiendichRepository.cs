@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TruongSach_API.DTOs;
 using TruongSach_API.Models;
 
 namespace TruongSach_API.Repositories
@@ -13,7 +14,7 @@ namespace TruongSach_API.Repositories
         }
 
         public async Task<IEnumerable<Chiendich>> GetAllAsync()
-            => await _context.Chiendiches.Include(u => u.MaTruongNavigation).ToListAsync();
+            => await _context.Chiendiches.Include(u => u.MaTruongNavigation).OrderByDescending(c => c.NgayTao).ToListAsync();
 
         public async Task<Chiendich> GetByIdAsync(int id)
             => await _context.Chiendiches.Include(u => u.MaTruongNavigation).FirstOrDefaultAsync( u => u.MaChienDich == id);
@@ -40,6 +41,46 @@ namespace TruongSach_API.Repositories
             await _context.SaveChangesAsync();
             return true;
         }
+        public async Task<int> CountDistinctNguoiUngHoAsync(int maChienDich)
+        {
+            return await _context.Donggops
+                .Where(d => d.MaChienDich == maChienDich)
+                .Select(d => d.MaNguoiDung)
+                .Distinct()
+                .CountAsync();
+
+        }
+
+        public async Task<IEnumerable<Donggop>> GetLichSuUngHoByUserAsync(int maNguoiDung)
+        {
+            return await _context.Donggops
+                .Include(d => d.MaChienDichNavigation)
+                .Where(d => d.MaNguoiDung == maNguoiDung)
+                .OrderByDescending(d => d.NgayDongGop)
+                .ToListAsync();
+        }
+
+        public async Task<List<NguoiUngHoDTO>> GetNguoiUngHoByChienDichIdAsync(int maChienDich)
+        {
+            return await _context.Donggops
+                .Where(dg => dg.MaChienDich == maChienDich)
+                .Include(dg => dg.MaNguoiDungNavigation)
+                .Select(dg => new NguoiUngHoDTO
+                {
+                    MaNguoiDung = dg.MaNguoiDung,
+                    HoTen = dg.MaNguoiDungNavigation.HoTen,
+                    SoTien = dg.SoTien,
+                    NgayDongGop = dg.NgayDongGop,
+                    NoiDung = dg.NoiDung,
+                    TenChienDich = dg.MaChienDichNavigation.TieuDe,
+                    TenTruong = dg.MaChienDichNavigation.MaTruongNavigation.TenTruong
+
+
+                })
+                .ToListAsync();
+        }
+
+
     }
 
 }

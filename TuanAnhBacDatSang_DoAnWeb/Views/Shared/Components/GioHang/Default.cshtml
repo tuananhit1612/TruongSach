@@ -1,0 +1,10 @@
+﻿@model TuanAnhBacDatSang_DoAnWeb.Models.GioHang
+<li class="nav-item position-relative">
+    <a class="nav-link TruongSach-nav-link" asp-controller="GioHang" asp-action="Index">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="badge bg-danger cart-count-badge position-absolute top-0 start-100 translate-middle rounded-pill">
+            @Model.Items.Count
+        </span>
+
+    </a>
+</li>

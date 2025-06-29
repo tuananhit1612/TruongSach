@@ -6,63 +6,134 @@
         ? Math.Min(100, Math.Round(Model.SoTienHienTai / Model.MucTieuQuyenGop * 100, 2))
         : 0;
 }
-
 <link rel="stylesheet" href="~/css/campaign-detail.css" />
+<link rel="stylesheet" href="~/css/donate-modern.css" />
+<div class="container py-4">
+    <a href="/ChienDich" class="btn btn-outline-success mb-3">
+        ← Quay về
+    </a>
 
-<div class="campaign-detail-container">
-    <a href="/ChienDich" class="back-btn">← Quay về</a>
-
-    <div class="campaign-detail-main">
-        <div class="campaign-image">
-            <img src="@Model.HinhAnhDaiDien" alt="Ảnh chiến dịch" />
-            <span class="status-badge @(Model.TrangThai == "Đang diễn ra" ? "ongoing" : Model.TrangThai == "Chưa bắt đầu" ? "upcoming" : "ended")">
-                @Model.TrangThai
-            </span>
+    <div class="row g-4">
+        <!-- Left -->
+        <div class="col-lg-6">
+            <div class="position-relative">
+                <img src="@Model.HinhAnhDaiDien" alt="Ảnh chiến dịch" class="img-fluid rounded shadow" />
+                <span class="position-absolute top-0 start-0 m-3 badge
+                    @(Model.TrangThai == "Đang diễn ra" ? "bg-success"
+                        : Model.TrangThai == "Chưa bắt đầu" ? "bg-warning text-dark"
+                        : "bg-secondary")">
+                    @Model.TrangThai
+                </span>
+            </div>
         </div>
 
-        <div class="campaign-info">
-            <h5 class="school-name">Trường: @Model.NguoiDaiDien</h5>
-            <h2 class="campaign-title">@Model.TieuDe</h2>
+        <!-- Right -->
+        <div class="col-lg-6">
+            <h5 class="text-success">Trường: @Model.NguoiDaiDien</h5>
+            <h2 class="fw-bold">@Model.TieuDe</h2>
 
-            <div class="campaign-stats">
-                <div class="stat-box">
-                    <div class="stat-number">@Model.SoTienHienTai.ToString("N0") ₫</div>
-                    <div class="stat-label">Đã được ủng hộ</div>
+            <div class="row my-3">
+                <div class="col">
+                    <div class="bg-light p-3 rounded text-center shadow-sm">
+                        <div class="fs-4 text-success fw-bold">@Model.SoTienHienTai.ToString("N0") ₫</div>
+                        <small>Đã được ủng hộ</small>
+                    </div>
                 </div>
-                <div class="stat-box">
-                    <div class="stat-number">3</div>
-                    <div class="stat-label">Người ủng hộ</div>
+                <div class="col">
+                    <div class="bg-light p-3 rounded text-center shadow-sm">
+                        <div class="fs-4 text-success fw-bold">@Model.SoNguoiUngHo</div>
+                        <small>Người ủng hộ</small>
+                    </div>
                 </div>
             </div>
 
-            <div class="donate-progress">
-                <p>Đã huy động: <strong>@Model.SoTienHienTai.ToString("N0") ₫</strong></p>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: @percent%;"></div>
+            <div class="mb-3">
+                <p>Đã huy động: <strong class="text-success">@Model.SoTienHienTai.ToString("N0") ₫</strong></p>
+                <div class="progress rounded-pill" style="height: 20px;">
+                    <div class="progress-bar bg-success" style="width: @percent%;" role="progressbar">
+                        @percent%
+                    </div>
                 </div>
-                <p class="campaign-goal">Mục tiêu: <strong>@Model.MucTieuQuyenGop.ToString("N0") ₫</strong></p>
+                <p class="mt-2">Mục tiêu: <strong>@Model.MucTieuQuyenGop.ToString("N0") ₫</strong></p>
             </div>
-
-            <button class="btn btn-donate" id="openDonateModal">
-                <i class="fas fa-heart"></i> Ủng hộ dự án
-            </button>
+            <a asp-action="Index" asp-controller="DongGop">
+                <button class="btn btn-success w-100 mt-3 shadow-sm" id="openDonateModal">
+                    <i class="fas fa-heart me-2"></i>Ủng hộ dự án
+                </button>
+            </a>
+            
         </div>
     </div>
 
-    <div class="campaign-section">
-        <h3>Thông tin dự án</h3>
-        <p>
-            @Model.MoTa
-        </p>
+    <!-- Thông tin mô tả -->
+    <div class="mt-5">
+        <h3 class="fw-bold text-dark mb-3">
+            <i class="fas fa-info-circle me-2 text-success"></i> Thông tin dự án
+        </h3>
+        <p>@Model.MoTa</p>
     </div>
 
-    <div class="campaign-section">
-        <h3>Danh sách đã ủng hộ</h3>
-        <p>Chưa có đóng góp nào cho chiến dịch này.</p>
-    </div>
+    <!-- Danh sách người ủng hộ -->
+    <div class="mt-5">
+        <h3 class="fw-bold text-dark mb-3">
+            <i class="fas fa-history me-2 text-success"></i> Lịch sử quyên góp
+        </h3>
 
-    <div class="campaign-section">
-        <h3>Dự án tương tự</h3>
-        <p>Chưa có dự án tương tự.</p>
+        @if (Model.DanhSachNguoiUngHo?.Any() == true)
+        {
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                @foreach (var item in Model.DanhSachNguoiUngHo)
+                {
+                    <div class="col">
+                        
+                        <div class="donation-card animate" data-animate="fadeInUp" style="animation-delay: 0s">
+                            <div class="donation-header">
+                                <div class="donor-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+
+                                <div class="donor-info">
+                                    <div class="donor-name">
+                                        @item.HoTen
+                                    </div>
+
+                                    <div class="donation-time">
+                                        <i class="fas fa-clock"></i>
+                                        @item.NgayDongGop?.ToString("dd/MM/yyyy HH:mm")
+                                    </div>
+                                </div>
+
+                                <div class="donation-amount">
+                                    <span class="amount-value">@item.SoTien.ToString("N0") ₫</span>
+                                </div>
+                            </div>
+
+                            <div class="donation-body">
+                                <div class="donation-project">
+                                    <span class="project-badge general">
+                                        <i class="fas fa-heart"></i>
+                                        @item.NoiDung
+                                    </span>
+                                </div>
+
+                            </div>
+
+                            <div class="donation-footer">
+                                <div class="appreciation">
+                                    <i class="fas fa-heart text-danger"></i>
+                                    <span>Cảm ơn sự đóng góp ý nghĩa</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-warning mt-3">
+                Chưa có người ủng hộ nào.
+            </div>
+        }
     </div>
 </div>

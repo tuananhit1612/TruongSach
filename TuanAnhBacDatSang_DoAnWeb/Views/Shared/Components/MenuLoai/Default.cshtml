@@ -1,0 +1,56 @@
+﻿@model IEnumerable<TuanAnhBacDatSang_DoAnWeb.ViewModels.LoaiSanPhamViewModel>
+
+<!-- Sidebar Filters -->
+<div class="filter-sidebar">
+    <h4 class="mb-3"><i class="fas fa-filter me-2"></i>Bộ lọc</h4>
+
+    <form asp-controller="SanPham" asp-action="Index" method="GET" id="filterForm">
+
+        <div class="filter-section">
+            <h6>Danh mục</h6>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="category" value="" id="cat_all"  @(ViewBag.Category == null ? "checked" : "")>
+                <label class="form-check-label" for="cat_all">
+                    Tất cả danh mục
+                </label>
+            </div>
+            @foreach(var item in Model){
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="category"
+                           value="@item.MaLoaiSanPham" id="cat_@item.MaLoaiSanPham" @(ViewBag.Category == item.MaLoaiSanPham ? "checked" : "")>
+                    <label class="form-check-label" for="cat_3">
+                        @item.TenLoaiSanPham  <small class="text-muted">(@item.TongSoLuong)</small>
+                    </label>
+                </div>
+            }
+            
+            
+        </div>
+
+        <!-- Price Filter -->
+        <div class="filter-section">
+            <h6>Khoảng giá</h6>
+            <div class="price-range-container">
+                <div class="mb-3">
+                    <label for="min_price" class="form-label">Giá từ:</label>
+                    <input type="number" class="form-control" name="min_price" id="min_price"
+                           value="@ViewBag.MinPrice ?? 0" min="0" step="1000">
+                </div>
+                <div class="mb-3">
+                    <label for="max_price" class="form-label">Giá đến:</label>
+                    <input type="number" class="form-control" name="max_price" id="max_price"
+                           value="@ViewBag.MaxPrice ?? 0" min="0" step="1000">
+                </div>
+            </div>
+        </div>
+
+        <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-shop-primary">
+                <i class="fas fa-search me-2"></i>Áp dụng
+            </button>
+            <a asp-controller="SanPham" asp-action="Index" class="btn btn-shop-outline">
+                <i class="fas fa-times me-2"></i>Xóa bộ lọc
+            </a>
+        </div>
+    </form>
+</div>

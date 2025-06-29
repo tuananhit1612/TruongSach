@@ -1,0 +1,421 @@
+﻿@model TuanAnhBacDatSang_DoAnWeb.ViewModels.CheckoutViewModel
+@{
+    ViewData["Title"] = "Thanh Toán";
+}
+
+<style>
+    :root {
+        --shop-primary: #2d5a27;
+        --shop-secondary: #6fbb6b;
+        --shop-accent: #ff6b35;
+        --shop-success: #28a745;
+        --shop-warning: #ffc107;
+        --shop-danger: #dc3545;
+        --shop-info: #17a2b8;
+        --shop-dark: #1e293b;
+        --shop-light: #f8fafc;
+        --shop-white: #ffffff;
+        --shop-gray: #f1f5f9;
+        --shop-border: #e2e8f0;
+        --shop-shadow: 0 4px 20px rgba(45, 90, 39, 0.08);
+        --shop-shadow-hover: 0 8px 40px rgba(45, 90, 39, 0.15);
+        --shop-radius: 16px;
+        --shop-transition: all 0.3s ease-in-out;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--shop-light);
+    }
+
+    .product-card {
+        border-radius: var(--shop-radius);
+        box-shadow: var(--shop-shadow);
+        transition: var(--shop-transition);
+        background-color: var(--shop-white);
+    }
+
+        .product-card:hover {
+            transform: scale(1.01);
+            box-shadow: var(--shop-shadow-hover);
+        }
+
+    .btn-shop-primary {
+        background-color: var(--shop-primary);
+        color: var(--shop-white);
+        border: none;
+        border-radius: var(--shop-radius);
+        box-shadow: var(--shop-shadow);
+        transition: var(--shop-transition);
+    }
+
+        .btn-shop-primary:hover {
+            background-color: var(--shop-secondary);
+            box-shadow: var(--shop-shadow-hover);
+        }
+
+    .order-summary {
+        background: #fff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: var(--shop-shadow);
+    }
+</style>
+
+<main class="TruongSach-main-content">
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a asp-action="Index" asp-controller="SanPham">Cửa Hàng</a></li>
+                        <li class="breadcrumb-item"><a asp-action="Index" asp-controller="GioHang">Giỏ hàng</a></li>
+                        <li class="breadcrumb-item active">Thanh toán</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <!--Form-->
+                <form asp-action="Checkout" asp-controller="GioHang" id="checkoutForm" method="POST">
+                    <div class="card p-4 mb-4">
+                        <h5 class="mb-3"><i class="fas fa-user me-2"></i>Thông tin khách hàng</h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="customer_name" class="form-label">Họ và tên *</label>
+                                <input type="text" class="form-control" id="customer_name" name="HoTen" value="@Model.HoTen" readonly>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="phone" class="form-label">Số điện thoại *</label>
+                                <input type="tel" class="form-control" id="phone" name="SDT" value="@Model.SoDienThoai" readonly>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="email" class="form-label">Email *</label>
+                                <input type="email" class="form-control" id="email" name="Email" value="@Model.Email" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card p-4 mb-4">
+                        <h5 class="mb-3"><i class="fas fa-truck me-2"></i>Thông tin giao hàng</h5>
+                        <div class="mb-3">
+                            <label for="shipping_address" class="form-label">Địa chỉ giao hàng *</label>
+                            <textarea class="form-control" id="shipping_address" name="shipping_address" placeholder="Nhập địa chỉ chi tiết..." required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="notes" class="form-label">Ghi chú đơn hàng</label>
+                            <textarea class="form-control" id="notes" name="notes" placeholder="Ghi chú về đơn hàng, thời gian giao hàng..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="card p-4 mb-4">
+                        <h5 class="mb-3"><i class="fas fa-credit-card me-2"></i>Phương thức thanh toán</h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <input type="radio" class="btn-check" name="payment_method" value="cod" id="payment_cod" checked>
+                                <label class="btn btn-outline-success w-100" for="payment_cod">
+                                    <i class="fas fa-money-bill me-2"></i> Thanh toán khi nhận hàng
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="radio" class="btn-check" name="payment_method" value="momo" id="payment_momo">
+                                <label class="btn btn-outline-danger w-100" for="payment_momo">
+                                    <i class="fas fa-mobile-alt me-2"></i> Ví MoMo
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="radio" class="btn-check" name="payment_method" value="vnpay" id="payment_vnpay">
+                                <label class="btn btn-outline-warning w-100" for="payment_vnpay">
+                                    <i class="fas fa-credit-card me-2"></i> VNPay
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="radio" class="btn-check" name="payment_method" value="bank" id="payment_bank">
+                                <label class="btn btn-outline-info w-100" for="payment_bank">
+                                    <i class="fas fa-university me-2"></i> Chuyển khoản ngân hàng
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 mb-4">
+                        <button type="submit" class="btn btn-shop-primary btn-lg">
+                            Đặt hàng (<strong>@Model.GioHang.Items.Sum(x => x.ThanhTien).ToString("N0")đ</strong>)
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="order-summary">
+                    <h5 class="mb-3"><i class="fas fa-receipt me-2"></i>Đơn hàng của bạn</h5>
+                    @foreach (var item in Model.GioHang.Items)
+                    {
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="@item.HinhAnh" class="me-3" alt="@item.TenSanPham" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;">
+                            <div class="flex-grow-1">
+                                <h6 class="mb-1">@item.TenSanPham</h6>
+                                <small class="text-muted">Số lượng: @item.SoLuong</small>
+                            </div>
+                            <div class="text-end fw-bold">@item.GiaBan.ToString("N0")đ</div>
+                        </div>
+                    }
+                    <hr>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Tạm tính:</span>
+                        <span>@Model.GioHang.Items.Sum(x => x.ThanhTien).ToString("N0")đ</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Phí vận chuyển:</span>
+                        <span class="text-success">Miễn phí</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Thuế VAT:</span>
+                        <span>0đ</span>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <strong>Tổng cộng:</strong>
+                        <strong class="text-primary">@Model.GioHang.Items.Sum(x => x.ThanhTien).ToString("N0")đ</strong>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <small class="text-muted">
+                            <i class="fas fa-shield-alt me-1"></i>
+                            Thanh toán an toàn & bảo mật
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Handle payment method selection
+        const paymentMethods = document.querySelectorAll('input[name="payment_method"]');
+
+        paymentMethods.forEach(method => {
+            method.addEventListener('change', function () {
+                const selectedInfo = document.getElementById(`payment_${this.value}_info`);
+                if (selectedInfo) {
+                    selectedInfo.style.display = 'block';
+                }
+                updateSubmitButton();
+            });
+        });
+
+        // Update submit button text based on payment method
+        function updateSubmitButton() {
+            const selectedPayment = document.querySelector('input[name="payment_method"]:checked');
+            const btnText = document.querySelector('.btn-text');
+
+            if (selectedPayment) {
+                switch (selectedPayment.value) {
+                    case 'cod':
+                        btnText.textContent = 'Đặt hàng - COD';
+                        break;
+                    case 'momo':
+                        btnText.textContent = 'Thanh toán Ngay';
+                        break;
+                    case 'vnpay':
+                        btnText.textContent = 'Thanh toán VNPay';
+                        break;
+                    case 'bank':
+                        btnText.textContent = 'Đặt hàng - Chuyển khoản';
+                        break;
+                    default:
+                        btnText.textContent = 'Đặt hàng';
+                }
+            }
+        }
+
+        // Form validation and submission
+        document.getElementById('checkoutForm').addEventListener('submit', function (e) {
+            const selectedPayment = document.querySelector('input[name="payment_method"]:checked');
+
+            // Validate required fields
+            const requiredFields = ['customer_name', 'email', 'shipping_address', 'city', 'district'];
+            let isValid = true;
+
+            requiredFields.forEach(fieldName => {
+                const field = document.getElementById(fieldName);
+                if (!field.value.trim()) {
+                    field.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    field.classList.remove('is-invalid');
+                }
+            });
+
+            if (!isValid) {
+                e.preventDefault();
+                showAlert('Vui lòng điền đầy đủ thông tin bắt buộc.', 'warning');
+                return;
+            }
+
+            // Validate email format
+            const emailField = document.getElementById('email');
+            const emailRegex = /^[^\s@@]+[^\s@@]+\.[^\s@@]+$/;
+            if (!emailRegex.test(emailField.value)) {
+                e.preventDefault();
+                emailField.classList.add('is-invalid');
+                showAlert('Vui lòng nhập địa chỉ email hợp lệ.', 'warning');
+                return;
+            }
+
+            // Validate phone format
+            const phoneField = document.getElementById('phone');
+            const phoneRegex = /^[0-9]{10,11}$/;
+            if (!phoneRegex.test(phoneField.value.replace(/\s/g, ''))) {
+                e.preventDefault();
+                phoneField.classList.add('is-invalid');
+                showAlert('Vui lòng nhập số điện thoại hợp lệ (10-11 số).', 'warning');
+                return;
+            }
+
+            // Show loading state
+            const submitBtn = document.querySelector('.btn-checkout');
+            const spinner = submitBtn.querySelector('.spinner-border');
+            const btnText = submitBtn.querySelector('.btn-text');
+
+            submitBtn.disabled = true;
+            spinner.classList.remove('d-none');
+            btnText.textContent = 'Đang xử lý...';
+
+            // For bank transfer, handle offline processing
+            if (selectedPayment.value === 'bank') {
+                e.preventDefault();
+                handleOfflineOrder();
+
+                // Reset button
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    spinner.classList.add('d-none');
+                    updateSubmitButton();
+                }, 1000);
+            }
+        });
+
+        // Handle offline order (bank transfer)
+        function handleOfflineOrder() {
+            const formData = new FormData(document.getElementById('checkoutForm'));
+
+            fetch('process_order.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showPaymentInstructions(data);
+                    } else {
+                        showAlert(data.message || 'Có lỗi xảy ra', 'danger');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showAlert('Có lỗi xảy ra trong quá trình xử lý đơn hàng', 'danger');
+                });
+        }
+
+        // Show payment instructions modal
+        function showPaymentInstructions(data) {
+            const modalHtml = `
+                <div class="modal fade" id="paymentModal" tabindex="-1">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header bg-info text-white">
+                                <h5 class="modal-title">
+                                    <i class="fas fa-university me-2"></i>Thông tin chuyển khoản
+                                </h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="alert alert-success">
+                                    <i class="fas fa-check-circle me-2"></i>
+                                    Đơn hàng <strong>#${data.order_id}</strong> đã được tạo thành công!
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Thông tin chuyển khoản:</h6>
+                                        <div class="row">
+                                            <div class="col-sm-4"><strong>Ngân hàng:</strong></div>
+                                            <div class="col-sm-8">Vietcombank</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4"><strong>Số tài khoản:</strong></div>
+                                            <div class="col-sm-8">1234567890</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4"><strong>Chủ tài khoản:</strong></div>
+                                            <div class="col-sm-8">CONVOI SHOP</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4"><strong>Số tiền:</strong></div>
+                                            <div class="col-sm-8 text-danger fw-bold">${data.amount}đ</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4"><strong>Nội dung:</strong></div>
+                                            <div class="col-sm-8"><code>${data.order_id} ${data.phone}</code></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="alert alert-warning mt-3">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>
+                                    <strong>Lưu ý:</strong> Vui lòng chuyển khoản đúng nội dung để đơn hàng được xử lý nhanh chóng.
+                                    Chúng tôi sẽ liên hệ xác nhận sau khi nhận được thanh toán.
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                <a href="index.php" class="btn btn-primary">Về trang chủ</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Remove existing modal
+            const existingModal = document.getElementById('paymentModal');
+            if (existingModal) {
+                existingModal.remove();
+            }
+
+            // Add new modal to body
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+            // Show modal
+            const modal = new bootstrap.Modal(document.getElementById('paymentModal'));
+            modal.show();
+        }
+
+        // Alert function
+        function showAlert(message, type = 'info') {
+            const alertHtml = `
+                <div class="alert alert-${type} alert-dismissible fade show position-fixed"
+                     style="top: 20px; right: 20px; z-index: 9999; min-width: 300px;">
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', alertHtml);
+
+            // Uncomment to auto-dismiss after 5 seconds
+            // setTimeout(() => {
+            //     const alert = document.querySelector('.alert:last-of-type');
+            //     if (alert) {
+            //         const bsAlert = new bootstrap.Alert(alert);
+            //         bsAlert.close();
+            //     }
+            // }, 5000);
+        }
+    });
+</script>
+
+
+</main>

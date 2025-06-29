@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "Access Denied";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="access-denied-section">
+    <div class="access-denied-card">
+        <h1 class="access-denied-title">🚫 Truy cập bị từ chối</h1>
+        <img src="~/images/AccessDenied.png" alt="Access Denied" height="200px" width="200px" class="access-denied-img" />
+        <p class="access-denied-alert">
+            Bạn <strong>không có quyền truy cập</strong> vào trang này.
+        </p>
+        <p class="access-denied-reason">
+            Hành động này yêu cầu quyền truy cập đặc biệt. Nếu bạn tin rằng đây là nhầm lẫn, vui lòng liên hệ quản trị viên.
+        </p>
+        <a href="/" class="btn-back-home">← Quay về trang chủ</a>
+    </div>
+</section>
+
+<style>
+    .access-denied-section {
+        display: flex;
+        justify-content: center;
+        padding: 80px 20px;
+        background: var(--donate-light);
+    }
+
+    .access-denied-card {
+        background: var(--donate-white);
+        border-radius: var(--donate-radius);
+        box-shadow: var(--donate-shadow);
+        padding: 40px;
+        max-width: 600px;
+        width: 100%;
+        text-align: center;
+        animation: fadeIn 0.4s ease-in;
+    }
+
+    .access-denied-title {
+        font-size: 30px;
+        font-weight: bold;
+        color: var(--donate-danger);
+        margin-bottom: 16px;
+    }
+
+    .access-denied-alert {
+        color: var(--donate-danger);
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 12px;
+    }
+
+    .access-denied-reason {
+        font-size: 15px;
+        color: var(--donate-gray);
+        margin-bottom: 32px;
+    }
+
+    .btn-back-home {
+        display: inline-block;
+        background: var(--donate-gradient);
+        color: var(--donate-white);
+        padding: 12px 24px;
+        font-weight: 600;
+        border-radius: var(--donate-radius);
+        text-decoration: none;
+        transition: var(--donate-transition);
+    }
+
+        .btn-back-home:hover {
+            box-shadow: var(--donate-shadow-hover);
+        }
+
+    keyframes fadeIn {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+</style>

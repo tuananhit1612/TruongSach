@@ -22,6 +22,11 @@ namespace TuanAnhBacDatSang_DoAnWeb.Controllers
             {
                 allCampaigns = await response.Content.ReadFromJsonAsync<List<ChienDichViewModel>>();
             }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Không thể tải danh sách chiến dịch. Vui lòng thử lại sau.");
+                return View(new List<ChienDichViewModel>());
+            }
 
             // Tìm kiếm
             if (!string.IsNullOrWhiteSpace(search))

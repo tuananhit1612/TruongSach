@@ -1,7 +1,3 @@
-/**Add commentMore actions
- * TruongSach AI Chatbot Widget
- * Smart conversational assistant for charity projects
- */
 class TruongSachAIChatbot {
     constructor(options = {}) {
         this.options = {
@@ -9,32 +5,32 @@ class TruongSachAIChatbot {
             suggestions: [
                 {
                     icon: 'fas fa-exclamation-triangle',
-                    text: 'Dá»± Ă¡n nĂ o cáº§n há»— trá»£ gáº¥p nháº¥t?',
+                    text: 'Dự án nào cần hỗ trợ gấp nhất?',
                     category: 'urgent'
                 },
                 {
                     icon: 'fas fa-hand-holding-heart',
-                    text: 'TĂ´i nĂªn quyĂªn gĂ³p bao nhiá»u?',
+                    text: 'Tôi nên quyên góp bao nhiều?',
                     category: 'donation'
                 },
                 {
                     icon: 'fas fa-chart-pie',
-                    text: 'Tiá»n quyĂªn gĂ³p Ä‘Æ°á»£c sá»­ dá»¥ng nhÆ° tháº¿ nĂ o?',
+                    text: 'Tiền quyên góp được sử dụng như thế nào?',
                     category: 'transparency'
                 },
                 {
                     icon: 'fas fa-hands-helping',
-                    text: 'LĂ m tháº¿ nĂ o Ä‘á»ƒ tham gia tĂ¬nh nguyá»‡n?',
+                    text: 'Làm thế nào để tham gia tình nguyện?',
                     category: 'volunteer'
                 },
                 {
                     icon: 'fas fa-shield-alt',
-                    text: 'Dá»± Ă¡n nĂ y cĂ³ uy tĂ­n khĂ´ng?',
+                    text: 'Dự án này có uy tín không?',
                     category: 'credibility'
                 },
                 {
                     icon: 'fas fa-calendar-check',
-                    text: 'Khi nĂ o dá»± Ă¡n hoĂ n thĂ nh?',
+                    text: 'Khi nào dự án hoàn thành?',
                     category: 'timeline'
                 }
             ],
@@ -50,10 +46,10 @@ class TruongSachAIChatbot {
 
     init() {
         // Prevent duplicate initialization
-        if (window.wagaiInitialized) {
+        if (window.D8AIInitialized) {
             return;
         }
-        window.wagaiInitialized = true;
+        window.D8AIInitialized = true;
 
         this.createWidget();
         this.attachEventListeners();
@@ -77,7 +73,7 @@ class TruongSachAIChatbot {
         widget.innerHTML = `
             <!-- Floating Button -->
             <div id="ai-chat-toggle" class="ai-chat-toggle">
-                <i class="fas fa-robot"></i>
+                <img src="/images/chatbox.gif" alt="AI bot" class="ai-icon-gif">
                 <div class="chat-pulse"></div>
                 <div class="notification-badge" id="notification-badge">1</div>
             </div>
@@ -88,11 +84,11 @@ class TruongSachAIChatbot {
                     <!-- Header -->
                     <div class="ai-chat-header">
                         <div class="ai-avatar">
-                            <i class="fas fa-leaf"></i>
+                            <i class="fas fa-school"></i>
                         </div>
                         <div class="ai-info">
-                            <h4>WAGAI Assistant</h4>
-                            <p class="ai-status">TrĂ­ tuá»‡ nhĂ¢n táº¡o tá»« thiá»‡n thĂ´ng minh</p>
+                            <h4>D8AI Assistant</h4>
+                            <p class="ai-status">Trí tuệ nhân tạo từ thiện thông minh</p>
                         </div>
                         <button id="ai-chat-close" class="ai-chat-close">
                             <i class="fas fa-times"></i>
@@ -103,13 +99,13 @@ class TruongSachAIChatbot {
                     <div id="ai-messages" class="ai-messages">
                         <div class="ai-message ai-message-bot">
                             <div class="message-avatar">
-                                <i class="fas fa-leaf"></i>
+                                <i class="fas fa-school"></i>
                             </div>
                             <div class="message-content">
                                 <div class="message-text">
-                                    Xin chào! Tôi là WAGAI - Trợ lý AI từ thiện thông minh của XAYDUNGTUONGLAI 🌱±<br>
+                                    Xin chào! Tôi là D8AI - Trợ lý AI từ thiện thông minh của TRUONGSACH 🌱<br>
                                     Tôi phân tích dữ liệu real-time và hiểu sâu về các dự án để đưa ra lời khuyên tốt nhất cho bạn.<br>
-                                    Hãy chọn câu hỏi gợi ý hoặc đặt câu hỏi để bắt đầu!!
+                                    Hãy chọn câu hỏi gợi ý hoặc đặt câu hỏi để bắt đầu!
                                 </div>
                                 <div class="message-time">${this.getCurrentTime()}</div>
                             </div>
@@ -130,7 +126,7 @@ class TruongSachAIChatbot {
                             <input 
                                 type="text" 
                                 id="ai-message-input" 
-                                placeholder="Nháº­p cĂ¢u há»i cá»§a báº¡n..."
+                                placeholder="Nhập câu hỏi của bạn..."
                                 maxlength="500"
                             >
                             <button id="ai-send-btn" class="ai-send-btn" disabled>
@@ -143,7 +139,7 @@ class TruongSachAIChatbot {
                                 <span></span>
                                 <span></span>
                             </div>
-                            <span class="typing-text">AI Ä‘ang soáº¡n pháº£n há»“i...</span>
+                            <span class="typing-text">AI đang soạn phản hồi...</span>
                         </div>
                         <div class="input-footer">
                             <span class="powered-by"></span>
@@ -173,7 +169,7 @@ class TruongSachAIChatbot {
                         <div class="ai-icon-wrapper">
                             <i class="fas fa-search"></i>
                         </div>
-                        <span>Há»i WAGAI vá» dá»± Ă¡n nĂ y</span>
+                        <span>Hỏi D8AI về dự án này</span>
                     </div>
                     <div class="suggestions-buttons">
                         ${this.renderInlineSuggestions(smartSuggestions)}
@@ -213,11 +209,11 @@ class TruongSachAIChatbot {
         const amountEls = postElement.querySelectorAll('.amount, .stat-number');
         amountEls.forEach(el => {
             const text = el.textContent;
-            if (text.includes('Ä‘') || text.includes('VND')) {
+            if (text.includes('đ') || text.includes('VND')) {
                 const amount = parseInt(text.replace(/[^\d]/g, ''));
-                if (text.includes('Má»¤C TIĂU') || el.parentElement.textContent.includes('má»¥c tiĂªu')) {
+                if (text.includes('MỤC TIÊU') || el.parentElement.textContent.includes('mục tiêu')) {
                     data.targetAmount = amount;
-                } else if (text.includes('ÄĂƒ UNG Há»˜') || el.parentElement.textContent.includes('Ä‘Ă£ á»§ng há»™')) {
+                } else if (text.includes('ĐÃ UNG HỘ') || el.parentElement.textContent.includes('đã ủng hộ')) {
                     data.currentAmount = amount;
                 }
             }
@@ -226,7 +222,7 @@ class TruongSachAIChatbot {
         // Extract supporters
         const supporterEl = postElement.querySelector('.supporters, .people-count');
         if (supporterEl) {
-            const match = supporterEl.textContent.match(/(\d+)\s*ngÆ°á»i/);
+            const match = supporterEl.textContent.match(/(\d+)\s*người/);
             if (match) data.supporters = parseInt(match[1]);
         }
 
@@ -244,25 +240,25 @@ class TruongSachAIChatbot {
 
         // Priority-based suggestions
         if (priority === 'high') {
-            suggestions.push(`Táº¡i sao dá»± Ă¡n ${title} cáº§n há»— trá»£ gáº¥p?`);
-            suggestions.push(`tĂ´i cĂ³ thá»ƒ giĂºp dá»± Ă¡n ${title} Ä‘áº¡t má»¥c tiĂªu?`);
+            suggestions.push(`Tại sao dự án ${title} cần hỗ trợ gấp?`);
+            suggestions.push(`tôi có thể giúp dự án ${title} đạt mục tiêu?`);
         } else if (priority === 'medium') {
-            suggestions.push(`Dá»± Ă¡n ${title} Ä‘Ă£ Ä‘áº¡t Ä‘Æ°á»£c nhá»¯ng gĂ¬?`);
-            suggestions.push(`CĂ²n thiáº¿u bao nhiá»u Ä‘á»ƒ hoĂ n thĂ nh ${title}?`);
+            suggestions.push(`Dự án ${title} đã đạt được những gì?`);
+            suggestions.push(`Còn thiếu bao nhiều để hoàn thành ${title}?`);
         } else {
-            suggestions.push(`TĂ¡c Ä‘á»™ng cá»§a dá»± Ă¡n ${title} nhÆ° tháº¿ nĂ o?`);
-            suggestions.push(`Dá»± Ă¡n ${title} cĂ³ káº¿ hoáº¡ch má»Ÿ rá»™ng?`);
+            suggestions.push(`Tác động của dự án ${title} như thế nào?`);
+            suggestions.push(`Dự án ${title} có kế hoạch mở rộng?`);
         }
 
         // Progress-based suggestions
         if (progress > 80) {
-            suggestions.push(`Khi nĂ o dá»± Ă¡n ${title} hoĂ n thĂ nh?`);
+            suggestions.push(`Khi nào dự án ${title} hoàn thành?`);
         } else if (progress < 30) {
-            suggestions.push(`tĂ´i cĂ³ thá»ƒ gĂ³p sá»©c cho dá»± Ă¡n ${title} khĂ´ng?`);
+            suggestions.push(`tôi có thể góp sức cho dự án ${title} không?`);
         }
 
         // Always include credibility check
-        suggestions.push(`Dá»± Ă¡n ${title} cĂ³ uy tĂ­n khĂ´ng?`);
+        suggestions.push(`Dự án ${title} có uy tín không?`);
 
         return suggestions.slice(0, 3); // Limit to 3 suggestions
     }
@@ -410,7 +406,7 @@ class TruongSachAIChatbot {
                 this.trackEvent('message_success');
             } else {
                 this.addMessage(
-                    `Xin lá»—i, tĂ´i gáº·p sá»± cá»‘: ${response.error}. Vui lĂ²ng thá»­ láº¡i sau.`,
+                    `Xin lỗi, tôi gặp sự cố: ${response.error}. Vui lòng thử lại sau.`,
                     'bot',
                     'error'
                 );
@@ -418,7 +414,7 @@ class TruongSachAIChatbot {
             }
         } catch (error) {
             this.addMessage(
-                'KhĂ´ng thá»ƒ káº¿t ná»‘i vá»›i AI. Vui lĂ²ng kiá»ƒm tra káº¿t ná»‘i máº¡ng vĂ  thá»­ láº¡i.',
+                'Không thể kết nối với AI. Vui lòng kiểm tra kết nối mạng và thử lại.',
                 'bot',
                 'error'
             );
@@ -503,9 +499,9 @@ class TruongSachAIChatbot {
             .map(p => ({
                 title: p.title,
                 progress: p.progress,
-                urgency_reason: p.progress < 10 ? 'Vá»«a báº¯t Ä‘áº§u, cáº§n há»— trá»£ khá»Ÿi Ä‘á»™ng' :
-                    p.progress < 30 ? 'Tiáº¿n Ä‘á»™ cháº­m, cáº§n Ä‘áº©y máº¡nh' :
-                        'Gáº§n hoĂ n thĂ nh, cáº§n há»— trá»£ cuá»‘i'
+                urgency_reason: p.progress < 10 ? 'Vừa bắt đầu, cần hỗ trợ khởi động' :
+                    p.progress < 30 ? 'Tiến độ chậm, cần đẩy mạnh' :
+                        'Gần hoàn thành, cần hỗ trợ cuối'
             }));
     }
 
@@ -521,11 +517,11 @@ class TruongSachAIChatbot {
 
     detectUserIntent(message) {
         const intents = {
-            donation: /quyĂªn gĂ³p|á»§ng há»™|cho tiá»n|donate/i,
-            volunteer: /tĂ¬nh nguyá»‡n|tham gia|volunteer|giĂºp Ä‘á»¡/i,
-            info: /thĂ´ng tin|chi tiáº¿t|details|tĂ¬m hiá»ƒu/i,
-            credibility: /uy tĂ­n|tin cáº­y|Ä‘Ă¡ng tin|cháº¥t lÆ°á»£ng/i,
-            impact: /tĂ¡c Ä‘á»™ng|káº¿t quáº£|hiá»‡u quáº£|thĂ nh cĂ´ng/i
+            donation: /quyên góp|ủng hộ|cho tiền|donate/i,
+            volunteer: /tình nguyện|tham gia|volunteer|giúp đỡ/i,
+            info: /thông tin|chi tiết|details|tìm hiểu/i,
+            credibility: /uy tín|tin cậy|đáng tin|chất lượng/i,
+            impact: /tác động|kết quả|hiệu quả|thành công/i
         };
 
         for (const [intent, pattern] of Object.entries(intents)) {
@@ -616,7 +612,7 @@ class TruongSachAIChatbot {
         } else {
             messageElement.innerHTML = `
                 <div class="message-avatar">
-                    <i class="fas fa-leaf"></i>
+                    <i class="fas fa-school"></i>
                 </div>
                 <div class="message-content">
                     <div class="message-text">${this.formatBotMessage(content)}</div>
@@ -653,7 +649,7 @@ class TruongSachAIChatbot {
             .replace(/`(.*?)`/g, '<code>$1</code>')
             .replace(/\n/g, '<br>')
             .replace(/(\d+\.)\s/g, '<br>$1 ') // Format numbered lists
-            .replace(/- /g, '<br>â€¢ '); // Format bullet points
+            .replace(/- /g, '<br>• '); // Format bullet points
     }
 
     escapeHtml(text) {
@@ -668,7 +664,7 @@ class TruongSachAIChatbot {
         const statusText = document.querySelector('.ai-status');
 
         indicator.classList.add('active');
-        if (statusText) statusText.textContent = 'Äang soáº¡n pháº£n há»“i...';
+        if (statusText) statusText.textContent = 'Đang soạn phản hồi...';
     }
 
     hideTyping() {
@@ -677,7 +673,7 @@ class TruongSachAIChatbot {
         const statusText = document.querySelector('.ai-status');
 
         indicator.classList.remove('active');
-        if (statusText) statusText.textContent = 'TrĂ­ tuá»‡ nhĂ¢n táº¡o tá»« thiá»‡n thĂ´ng minh';
+        if (statusText) statusText.textContent = 'Trí tuệ nhân tạo từ thiện thông minh';
     }
 
     showWelcomeNotification() {
@@ -692,9 +688,9 @@ class TruongSachAIChatbot {
         notification.className = 'ai-welcome-notification';
         notification.innerHTML = `
             <div class="notification-content">
-                <strong>đŸ¤– AI Assistant</strong>
-                <p>Xin chĂ o! TĂ´i cĂ³ thá»ƒ giĂºp báº¡n tĂ¬m hiá»ƒu vá» cĂ¡c dá»± Ă¡n tá»« thiá»‡n.</p>
-                <button class="notification-close">Ă—</button>
+                <strong>🤖 AI Assistant</strong>
+                <p>Xin chào! Tôi có thể giúp bạn tìm hiểu về các dự án từ thiện.</p>
+                <button class="notification-close">×</button>
             </div>
         `;
 
@@ -754,27 +750,25 @@ class TruongSachAIChatbot {
                 z-index: 999999;
                 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             }
-            
-            .ai-chat-toggle {
-                width: 60px;
-                height: 60px;
-                background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: white;
-                font-size: 24px;
-                cursor: pointer;
-                box-shadow: 0 4px 20px rgba(40, 167, 69, 0.3);
-                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                position: relative;
-                border: 3px solid rgba(255, 255, 255, 0.1);
+            .ai-icon-gif {
+                width: 100px;  /* chỉnh kích thước ảnh tùy ý */
+                height: auto;
+                object-fit: contain;
             }
+
+            .ai-chat-toggle {
+                background: none;          /* bỏ nền */
+                border: none;              /* bỏ viền */
+                box-shadow: none;          /* bỏ đổ bóng */
+                width: auto;
+                height: auto;
+                padding: 0;
+                transform: none;
+            }
+
             
             .ai-chat-toggle:hover {
                 transform: scale(1.1);
-                box-shadow: 0 6px 25px rgba(40, 167, 69, 0.4);
             }
             
             .ai-chat-toggle.has-notification {
@@ -1380,7 +1374,7 @@ class TruongSachAIChatbot {
 
 // Auto-initialize when DOM is ready (prevent duplicates)
 document.addEventListener('DOMContentLoaded', () => {
-    if (!window.TruongSachAI && !window.wagaiInitialized) {
+    if (!window.TruongSachAI && !window.D8AIInitialized) {
         window.TruongSachAI = new TruongSachAIChatbot();
     }
 });

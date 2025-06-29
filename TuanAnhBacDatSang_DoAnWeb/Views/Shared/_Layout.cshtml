@@ -1,4 +1,5 @@
-﻿@{
+﻿@using TuanAnhBacDatSang_DoAnWeb.Extensions
+@{
     var userId = Context.Session.GetInt32("UserId");
     var userName = Context.Session.GetString("UserName");
     var userEmail = Context.Session.GetString("UserEmail");
@@ -17,7 +18,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap"
-          rel="stylesheet">
+    rel="stylesheet">
     <!-- TruongSach CSS -->
     <link rel="stylesheet" href="~/css/navbar-enhanced.css" />
     <link rel="stylesheet" href="~/css/TruongSach-style.css">
@@ -29,12 +30,12 @@
     <link rel="stylesheet" href="~/css/header-fix.css">
 
     <link rel="stylesheet" href = "~/css/footer.css" />
-   
+
 </head>
 <body>
     <nav class="TruongSach-navbar navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="TruongSach-brand navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+            <a class="TruongSach-brand navbar-brand" asp-area="" asp-controller="TrangChu" asp-action="Index">
                 <div class="TruongSach-logo">
                     <i class="fas fa-school"></i>
                 </div>
@@ -42,7 +43,7 @@
                 <span class="TruongSach-brand-badge">D8-Team</span>
             </a>
             <button class="navbar-toggler TruongSach-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav">
+            data-bs-target="#navbarNav">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -63,13 +64,13 @@
                         </a>
                     </li>
                     <li class="nav-item bottom-nav-item">
-                        <a class="nav-link TruongSach-nav-link" asp-area="" asp-controller="shop" asp-action="Index">
+                        <a class="nav-link TruongSach-nav-link" asp-area="" asp-controller="SanPham" asp-action="Index">
                             <i class="fas fa-store"></i>
                             <span>Cửa hàng</span>
                         </a>
                     </li>
                     <li class="nav-item bottom-nav-item">
-                        <a class="nav-link TruongSach-nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                        <a class="nav-link TruongSach-nav-link" asp-area="" asp-controller="TrangChu" asp-action="Index">
                             <i class="fas fa-blog"></i>
                             <span>Blog</span>
                         </a>
@@ -93,7 +94,7 @@
                         <!-- Đã đăng nhập -->
                         <li class="nav-item dropdown">
                             <a class="nav-link TruongSach-nav-link dropdown-toggle user-menu-toggle" href="#" id="userDropdown"
-                               role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <div class="user-avatar">
                                     <div style="width: 32px; height: 32px; border-radius: 50%; background: #007bff; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; font-weight: bold;">
                                         @userName?.Substring(0, 1).ToUpper()
@@ -110,13 +111,19 @@
                                 </li>
                                 <li><hr class="dropdown-divider" /></li>
                                 <li>
-                                    <a class="dropdown-item" href="/Profile">
+                                    <a class="dropdown-item" asp-action="Index" asp-controller="NguoiDung">
                                         <i class="fas fa-user me-2"></i> Hồ sơ cá nhân
                                     </a>
                                 </li>
+
                                 <li>
-                                    <a class="dropdown-item" href="/Dashboard">
+                                    <a class="dropdown-item" asp-area="Admin" asp-action="Index" asp-controller="Dashboard">
                                         <i class="fas fa-chart-line me-2"></i> Dashboard
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-action="Index" asp-controller="DonHang">
+                                        <i class="fas fa-receipt me-2"></i> Đơn Hàng
                                     </a>
                                 </li>
                                 <li><hr class="dropdown-divider" /></li>
@@ -127,18 +134,22 @@
                                 </li>
                             </ul>
                         </li>
+                        @await Component.InvokeAsync("DiemThienNguyen")
                     }
 
                     <!-- <li class="nav-item">
-                            <a class="TruongSach-btn TruongSach-btn-outline TruongSach-nav-cta" href="https://hutechwagk22.azdigi.shop//auth/register.php">
-                                <i class="fas fa-user-plus"></i>
-                                <span class="d-none d-sm-inline">Đăng ký</span>
-                            </a>
-                        </li> -->
+                    <a class="TruongSach-btn TruongSach-btn-outline TruongSach-nav-cta" href="https://hutechwagk22.azdigi.shop//auth/register.php">
+                    <i class="fas fa-user-plus"></i>
+                    <span class="d-none d-sm-inline">Đăng ký</span>
+                    </a>
+                    </li> -->
                     <!-- CTA Button -->
+                    @await Component.InvokeAsync("GioHang")
+                    
+                    
                     <li class="nav-item">
                         <a class="TruongSach-btn TruongSach-btn-primary TruongSach-nav-cta"
-                           asp-area="" asp-controller="Home" asp-action="Index">
+                           asp-area="" asp-controller="DongGop" asp-action="Index">
                             <i class="fas fa-donate"></i>
                             <span class="d-none d-sm-inline">Quyên góp</span>
                         </a>
@@ -258,7 +269,7 @@
         document.addEventListener('DOMContentLoaded', function () {
             window.metaAI = new TruongSachAIChatbot({
                 brandName: 'Meta AI Assistant',
-                assistantName: 'CONVOI TruongSach AI'
+                assistantName: 'TRUONGSACH TruongSach AI'
             });
 
             // Global access for other scripts

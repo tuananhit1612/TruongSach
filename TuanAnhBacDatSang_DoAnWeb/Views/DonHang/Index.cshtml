@@ -1,0 +1,63 @@
+﻿@model IEnumerable<TuanAnhBacDatSang_DoAnWeb.ViewModels.HoaDonViewModel>
+@{
+    ViewData["Title"] = "Danh sách hóa đơn";
+}
+
+
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col">
+            <h2 class="fw-bold text-success">📦 Danh sách hóa đơn của bạn</h2>
+        </div>
+    </div>
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <div>@error.ErrorMessage</div>
+            }
+        </div>
+    }
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <table class="table table-hover table-bordered m-0">
+                <thead class="table-success text-center">
+                    <tr>
+                        <th scope="col">Mã HĐ</th>
+                        <th scope="col">Ngày lập</th>
+                        <th scope="col">Tổng tiền</th>
+                        <th scope="col">Trạng thái</th>
+                        <th scope="col">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr class="align-middle text-center">
+                                <td>@item.MaHoaDon</td>
+                                <td>@item.NgayLap?.ToString("dd/MM/yyyy HH:mm")</td>
+                                <td>@item.TongTien?.ToString("N0") ₫</td>
+                                <td>@item.TrangThai</td>
+                                <td>
+                                    <a asp-action="Details" asp-controller="DonHang" asp-route-id="@item.MaHoaDon" class="btn btn-outline-primary btn-sm">Xem</a>
+                                    <a asp-action="Edit" asp-controller="DonHang" asp-route-id="@item.MaHoaDon" class="btn btn-outline-success btn-sm ms-2">Sửa</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center text-muted py-4">Không có hóa đơn nào được tìm thấy.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

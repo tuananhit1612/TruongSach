@@ -1,0 +1,85 @@
+﻿@model TuanAnhBacDatSang_DoAnWeb.ViewModels.SanPhamViewModel
+@{
+    ViewData["Title"] = "Chỉnh sửa sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container py-4">
+    <main class="TruongSach-main-content">
+        <div class="bg-white p-4 rounded shadow w-75 mx-auto">
+            <h2 class="text-vintech-primary mb-4">@ViewData["Title"]</h2>
+            <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                <input type="hidden" asp-for="MaSanPham" />
+                <input type="hidden" asp-for="HinhAnhDaiDien" />
+                <div class="mb-3">
+                    <label class="form-label">Tên sản phẩm</label>
+                    <input asp-for="TenSanPham" class="form-control" />
+                    <span asp-validation-for="TenSanPham" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Mô tả</label>
+                    <textarea asp-for="MoTa" class="form-control"></textarea>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <label class="form-label">Số lượng tồn</label>
+                        <input asp-for="SoLuongTon" class="form-control" />
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Giá bán</label>
+                        <input asp-for="GiaBan" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Loại sản phẩm</label>
+                    <select asp-for="MaLoaiSanPham" asp-items="ViewBag.LoaiSanPham" class="form-select"></select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Trạng thái</label>
+                    <select asp-for="TrangThai" class="form-select">
+                        <option value="Còn hàng">Còn hàng</option>
+                        <option value="Hết hàng">Hết hàng</option>
+                        <option value="Tạm khóa">Tạm khóa</option>
+                    </select>
+                    <span asp-validation-for="TrangThai" class="text-danger"></span>
+                </div>
+
+                @if (!string.IsNullOrEmpty(Model.HinhAnhDaiDien))
+            {
+                <div class="mb-3">
+                    <label>Ảnh hiện tại:</label><br />
+                    <img src="@Model.HinhAnhDaiDien" id="imageInput" style="max-height:150px;" />
+                </div>
+            }
+
+            <div class="mb-3">
+                <label asp-for="HinhAnhUpload" class="form-label">Chọn ảnh mới (tùy chọn)</label>
+                <input type="file" asp-for="HinhAnhUpload" class="form-control" />
+                <span asp-validation-for="HinhAnhUpload" class="text-danger"></span>
+            </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-success">Lưu</button>
+                    <a asp-action="Index" class="btn btn-secondary ms-2">Hủy</a>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+<script>
+    document.querySelectorAll('input[type="file"]').forEach(input => {
+    input.addEventListener('change', function (event) {
+    const file = event.target.files[0];
+    if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+    const img = document.getElementById("imageInput")
+    img.src = e.target.result
+    };
+    reader.readAsDataURL(file);
+    }
+    });
+    });
+</script>
